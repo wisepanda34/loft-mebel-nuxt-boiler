@@ -1,0 +1,180 @@
+
+
+.site {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding-top: 88px;
+  color: $c--primary;
+  background-color: white;
+}
+
+.site-content {
+  flex: 1 0 auto;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 1152px;
+  margin: 0 auto;
+}
+
+.heading {
+  font-weight: $fw--Bold;
+  letter-spacing: normal;
+
+  &_1 {
+    font-size: 52px;
+    line-height: 72px;
+
+    @include maxWidth992 {
+      font-size: 23px;
+      line-height: 36px;
+    }
+  }
+
+  &_2 {
+    font-size: 32px;
+    line-height: 48px;
+
+    @include maxWidth992 {
+      font-size: 23px;
+      line-height: 36px;
+    }
+  }
+
+  &_3 {
+    font-size: 32px;
+    line-height: 1.38;
+
+    @include maxWidth992 {
+      font-size: 24px;
+      line-height: 1.21;
+    }
+  }
+
+  &_4 {
+    font-size: 28px;
+    line-height: 44px;
+
+    @include maxWidth992 {
+      font-size: 22px;
+      line-height: 1.55;
+    }
+  }
+
+  &_5 {
+    font-size: 24px;
+    line-height: 1.58;
+  }
+
+  &_6 {
+    font-size: 20px;
+    line-height: 1.7;
+  }
+}
+
+.paragraph {
+  font-size: 18px;
+  line-height: 1.78;
+  color: darken($c--primary, 32);
+}
+
+.link {
+  position: relative;
+  color: $c--primary;
+  transition: color 0.2s;
+
+  &::after {
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    content: '';
+    background-color: rgba($c--primary, 0.2);
+  }
+
+  &:hover {
+    color: lighten($c--primary, 16%);
+  }
+}
+
+.breadcrumbs {
+  margin: 5px 0 48px;
+}
+
+.side-paddings-mob {
+  @include maxWidth768 {
+    padding: 0 16px;
+  }
+}
+
+img {
+  max-width: 100%;
+}
+
+// animation on scroll
+.animation {
+  &_1 {
+    opacity: 0;
+    transition: all 1s ease;
+    transition-delay: 0.8s;
+    transform: translateY(30px);
+  }
+
+  &_2 {
+    opacity: 0;
+    transition: all 1s ease;
+    transition-delay: 1s;
+    transform: translateY(30px);
+  }
+
+  &_3 {
+    opacity: 0;
+    transition: all 1s ease;
+    transition-delay: 1.2s;
+    transform: translateY(30px);
+  }
+
+  &_delay-off {
+    .animation_1 {
+      transition-delay: 0s;
+    }
+
+    .animation_2 {
+      transition-delay: 0.2s;
+    }
+
+    .animation_3 {
+      transition-delay: 0.4s;
+    }
+  }
+
+  &-wrapper {
+    &.view-in {
+      .animation_1,
+      .animation_2,
+      .animation_3 {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+}
+
+.lazy-section-wrapper {
+  min-height: 400px;
+}
+
+.no-scrollbar {
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
