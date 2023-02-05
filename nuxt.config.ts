@@ -1,6 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
 export default defineNuxtConfig({
+  runtimeConfig: {
+    apiSecret: 'some key',
+    public: {
+      apiUrl: 'https://jsonplaceholder.typicode.com/'
+    }
+  },
   modules: [
     '@pinia/nuxt'
   ],

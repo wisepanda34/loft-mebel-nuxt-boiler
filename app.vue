@@ -8,7 +8,7 @@
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
         name: 'description',
-        content: 'My nuxt template'
+        content: 'My Nuxt 3 template'
       }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
@@ -18,7 +18,6 @@
 <template>
   <Html>
     <Body>
-      <ExampleHeader />
       <NuxtLayout>
         <NuxtLoadingIndicator
           :height="5"

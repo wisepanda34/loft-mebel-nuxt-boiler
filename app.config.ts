@@ -1,5 +1,5 @@
 export default defineAppConfig({
-  name: 'Nuxt 3 Boiler',
+  name: 'Nuxt3 Dev Kit',
   author: {
     name: 'lavrov_inc'
   }

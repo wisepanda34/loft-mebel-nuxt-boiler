@@ -1,5 +1,5 @@
 <template>
-  <div class="page-default-second">
+  <div class="page page-default-second">
     <ExampleMain />
   </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <div class="page-default-first">
+  <div class="page page-default-first">
     <ExampleMain />
   </div>
 </template>

@@ -1,5 +1,6 @@
 <template>
-  <div class="custom-layout">
+  <div class="site custom-layout wrapper">
+    <TheHeader />
     <slot />
   </div>
 </template>
