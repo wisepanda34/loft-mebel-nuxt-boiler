@@ -1,20 +1,3 @@
-<script setup>
-  const app = useAppConfig()
-
-  useHead({
-    title: app.name,
-    titleTemplate: `%s - by ${app.author.name}`,
-    meta: [
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      {
-        name: 'description',
-        content: 'My Nuxt 3 template'
-      }
-    ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
-  })
-</script>
-
 <template>
   <Html>
     <Body>
@@ -29,3 +12,19 @@
     </Body>
   </Html>
 </template>
+<script setup>
+  const app = useAppConfig()
+
+  useHead({
+    title: app.name,
+    titleTemplate: `%s - by ${app.author.name}`,
+    meta: [
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      {
+        name: 'description',
+        content: 'Loft mebel nuxt3'
+      }
+    ],
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+  })
+</script>
