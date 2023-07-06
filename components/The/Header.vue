@@ -62,11 +62,11 @@
         </div>
 
         <div class="header__icons">
-          <nuxt-link to="/favoritesPage">
+          <nuxt-link to="/">
             <div class="header__icons_favorite">
               <!--              :class="{active:isActive('/favoritesPage')}"-->
               <img
-                src="~public/images/icons/wishlist-icon.svg"
+                src="~/public/images/icons/wishlist-icon.svg"
                 alt="i"
               >
               <!--              <div-->
@@ -77,7 +77,7 @@
               <!--              </div>-->
             </div>
           </nuxt-link>
-          <nuxt-link to="/cart">
+          <nuxt-link to="/">
             <div class="header__icons_cart">
               <!--              :class="{active:isActive('/cart')}"-->
               <img
@@ -93,7 +93,7 @@
             </div>
           </nuxt-link>
           <nuxt-link
-            to="/account"
+            to="/"
             class="header__icons_account flex-center"
           >
             <!--            :class="{active:isActive('/account')}"-->
@@ -109,13 +109,12 @@
     </div>
   </div>
 </template>
-
 <script>
   export default {
     data () {
       return {
         isMenuActive: false,
-        windowWidth: window.innerWidth,
+        // windowWidth: window.innerWidth,
         searchQuery: ''
       }
     }

@@ -7,54 +7,57 @@ export const useMenuList = defineStore('menuList', {
             menuList: [
                 {
                     title: 'Kitchen',
-                    icon: 'images/icons/kitchen-icon.svg'
+                    icon: '~/public/images/icons/kitchen-icon.svg'
                 },
                 {
                     title: 'Bedroom',
-                    icon: 'images/icons/bedroom-icon.svg'
+                    icon: '~/public/images/icons/bedroom-icon.svg'
                 },
                 {
                     title: 'Living rooms',
-                    icon: 'images/icons/livingroom-icon.svg'
+                    icon: '~/public/images/icons/livingroom-icon.svg'
                 },
                 {
                     title: 'Lobby',
-                    icon: 'images/icons/closet-icon.svg'
+                    icon: '~/public/images/icons/closet-icon.svg'
                 },
                 {
                     title: 'Office',
-                    icon: 'images/icons/office-icon.svg'
+                    icon: '~/public/images/icons/office-icon.svg'
                 },
                 {
                     title: 'Children room',
-                    icon: 'images/icons/childrenroom-icon.svg'
+                    icon: '~/public/images/icons/childrenroom-icon.svg'
                 },
                 {
                     title: 'Sale',
-                    icon: 'images/icons/sale.svg'
+                    icon: '~/public/images/icons/sale.svg'
                 },
                 {
                     title: 'New',
-                    icon: 'images/icons/new.svg'
+                    icon: '~/public/images/icons/new.svg'
                 },
                 {
                     title: 'Mattresses',
-                    icon: 'images/icons/mattress.svg'
+                    icon: '~/public/images/icons/mattress.svg'
                 },
                 {
                     title: 'Cushioned furniture',
-                    icon: 'images/icons/armchair.svg'
+                    icon: '~/public/images/icons/armchair.svg'
                 },
                 {
                     title: 'Cupboard',
-                    icon: 'images/icons/cupboard.svg'
+                    icon: '~/public/images/icons/cupboard.svg'
                 }
             ]
         }
+    },
+    getters: {
+       getMenuList (state) {
+         return this.state.menuList
+       }
     }
-    // getters: {
-    //     getMenuList: state => state.menuList
-    // }
+
 })
 
 // if (import.meta.hot) {

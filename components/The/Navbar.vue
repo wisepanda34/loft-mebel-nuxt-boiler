@@ -23,7 +23,7 @@
         <span>+1 (964) 89 99 119</span>
       </nuxt-link>
       <nuxt-link
-        to="/deliveryPage"
+        to="/"
         class="navbar__delivery-deliv flex"
       >
         <img
@@ -44,19 +44,19 @@
     },
     {
       name: 'About',
-      path: '/about'
+      path: '/'
     },
     {
       name: 'Catalog',
-      path: '/catalog'
+      path: '/'
     },
     {
       name: 'Contacts',
-      path: '/contacts'
+      path: '/'
     },
     {
       name: 'Reviews',
-      path: '/reviewsPage'
+      path: '/'
     }
   ]
 </script>
