@@ -8,8 +8,15 @@ export default defineNuxtConfig({
   //   }
   // },
   modules: [
-    '@pinia/nuxt'
+    '@pinia/nuxt', 'nuxt-swiper'
   ],
+  // swiper: {
+  //   Swiper options
+  //   ----------------------
+  //   prefix: 'Swiper',
+  //   styleLang: 'css',
+  //   modules: ['navigation', 'pagination'], // all modules are imported by default
+  // },
   css: [
     '~/assets/scss/_reset.scss',
     '~/assets/scss/_general.scss',

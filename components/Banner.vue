@@ -1,73 +1,77 @@
 <template>
-  <section class='banner'>
-    <div class='container'>
-      <div class='banner__wrapper'>
-
-        <div class='banner__content'>
-          <h1>LOFT FURNITURE</h1>
-          <p>Modern and useful furniture in Boston</p>
-          <nuxt-link class='banner__content_btn' to='/catalog'>WATCH CATALOG</nuxt-link>
-        </div>
-
-        <swiper
-          class='banner__slider'
-          :modules="modules"
-          :slides-per-view="1"
-          navigation
-          loop
-          @swiper="onSwiper"
-          @slideChange="onSlideChange"
-          effect="fade"
+  <section class="banner">
+    <div class="banner__wrapper">
+      <div class="banner__content">
+        <h1>LOFT FURNITURE</h1>
+        <p>Modern and useful furniture in Boston</p>
+        <nuxt-link
+          class="banner__content_btn"
+          to="/"
         >
-
-          <swiper-slide :key="i"
-                        v-for="(slide,i) in slides"
-          >
-            <div class='banner__slide'>
-              <img :src="slide" alt='img' />
-            </div>
-          </swiper-slide>
-        </swiper>
-
+          WATCH CATALOG
+        </nuxt-link>
       </div>
+
+      <swiper
+        class="banner__slider"
+        :modules="modules"
+        :slides-per-view="1"
+        navigation
+        loop
+        effect="fade"
+        @swiper="onSwiper"
+        @slideChange="onSlideChange"
+      >
+        <SwiperSlide
+          v-for="(slide,i) in slides"
+          :key="i"
+        >
+          <div class="banner__slide">
+            <img
+              :src="slide"
+              alt="img"
+            >
+          </div>
+        </SwiperSlide>
+      </swiper>
     </div>
   </section>
 </template>
 
 <script>
-import { Swiper, SwiperSlide } from 'swiper/vue';
-import { Navigation, EffectFade } from 'swiper';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/effect-fade';
-export default {
-  name: "Banner",
-  components: {
-    Swiper,
-    SwiperSlide,
-  },
-  data(){
-    return{
-      slides : [
-        './images/img/banner1.jpg',
-        './images/img/slider.jpg'
-      ]
-    }
-  },
-  setup() {
-    const onSwiper = (swiper) => {
+  import { Swiper, SwiperSlide } from 'swiper/vue'
+  import { Navigation, EffectFade } from 'swiper'
+  import 'swiper/css'
+  import 'swiper/css/navigation'
+  import 'swiper/css/effect-fade'
+  export default {
+    name: 'Banner',
+    components: {
+      Swiper,
+      SwiperSlide
+    },
+    data () {
+      return {
+        slides: [
+          './images/img/banner1.jpg',
+          './images/img/slider.jpg'
+        ]
+      }
+    },
+    setup () {
+      const onSwiper = (swiper) => {
       // console.log(swiper);
-    };
-    const onSlideChange = () => {
+      }
+      const onSlideChange = () => {
       // console.log('slide change');
-    };
-    return {
-      onSwiper,
-      onSlideChange,
-      modules: [Navigation, EffectFade],
-    };
-  },
-}
+      }
+      return {
+        onSwiper,
+        onSlideChange,
+        modules: [Navigation, EffectFade]
+      }
+    }
+  }
 </script>
 
 <style lang="scss" scoped>

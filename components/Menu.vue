@@ -1,67 +1,65 @@
 <template>
   <section class="menu">
-    <div class="container">
-      <div class="menu__wrapper">
-        <ul class="menu__list">
+    <div class="menu__wrapper">
+      <ul class="menu__list">
+        <li
+          v-for="item in menuList"
+          :key="item.title"
+          class="menu__item"
+        >
+          <nuxt-link
+            class="menu__link"
+            to="/"
+          >
+            <div class="menu__icon flex-center">
+              <img
+                :src="item.icon"
+                alt="i"
+              >
+            </div>
+            <div class="menu__title flex-center">{{ item.title }}</div>
+          </nuxt-link>
+        </li>
+      </ul>
+
+      <div class="menu__points"><span>&#8285;</span></div>
+      <!--        @click="openDropdownMenu"-->
+      <div
+
+        ref="dropdownMenu"
+        class="menu__dropdown"
+        tabindex="-1"
+      >
+        v-if="isDropdownOpen"
+        @keydown.esc="closeDropdownMenu"
+        @click.self="closeDropdownMenu"
+        <div
+          class="menu__dropdown_close"
+        >
+          @click="closeDropdownMenu"
+
+          close
+        </div>
+        <ul class="menu__dropdown_list">
           <li
             v-for="item in menuList"
             :key="item.title"
-            class="menu__item"
+            class="menu__dropdown_item"
           >
             <nuxt-link
-              class="menu__link"
+              class="menu__dropdown_link"
               to="/"
             >
-              <div class="menu__icon flex-center">
+              <div class="menu__dropdown_icon ">
                 <img
                   :src="item.icon"
                   alt="i"
                 >
               </div>
-              <div class="menu__title flex-center">{{ item.title }}</div>
+              <div class="menu__dropdown_title center">{{ item.title }}</div>
             </nuxt-link>
           </li>
         </ul>
-
-        <div class="menu__points"><span>&#8285;</span></div>
-        <!--        @click="openDropdownMenu"-->
-        <div
-
-          ref="dropdownMenu"
-          class="menu__dropdown"
-          tabindex="-1"
-        >
-          v-if="isDropdownOpen"
-          @keydown.esc="closeDropdownMenu"
-          @click.self="closeDropdownMenu"
-          <div
-            class="menu__dropdown_close"
-          >
-            @click="closeDropdownMenu"
-
-            close
-          </div>
-          <ul class="menu__dropdown_list">
-            <li
-              v-for="item in menuList"
-              :key="item.title"
-              class="menu__dropdown_item"
-            >
-              <nuxt-link
-                class="menu__dropdown_link"
-                to="/"
-              >
-                <div class="menu__dropdown_icon ">
-                  <img
-                    :src="item.icon"
-                    alt="i"
-                  >
-                </div>
-                <div class="menu__dropdown_title center">{{ item.title }}</div>
-              </nuxt-link>
-            </li>
-          </ul>
-        </div>
       </div>
     </div>
   </section>

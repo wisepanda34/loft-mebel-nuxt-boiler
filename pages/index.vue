@@ -1,13 +1,13 @@
 <template>
   <Menu />
-<!--  <Banner />-->
+  <Banner />
 <!--  <Cards />-->
 </template>
 
 <script>
 
   export default {
-    name: 'Main'
+    name: 'Home'
   }
 </script>
 
