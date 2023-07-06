@@ -4,13 +4,13 @@
       <div class="menu__wrapper">
         <ul class="menu__list">
           <li
-            v-for="item in menuListStore.menuList"
+            v-for="item in menuList"
             :key="item.title"
             class="menu__item"
           >
             <nuxt-link
               class="menu__link"
-              to="/catalog"
+              to="/"
             >
               <div class="menu__icon flex-center">
                 <img
@@ -43,13 +43,13 @@
           </div>
           <ul class="menu__dropdown_list">
             <li
-              v-for="item in menuListStore.menuList"
+              v-for="item in menuList"
               :key="item.title"
               class="menu__dropdown_item"
             >
               <nuxt-link
                 class="menu__dropdown_link"
-                to="/catalog"
+                to="/"
               >
                 <div class="menu__dropdown_icon ">
                   <img
@@ -67,10 +67,17 @@
   </section>
 </template>
 
-<script setup>
+<script >
   import { useMenuList } from '~/stores/menuList'
-  const menuListStore = useMenuList()
-
+  export default {
+    setup () {
+      const menuListStore = useMenuList()
+      const menuList = menuListStore.menuList
+      return {
+        menuList
+      }
+    }
+  }
 </script>
 
 <style lang="scss" scoped>

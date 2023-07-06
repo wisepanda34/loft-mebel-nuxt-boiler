@@ -39,6 +39,9 @@ body{
 .page {
   flex: 1 1 auto;
 }
+.flex{
+  display: flex;
+}
 
 .heading {
   font-weight: $fw--Bold;
