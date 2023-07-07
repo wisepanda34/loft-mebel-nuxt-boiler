@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
 
-export const useMenuList = defineStore('menuList', {
-    // namespaced: true,
+export const useMenuList = defineStore('menuListStore', {
     state () {
         return {
             menuList: [

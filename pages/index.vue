@@ -1,7 +1,7 @@
 <template>
   <Menu />
   <Banner />
-<!--  <Cards />-->
+  <Cards />
 </template>
 
 <script>

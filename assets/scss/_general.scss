@@ -42,7 +42,24 @@ body{
 .flex{
   display: flex;
 }
-
+.btn{
+  width: 223px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  line-height: 15px;
+  background: #245462;
+  border-radius: 3px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.btn:hover{
+  background: #366a7a;
+}
 .heading {
   font-weight: $fw--Bold;
   letter-spacing: normal;

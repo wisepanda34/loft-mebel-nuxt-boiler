@@ -1,33 +1,42 @@
 
 <template>
-  <section class='cards'>
-    <div class='container'>
-      <div class='cards__wrapper'>
-        <OneCard :isBtnShow="isBtnShow" v-for="item in products" :key="item.id" :item="item"/>
+  <section class="cards">
+    <div class="container">
+      <div class="cards__wrapper">
+        <OneCard
+          v-for="item in products"
+          :key="item.id"
+          :is-btn-show="isBtnShow"
+          :item="item"
+        />
       </div>
     </div>
   </section>
 </template>
 
 <script>
-import OneCard from "@/components/OneCard.vue"
-import {mapGetters} from "vuex";
-export default {
-  name: "Cards",
-  components: {OneCard},
-  data(){
-    return {
-      isBtnShow: true
+  import { useProducts } from '~/stores/products'
+  export default {
+    name: 'Cards',
+    setup () {
+      const productsStore = useProducts()
+      const products = productsStore.products
+      return {
+        products
+      }
+    },
+    data () {
+      return {
+        isBtnShow: true
+      }
     }
-  },
-  computed: {
-    ...mapGetters({
-      products: 'products/getProducts'
-    })
-  },
-}
+    // computed: {
+    // ...mapGetters({
+    //   products: 'products/getProducts'
+    // })
+    // }
+  }
 </script>
-
 
 <style lang="scss" scoped>
 .cards{

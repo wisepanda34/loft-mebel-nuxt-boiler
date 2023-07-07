@@ -132,7 +132,7 @@
     }
     &_list{
       display: flex;
-      justify-content: start;
+      justify-content: flex-start;
       gap: 20px;
       flex-wrap: wrap;
       padding-left: 0;
