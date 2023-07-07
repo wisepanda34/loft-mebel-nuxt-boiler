@@ -123,7 +123,7 @@
 
 <style scoped lang="scss">
 .header{
-  padding-bottom: 10px;
+  padding: 0 5px 10px;
   background: lightgray;
   &__main{
     display: flex;
@@ -172,7 +172,6 @@
       width: 16px;
       height: 16px;
       z-index: 10;
-
     }
     &_list{
       position: absolute;

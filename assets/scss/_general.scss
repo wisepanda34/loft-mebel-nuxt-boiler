@@ -4,6 +4,7 @@
 $minWidth: 320;
 $maxWidth: 1152;
 $padding: 20;
+$paddingMin: 5;
 
 html,
 body{
@@ -34,6 +35,9 @@ body{
     max-width: 100%;
     padding: 0 #{$padding}px;
   }
+  @media (max-width: 576px) {
+    padding: 0 #{$paddingMin}px; // Новое значение паддинга для брейкпоинта ниже 576px
+  }
 }
 
 .page {
@@ -41,6 +45,14 @@ body{
 }
 .flex{
   display: flex;
+}
+.flex-center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.center{
+  text-align: center;
 }
 .btn{
   width: 223px;

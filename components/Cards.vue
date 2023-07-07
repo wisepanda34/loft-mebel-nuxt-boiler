@@ -1,16 +1,12 @@
 
 <template>
   <section class="cards">
-    <div class="container">
-      <div class="cards__wrapper">
-        <OneCard
-          v-for="item in products"
-          :key="item.id"
-          :is-btn-show="isBtnShow"
-          :item="item"
-        />
-      </div>
-    </div>
+    <OneCard
+      v-for="item in products"
+      :key="item.id"
+      :is-btn-show="isBtnShow"
+      :item="item"
+    />
   </section>
 </template>
 
@@ -40,31 +36,23 @@
 
 <style lang="scss" scoped>
 .cards{
-  &__wrapper{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    padding: 20px 0 20px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  padding: 20px 0;
+}
+@media (max-width: 1140px) {
+  .cards {
+    grid-template-columns: 1fr 1fr 1fr;
   }
 }
-@media (max-width: 1120px) {
+@media (max-width: 880px) {
   .cards {
-    &__wrapper {
-      grid-template-columns: 1fr 1fr 1fr;
-    }
+    grid-template-columns: 1fr 1fr;
   }
 }
-@media (max-width: 830px) {
+@media (max-width: 620px) {
   .cards {
-    &__wrapper {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-}
-@media (max-width: 550px) {
-  .cards {
-    &__wrapper {
-      grid-template-columns: 1fr;
-    }
+    grid-template-columns: 1fr;
   }
 }
 </style>

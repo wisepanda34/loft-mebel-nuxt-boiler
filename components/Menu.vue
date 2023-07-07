@@ -22,24 +22,28 @@
         </li>
       </ul>
 
-      <div class="menu__points"><span>&#8285;</span></div>
-      <!--        @click="openDropdownMenu"-->
       <div
+        class="menu__points"
+        @click="openDropdownMenu"
+      >
+        <span>&#8285;</span>
+      </div>
 
+      <div
+        v-if="isDropdownOpen"
         ref="dropdownMenu"
         class="menu__dropdown"
         tabindex="-1"
-      >
-        v-if="isDropdownOpen"
         @keydown.esc="closeDropdownMenu"
         @click.self="closeDropdownMenu"
+      >
         <div
           class="menu__dropdown_close"
-        >
           @click="closeDropdownMenu"
-
+        >
           close
         </div>
+
         <ul class="menu__dropdown_list">
           <li
             v-for="item in menuList"
@@ -74,6 +78,30 @@
       return {
         menuList
       }
+    },
+    data () {
+      return {
+        isDropdownOpen: false
+      }
+    },
+    watch: {
+      isDropdownOpen (newValue) {
+        if (newValue) {
+          this.$nextTick(() => {
+            this.$refs.dropdownMenu.focus()
+          })
+        }
+      }
+    },
+    methods: {
+      openDropdownMenu () {
+        this.isDropdownOpen = true
+        document.body.classList.add('no-scroll')
+      },
+      closeDropdownMenu () {
+        this.isDropdownOpen = false
+        document.body.classList.remove('no-scroll')
+      }
     }
   }
 </script>
@@ -90,7 +118,6 @@
     position: relative;
   }
   &__dropdown{
-    display: none;
     position: absolute;
     top: 0;
     left: 0;
@@ -102,7 +129,7 @@
     background: #fff;
     border: 1px solid rgba(230, 230, 230, 1);
     z-index: 50;
-    padding: 20px;
+    padding: 40px 10px 20px;
     outline: none;
     &::-webkit-scrollbar {
       width: 8px;
@@ -155,6 +182,8 @@
     }
     &_icon{
       img{
+        display: block;
+        margin: 0 auto;
         width: 30px;
         height: 30px;
       }

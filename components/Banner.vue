@@ -85,7 +85,7 @@
     top: 50%;
     transform: translateY(-50%);
     left: 70px;
-    width: 300px;
+    width: 200px;
     text-align: left;
     z-index: 5;
     h1{
