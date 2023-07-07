@@ -44,7 +44,7 @@
     },
     {
       name: 'About',
-      path: '/'
+      path: '/about'
     },
     {
       name: 'Catalog',
