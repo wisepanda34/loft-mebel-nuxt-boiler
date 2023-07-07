@@ -4,7 +4,7 @@
 
         <div class='advantage__item' v-for="item in advantages" :key="item.title">
           <h5>{{ item.title }}</h5>
-          <hr />
+          <div class="advantage__item_delimiter"></div>
           <p>{{ item.descr }}</p>
         </div>
 
@@ -49,9 +49,10 @@
       margin-block-start: 0.5em;
       margin-block-end: 0.5em;
     }
-    hr{
+    &_delimiter{
+      margin: 20px auto;
       width: 50px;
-      height: 1px;
+      height: 0.6px;
       background: #245462;
     }
     p{

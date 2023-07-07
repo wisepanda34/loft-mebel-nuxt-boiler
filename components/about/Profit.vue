@@ -62,11 +62,10 @@
     display: flex;
     gap: 30px;
   }
-  &__icon{
+  &__icon img{
     padding-top: 10px;
-    img{
-      width: 68px;
-    }
+    width: 70px;
+    height: 70px;
   }
   &__content{
 
