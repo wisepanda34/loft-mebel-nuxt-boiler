@@ -4,8 +4,8 @@
     <div class="card__pic">
       <div
         class="card__heart"
-        @click.prevent="handleAddToFavorites(item,true)"
       >
+        <!--        @click.prevent="handleAddToFavorites(item,true)"-->
         <svg
           class="card__icon"
           width="22"
@@ -39,53 +39,61 @@
       <div class="card__descr-size">
         <div><span>width</span><p>{{ item.width }} sm</p></div>&#9587;<div><span>deep</span><p>{{ item.deep }} sm</p></div>&#9587;<div><span>height</span><p>{{ item.height }} sm</p></div>
       </div>
-      <my-button
+      <MyButton
         v-show="isBtnShow"
         class="card__descr-btn"
         @click.prevent="handleAddToCartAndOpenVoiceModal(item)"
       >
         Add to cart
-      </my-button>
+      </MyButton>
     </div>
   </div>
 </template>
+
 <script>
+  import MyButton from '~/components/UI/MyButton.vue'
+  import { mapActions } from 'pinia'
+  import { useCartList } from '~/stores/cartList'
   export default {
     name: 'OneCard',
+    components: {
+      MyButton
+    },
     props: {
       item: {
         type: Object,
         default: () => {}
+      },
+      isBtnShow: Boolean
+    },
+    methods: {
+      ...mapActions(useCartList, ['addToCart']),
+
+      // addToFavorites: 'favorites/addToFavorites',
+      // openVoiceModal: 'modal/openVoiceModal'
+
+      handleAddToCartAndOpenVoiceModal (card) {
+        console.log(card)
+        this.addToCart(card)
+        // this.openVoiceModal('That product was added to cart!')
       }
-      // isBtnShow: true
+      // handleAddToFavorites (card, like) {
+      //   const isFavorite = this.isCardInFavorites(card)
+      //   if (isFavorite) {
+      //     this.removeFromFavorites(card)
+      //   } else {
+      //     const newCard = { ...card, like }
+      //     this.addToFavorites(newCard)
+      //   }
+      // },
+      // // обращаемся в store/favorites и с помощью some() проверяем наличие этого card в favorites
+      // isCardInFavorites (card) {
+      //   return this.$store.getters['favorites/getFavorites'].some((favorites) => favorites.id === card.id)
+      // },
+      // removeFromFavorites (card) {
+      //   this.$store.dispatch('favorites/removeFromFavorites', card)
+      // }
     }
-    // methods: {
-    //   ...mapActions({
-    //     addToCart: 'cartList/addToCart',
-    //     addToFavorites: 'favorites/addToFavorites',
-    //     openVoiceModal: 'modal/openVoiceModal'
-    //   }),
-    //   handleAddToCartAndOpenVoiceModal (card) {
-    //     this.addToCart(card)
-    //     this.openVoiceModal('That product was added to cart!')
-    //   },
-    //   handleAddToFavorites (card, like) {
-    //     const isFavorite = this.isCardInFavorites(card)
-    //     if (isFavorite) {
-    //       this.removeFromFavorites(card)
-    //     } else {
-    //       const newCard = { ...card, like }
-    //       this.addToFavorites(newCard)
-    //     }
-    //   },
-    //   // обращаемся в store/favorites и с помощью some() проверяем наличие этого card в favorites
-    //   isCardInFavorites (card) {
-    //     return this.$store.getters['favorites/getFavorites'].some((favorites) => favorites.id === card.id)
-    //   },
-    //   removeFromFavorites (card) {
-    //     this.$store.dispatch('favorites/removeFromFavorites', card)
-    //   }
-    // }
   }
 </script>
 
