@@ -4,7 +4,6 @@
       <div class="footer__wrapper">
         <div class="footer__navigation">
           <h4 class="footer__navigation-title">Navigation</h4>
-          <!--          <div class="footer__navigation-container">-->
           <ul class="footer__navigation-list">
             <li
               v-for="item in menuList"
@@ -16,7 +15,6 @@
               </nuxt-link>
             </li>
           </ul>
-          <!--          </div>-->
         </div>
 
         <div class="footer__address">
