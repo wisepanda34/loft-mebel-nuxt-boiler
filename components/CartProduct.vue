@@ -63,9 +63,13 @@
       }
     },
     setup () {
-      const cartListStore = useCartList()
-      const modalStore = useModal()
-      return { cartListStore, modalStore }
+      try {
+        const cartListStore = useCartList()
+        const modalStore = useModal()
+        return { cartListStore, modalStore }
+      } catch (error) {
+        console.error('Unhandled error:', error)
+      }
     },
     methods: {
       handlerRemoveProduct (id) {

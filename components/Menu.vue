@@ -73,10 +73,14 @@
   import { useMenuList } from '~/stores/menuList'
   export default {
     setup () {
-      const menuListStore = useMenuList()
-      const menuList = menuListStore.menuList
-      return {
-        menuList
+      try {
+        const menuListStore = useMenuList()
+        const menuList = menuListStore.menuList
+        return {
+          menuList
+        }
+      } catch (error) {
+        console.error('Unhandled error:', error)
       }
     },
     data () {

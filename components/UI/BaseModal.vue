@@ -25,9 +25,13 @@
     name: 'BaseModal',
     // emits: ['close'],
     setup () {
-      const modalStore = useModal()
-      const modalTexts = modalStore.modalTexts
-      return { modalTexts, modalStore }
+      try {
+        const modalStore = useModal()
+        const modalTexts = modalStore.modalTexts
+        return { modalTexts, modalStore }
+      } catch (error) {
+        console.error('Unhandled error:', error)
+      }
     },
     watch: {
       modalTexts (value) {

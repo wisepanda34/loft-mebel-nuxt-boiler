@@ -65,19 +65,19 @@
     data () {
       return {
         isBtnShow: false
-        // isCartEmpty: true
       }
     },
     setup () {
-      const cartListStore = useCartList()
-      const cartList = cartListStore.cartList
-      const productsStore = useProducts()
-      const recommendList = productsStore.products
+      try {
+        const cartListStore = useCartList()
+        const cartList = cartListStore.cartList
+        const productsStore = useProducts()
+        const recommendList = productsStore.products
 
-      return { cartList, cartListStore, recommendList }
-    },
-    computed: {
-
+        return { cartList, cartListStore, recommendList }
+      } catch (error) {
+        console.error('Unhandled error:', error)
+      }
     }
   }
 </script>

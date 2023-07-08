@@ -15,10 +15,14 @@
   export default {
     name: 'Cards',
     setup () {
-      const productsStore = useProducts()
-      const products = productsStore.products
-      return {
-        products
+      try {
+        const productsStore = useProducts()
+        const products = productsStore.products
+        return {
+          products
+        }
+      } catch (error) {
+        console.error('Unhandled error:', error)
       }
     },
     data () {
