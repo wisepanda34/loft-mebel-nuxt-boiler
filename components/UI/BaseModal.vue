@@ -2,7 +2,7 @@
   <!--  tabindex="-1"  фокусировка на элементе, для срабатывания esc-->
 
   <div
-    v-if="modalTexts.length"
+    v-show="modalTexts.length>0"
     ref="modalElement"
     class="modal"
     tabindex="-1"
@@ -23,7 +23,7 @@
 
   export default {
     name: 'BaseModal',
-    emits: ['close'],
+    // emits: ['close'],
     setup () {
       const modalStore = useModal()
       const modalTexts = modalStore.modalTexts

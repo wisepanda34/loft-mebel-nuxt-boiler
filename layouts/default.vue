@@ -3,11 +3,12 @@
     <TheHeader />
     <slot />
     <TheFooter />
+    <BaseModal />
   </div>
 </template>
 
 <script setup>
-
+  import BaseModal from '~/components/UI/BaseModal.vue'
 </script>
 
 <style lang="scss">

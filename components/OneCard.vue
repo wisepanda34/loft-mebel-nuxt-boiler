@@ -52,8 +52,9 @@
 
 <script>
   import MyButton from '~/components/UI/MyButton.vue'
-  import { mapActions } from 'pinia'
   import { useCartList } from '~/stores/cartList'
+  import { useModal } from '~/stores/modal'
+
   export default {
     name: 'OneCard',
     components: {
@@ -66,16 +67,19 @@
       },
       isBtnShow: Boolean
     },
+    setup () {
+      const cartListStore = useCartList()
+      const modalStore = useModal()
+      return {
+        cartListStore, modalStore
+      }
+    },
     methods: {
-      ...mapActions(useCartList, ['addToCart']),
-
-      // addToFavorites: 'favorites/addToFavorites',
-      // openVoiceModal: 'modal/openVoiceModal'
-
       handleAddToCartAndOpenVoiceModal (card) {
-        console.log(card)
-        this.addToCart(card)
-        // this.openVoiceModal('That product was added to cart!')
+        // console.log(card)
+        this.cartListStore.addToCart(card)
+
+        this.modalStore.openVoiceModal('That product was added to cart!')
       }
       // handleAddToFavorites (card, like) {
       //   const isFavorite = this.isCardInFavorites(card)

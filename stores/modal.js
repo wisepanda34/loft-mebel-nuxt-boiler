@@ -8,14 +8,13 @@ export const useModal = defineStore('modalStore', {
   },
   actions: {
     openVoiceModal (modalTexts) {
-      this.state.modalTexts = modalTexts
-          setTimeout(() => {
-            this.state.modalTexts = ''
-          }, 600)
+      this.modalTexts = modalTexts
+      setTimeout(() => {
+        this.modalTexts = ''
+      }, 300)
     },
     closeVoiceModal () {
-      this.state.modalTexts = ''
-      // commit('SET_MODAL_TEXTS','')
+      this.modalTexts = ''
     }
   }
 })
