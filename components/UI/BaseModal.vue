@@ -2,7 +2,7 @@
   <!--  tabindex="-1"  фокусировка на элементе, для срабатывания esc-->
 
   <div
-    v-if="getModalText.length>0"
+    v-if="modalTexts.length"
     ref="modalElement"
     class="modal"
     tabindex="-1"
@@ -13,35 +13,36 @@
       <div class="modal__delete">
         <span @click="closeVoiceModal">&#9587;</span>
       </div>
-      <div class="modal__content">{{ getModalText }}</div>
+      <div class="modal__content">{{ modalTexts }}</div>
     </div>
   </div>
 </template>
 
 <script>
+  import { useModal } from '~/stores/modal'
 
   export default {
     name: 'BaseModal',
     emits: ['close'],
-    // computed: {
-    //   ...mapGetters({
-    //     getModalText: 'modal/getModalText'
-    //   })
-    // },
-    // watch: {
-    //   getModalText (value) {
-    //     // код внутри $nextTick будет выполнен, когда Vue обновит DOM
-    //     this.$nextTick(() => {
-    //       if (value) {
-    //         this.$refs.modalElement.focus()
-    //       }
-    //     })
-    //   }
-    // },
+    setup () {
+      const modalStore = useModal()
+      const modalTexts = modalStore.modalTexts
+      return { modalTexts, modalStore }
+    },
+    watch: {
+      modalTexts (value) {
+        // код внутри $nextTick будет выполнен, когда Vue обновит DOM
+        this.$nextTick(() => {
+          if (value) {
+            this.$refs.modalElement.focus()
+          }
+        })
+      }
+    },
     methods: {
-      // ...mapActions({
-      //   closeVoiceModal: 'modal/closeVoiceModal'
-      // })
+      closeVoiceModal () {
+        this.modalStore.closeVoiceModal()
+      }
     }
   }
 </script>

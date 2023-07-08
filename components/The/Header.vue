@@ -77,7 +77,7 @@
               <!--              </div>-->
             </div>
           </nuxt-link>
-          <nuxt-link to="/">
+          <nuxt-link to="/cart">
             <div class="header__icons_cart">
               <!--              :class="{active:isActive('/cart')}"-->
               <img

@@ -1,30 +1,21 @@
 import { defineStore } from 'pinia'
 
-export const modal = defineStore('modalStore', {
+export const useModal = defineStore('modalStore', {
   state () {
     return {
       modalTexts: ''
     }
   },
-  getters: {
-    getModalText (state) {
-      return this.state.modalTexts
+  actions: {
+    openVoiceModal (modalTexts) {
+      this.state.modalTexts = modalTexts
+          setTimeout(() => {
+            this.state.modalTexts = ''
+          }, 600)
+    },
+    closeVoiceModal () {
+      this.state.modalTexts = ''
+      // commit('SET_MODAL_TEXTS','')
     }
   }
-  // actions:{
-  //   openVoiceModal({commit},payload){
-  //     commit('SET_MODAL_TEXTS', payload)
-  //   },
-  //   closeVoiceModal({commit}){
-  //     commit('SET_MODAL_TEXTS','')
-  //   }
-  // },
-  // mutations:{
-  //   SET_MODAL_TEXTS(state, modalTexts) {
-  //     state.modalTexts = modalTexts;
-  //     setTimeout(() => {
-  //       state.modalTexts = '';
-  //     }, 600);
-  //   }
-  // }
 })
