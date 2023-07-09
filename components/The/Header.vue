@@ -93,7 +93,7 @@
             </div>
           </nuxt-link>
           <nuxt-link
-            to="/"
+            to="/account"
             class="header__icons_account flex-center"
           >
             <!--            :class="{active:isActive('/account')}"-->
