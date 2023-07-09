@@ -51,7 +51,6 @@
             <input
               :id="`${item.i}`"
               type="radio"
-              name="color"
               :data-colorname="`${item.name}`"
               :value="`${item.value}`"
             >
@@ -287,6 +286,7 @@
     line-height: 14px;
     color: #245462;
     cursor: pointer;
+    margin-top: 30px;
     &:hover{
       color: #4199b4;
     }
