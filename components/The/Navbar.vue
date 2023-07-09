@@ -17,7 +17,7 @@
         to="tel: 19648999119"
       >
         <img
-          src="~/public/images/icons/phone-black.svg"
+          src="/images/icons/phone-black.svg"
           alt="i"
         >
         <span>+1 (964) 89 99 119</span>
@@ -27,7 +27,7 @@
         class="navbar__delivery-deliv flex"
       >
         <img
-          src="~/public/images/icons/delivery-icon-black.svg"
+          src="/images/icons/delivery-icon-black.svg"
           alt="i"
         >
         <span>Delivery</span>
