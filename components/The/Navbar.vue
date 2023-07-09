@@ -56,7 +56,7 @@
     },
     {
       name: 'Reviews',
-      path: '/'
+      path: '/reviewsPage'
     }
   ]
 </script>
