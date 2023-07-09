@@ -102,7 +102,7 @@
     },
     setup () {
       const commentsStore = useComments()
-      const getComments = commentsStore.getComments
+      const getComments = computed(() => commentsStore.getComments)
       return { commentsStore, getComments }
     },
     methods: {
@@ -205,6 +205,7 @@
       padding: 10px;
       text-decoration: none;
       resize: none;
+      background: #FFF;
       &::-webkit-input-placeholder{
         text-decoration: none;
         //text-overflow: clip;
