@@ -52,7 +52,7 @@
     },
     {
       name: 'Contacts',
-      path: '/'
+      path: '/contacts'
     },
     {
       name: 'Reviews',
