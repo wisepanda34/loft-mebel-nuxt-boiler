@@ -69,6 +69,7 @@
         return { cartListStore, modalStore }
       } catch (error) {
         console.error('Unhandled error:', error)
+        console.log('CardProduct setup error')
       }
     },
     methods: {

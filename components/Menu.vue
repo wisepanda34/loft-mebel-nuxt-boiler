@@ -100,11 +100,11 @@
     methods: {
       openDropdownMenu () {
         this.isDropdownOpen = true
-        document.body.classList.add('no-scroll')
+        // document.body.classList.add('no-scroll')
       },
       closeDropdownMenu () {
         this.isDropdownOpen = false
-        document.body.classList.remove('no-scroll')
+        // document.body.classList.remove('no-scroll')
       }
     }
   }

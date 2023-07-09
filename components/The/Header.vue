@@ -62,11 +62,11 @@
         </div>
 
         <div class="header__icons">
-          <nuxt-link to="/">
+          <nuxt-link to="/favoritesPage">
             <div class="header__icons_favorite">
               <!--              :class="{active:isActive('/favoritesPage')}"-->
               <img
-                src="~/public/images/icons/wishlist-icon.svg"
+                src="images/icons/wishlist-icon.svg"
                 alt="i"
               >
               <!--              <div-->
@@ -81,7 +81,7 @@
             <div class="header__icons_cart">
               <!--              :class="{active:isActive('/cart')}"-->
               <img
-                src="~public/images/icons/bag.svg"
+                src="images/icons/bag.svg"
                 alt="i"
               >
               <!--              <div-->
@@ -98,7 +98,7 @@
           >
             <!--            :class="{active:isActive('/account')}"-->
             <img
-              src="~public/images/icons/profile-icon.svg"
+              src="images/icons/profile-icon.svg"
               alt="i"
             >
           </nuxt-link>

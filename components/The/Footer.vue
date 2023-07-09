@@ -55,13 +55,18 @@
   export default {
     name: 'Footer',
     setup () {
-      const menuListStore = useMenuList()
-      const menuList = menuListStore.menuList
-      const linksFooterStore = useLinksFooter()
-      const linksFooter = linksFooterStore.linksFooter
-      return {
-        menuList,
-        linksFooter
+      try {
+        const menuListStore = useMenuList()
+        const menuList = menuListStore.menuList
+        const linksFooterStore = useLinksFooter()
+        const linksFooter = linksFooterStore.linksFooter
+        return {
+          menuList,
+          linksFooter
+        }
+      } catch (error) {
+        console.error(error)
+        console.log('Footer setup error', error)
       }
     }
   }

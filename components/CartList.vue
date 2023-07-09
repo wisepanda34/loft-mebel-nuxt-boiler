@@ -77,6 +77,7 @@
         return { cartList, cartListStore, recommendList }
       } catch (error) {
         console.error('Unhandled error:', error)
+        console.log('CardList setup error')
       }
     }
   }
@@ -108,7 +109,7 @@
   &__act{
     display: flex;
     gap: 25px;
-    justify-content: end;
+    justify-content: flex-end;
     padding: 20px 0;
     &-btn{
       width: 202px;

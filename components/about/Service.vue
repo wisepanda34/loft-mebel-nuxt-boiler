@@ -1,16 +1,21 @@
 <template>
-  <section class='service'>
-      <div class='service__wrapper'>
-
-        <div class='service__item' v-for="item in services" :key="item.subtitle">
-          <h5>{{ item.subtitle }}</h5>
-          <p>{{ item.descr }}</p>
-          <div class='service__icon'>
-            <img :src="item.icon" alt="icon" />
-          </div>
+  <section class="service">
+    <div class="service__wrapper">
+      <div
+        v-for="item in services"
+        :key="item.subtitle"
+        class="service__item"
+      >
+        <h5>{{ item.subtitle }}</h5>
+        <p>{{ item.descr }}</p>
+        <div class="service__icon">
+          <img
+            :src="item.icon"
+            alt="icon"
+          >
         </div>
-
       </div>
+    </div>
   </section>
 </template>
 
@@ -18,7 +23,7 @@
   import { useServices } from '~/stores/services'
 
   export default {
-    name: "Service",
+    name: 'Service',
     setup () {
       const servicesStore = useServices()
       const services = servicesStore.services
@@ -26,7 +31,7 @@
         services
       }
     }
-}
+  }
 </script>
 
 <style lang="scss" scoped>

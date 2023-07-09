@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 
-export const useMenuList = defineStore('menuListStore', {
+export const useMenuList = defineStore('menuList', {
     state () {
         return {
             menuList: [
@@ -50,12 +50,10 @@ export const useMenuList = defineStore('menuListStore', {
                 }
             ]
         }
-    },
-    getters: {
-       getMenuList (state) {
-         return this.state.menuList
-       }
     }
+    // getters: {
+    //    getMenuList: (state) => this.state.menuList
+    // }
 
 })
 

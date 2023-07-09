@@ -22,7 +22,8 @@
           products
         }
       } catch (error) {
-        console.error('Unhandled error:', error)
+        console.error('Cards setup Unhandled error:', error)
+        console.log('Cards setup error')
       }
     },
     data () {
@@ -30,11 +31,6 @@
         isBtnShow: true
       }
     }
-    // computed: {
-    // ...mapGetters({
-    //   products: 'products/getProducts'
-    // })
-    // }
   }
 </script>
 

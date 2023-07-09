@@ -39,7 +39,9 @@ body{
     padding: 0 #{$paddingMin}px; // Новое значение паддинга для брейкпоинта ниже 576px
   }
 }
-
+.no-scroll{
+  overflow: hidden;
+}
 .page {
   flex: 1 1 auto;
 }

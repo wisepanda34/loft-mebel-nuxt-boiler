@@ -5,6 +5,7 @@
       <div
         class="card__heart"
       >
+        <!--        :class="['card__icon', { 'isActiveFavorite':isCardInFavorites(item) }]"-->
         <!--        @click.prevent="handleAddToFavorites(item,true)"-->
         <svg
           class="card__icon"
@@ -15,7 +16,7 @@
           stroke="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <!--        :class="['card__icon', { 'isActiveFavorite':isCardInFavorites(item) }]"-->
+
           <path
             d="M2.467 9.55034L10.9167 18L19.3663 9.55034C20.3056 8.61103 20.8333 7.33706 20.8333 6.00867C20.8333 3.24246 18.5909 1 15.8247 1C14.4963 1 13.2223 1.5277 12.283 2.46701L10.9167 3.83333L9.55034 2.46701C8.61103 1.5277 7.33706 1 6.00867 1C3.24246 1 1 3.24246 1 6.00867C1 7.33706 1.5277 8.61103 2.467 9.55034Z"
             stroke="black"
@@ -42,8 +43,8 @@
       <MyButton
         v-show="isBtnShow"
         class="card__descr-btn"
-        @click.prevent="handleAddToCartAndOpenVoiceModal(item)"
       >
+        <!--      @click.prevent="handleAddToCartAndOpenVoiceModal(item)"-->
         Add to cart
       </MyButton>
     </div>
@@ -52,8 +53,9 @@
 
 <script>
   import MyButton from '~/components/UI/MyButton.vue'
-  import { useCartList } from '~/stores/cartList'
-  import { useModal } from '~/stores/modal'
+  // import { useCartList } from '~/stores/cartList'
+  // import { useFavorites } from '~/stores/favorites'
+  // import { useModal } from '~/stores/modal'
 
   export default {
     name: 'OneCard',
@@ -66,42 +68,44 @@
         default: () => {}
       },
       isBtnShow: Boolean
-    },
-    setup () {
-      try {
-        const cartListStore = useCartList()
-        const modalStore = useModal()
-        return {
-          cartListStore, modalStore
-        }
-      } catch (error) {
-        console.error('Unhandled error:', error)
-      }
-    },
-    methods: {
-      handleAddToCartAndOpenVoiceModal (card) {
-        // console.log(card)
-        this.cartListStore.addToCart(card)
-
-        this.modalStore.openVoiceModal('That product was added to cart!')
-      }
-      // handleAddToFavorites (card, like) {
-      //   const isFavorite = this.isCardInFavorites(card)
-      //   if (isFavorite) {
-      //     this.removeFromFavorites(card)
-      //   } else {
-      //     const newCard = { ...card, like }
-      //     this.addToFavorites(newCard)
-      //   }
-      // },
-      // // обращаемся в store/favorites и с помощью some() проверяем наличие этого card в favorites
-      // isCardInFavorites (card) {
-      //   return this.$store.getters['favorites/getFavorites'].some((favorites) => favorites.id === card.id)
-      // },
-      // removeFromFavorites (card) {
-      //   this.$store.dispatch('favorites/removeFromFavorites', card)
-      // }
     }
+    // setup () {
+    //   try {
+    //     const cartListStore = useCartList()
+    //     const favoritesStore = useFavorites()
+    //     const modalStore = useModal()
+    //     console.log('OneCard setup is working')
+    //     return {
+    //       cartListStore, favoritesStore, modalStore
+    //     }
+    //   } catch (error) {
+    //     console.error('Unhandled OneCard setup error:', error)
+    //     console.log('OneCard setup error')
+    //   }
+    // },
+    // methods: {
+    //   handleAddToCartAndOpenVoiceModal (card) {
+    //     this.cartListStore.addToCart(card)
+    //
+    //     this.modalStore.openVoiceModal('That product was added to cart!')
+    //   },
+    //   handleAddToFavorites (card, like) {
+    //     const isFavorite = this.isCardInFavorites(card)
+    //     if (isFavorite) {
+    //       this.favoritesStore.removeFromFavorites(card)
+    //     } else {
+    //       const newCard = { ...card, like }
+    //       this.favoritesStore.addToFavorites(newCard)
+    //     }
+    //   },
+    //   // обращаемся в store/favorites и с помощью some() проверяем наличие этого card в favorites
+    //   isCardInFavorites (card) {
+    //     return this.favoritesStore.state.favorites.some((favorites) => favorites.id === card.id)
+    //   },
+    //   removeFromFavorites (card) {
+    //     this.favoritesStore.removeFromFavorites(card)
+    //   }
+    // }
   }
 </script>
 
