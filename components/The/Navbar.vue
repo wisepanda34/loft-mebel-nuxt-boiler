@@ -48,7 +48,7 @@
     },
     {
       name: 'Catalog',
-      path: '/'
+      path: '/catalog'
     },
     {
       name: 'Contacts',

@@ -49,11 +49,14 @@
             class="filter__color-item"
           >
             <input
+              :id="`${item.i}`"
               type="radio"
+              name="color"
               :data-colorname="`${item.name}`"
               :value="`${item.value}`"
             >
             <label
+              :id="`${item.name}-label`"
               :for="`${item.i}`"
             />
           </li>
