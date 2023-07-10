@@ -58,7 +58,6 @@
   import Vue3EasyDataTable from 'vue3-easy-data-table'
   import { useUser } from '~/stores/user'
   import { useOrders } from '~/stores/orders'
-
   export default {
     name: 'Profile',
     components: { MyButton, MyInput, Vue3EasyDataTable },
@@ -89,11 +88,15 @@
       }
     },
     setup () {
-      const userStore = useUser()
-      const ordersStore = useOrders()
-      const userData = userStore.userData
-      const orders = ordersStore.orders
-      return { userStore, userData, orders, ordersStore }
+      try {
+        const userStore = useUser()
+        const ordersStore = useOrders()
+        const userData = userStore.userData
+        const orders = ordersStore.orders
+        return { userStore, userData, orders, ordersStore }
+      } catch (error) {
+        console.error('Profile setup error', error)
+      }
     },
     methods: {
       getRandomStatus () {
