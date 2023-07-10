@@ -4,17 +4,6 @@
       <div class="profile__personal ">
         <h4>Personal data</h4>
 
-        <!--          <Form @submit="onSubmit">-->
-
-        <!--            <p><field type="email" name="email" :rules="validateEmail"/></p>-->
-        <!--            <ErrorMessage name="email" />-->
-
-        <!--           <p> <field type="text" name="nameUser" :rules="validateUserName"/></p>-->
-        <!--            <ErrorMessage name="nameUser" />-->
-
-        <!--            <button>Sign up for newsletter</button>-->
-        <!--          </Form>-->
-
         <form
           class="profile__form"
           :class="{
@@ -47,18 +36,18 @@
         </form>
       </div>
 
-      <!--      <div class="profile__orders">-->
-      <!--        <h4>My orders</h4>-->
+      <div class="profile__orders">
+        <h4>My orders</h4>
 
-      <!--        <Vue3EasyDataTable-->
-      <!--          class="dataTable"-->
-      <!--          :headers="headers"-->
-      <!--          :items="tableItems"-->
-      <!--          border-cell-->
-      <!--        />-->
+        <Vue3EasyDataTable
+          class="dataTable"
+          :headers="headers"
+          :items="tableItems"
+          border-cell
+        />
 
-      <!--        <div class="profile__orders-btn">See all</div>-->
-      <!--      </div>-->
+        <div class="profile__orders-btn">See all</div>
+      </div>
     </div>
   </section>
 </template>
@@ -68,6 +57,7 @@
   import MyButton from '~/components/UI/MyButton.vue'
   import Vue3EasyDataTable from 'vue3-easy-data-table'
   import { useUser } from '~/stores/user'
+  import { useOrders } from '~/stores/orders'
 
   export default {
     name: 'Profile',
@@ -100,19 +90,12 @@
     },
     setup () {
       const userStore = useUser()
+      const ordersStore = useOrders()
       const userData = userStore.userData
-      return { userStore, userData }
-    },
-    computed: {
-      // ...mapGetters({
-      //   getUserData: 'user/getUserData',
-      //   getOrders: 'orders/getOrders'
-      // })
+      const orders = ordersStore.orders
+      return { userStore, userData, orders, ordersStore }
     },
     methods: {
-      // ...mapActions({
-      //   updateUserData: 'user/updateUserData'
-      // }),
       getRandomStatus () {
         const statuses = ['process', 'canceled', 'delivered', 'paid']
         const randomIndex = Math.floor(Math.random() * statuses.length)
@@ -133,11 +116,6 @@
           this.loading = false
         }
       }
-      // функция отправки данных в localStorage
-      // setStorage (val) {
-      //   this.$root.userData = val // Передаем данные в корневой компонент
-      //   localStorage.setItem('userDataStorage', JSON.stringify(val))
-      // }
     // onSubmit(values) {
     //   console.log(JSON.stringify(values, null, 2));
     // },
@@ -182,30 +160,26 @@
     mounted () {
       // преобразование данных из store в массив,
       // который перебирается и копирует значения в объект userData.
-      if (this.userData) {
-        console.log('mounted worked')
-        Object.keys(this.userData).forEach(key => {
-          const userValue = this.userData[key]
-          if (userValue) {
-            this.userInfo[key] = userValue
-          }
-        })
-      } else {
-        console.log('mounted didnt work')
-      }
-      // let i = 1
-      // this.tableItems = this.getOrders.flatMap(order =>
-      //   order.orderProducts.map((product) => ({
-      //     number: i++,
-      //     product: product.titleCard,
-      //     kindProduct: product.kindProduct,
-      //     price: product.price,
-      //     amount: product.amount,
-      //     id: order.orderId,
-      //     date: new Date(order.orderId).toUTCString(),
-      //     status: this.getRandomStatus()
-      //   }))
-      // )
+      Object.keys(this.userData).forEach(key => {
+        const userValue = this.userData[key]
+        if (userValue) {
+          this.userInfo[key] = userValue
+        }
+      })
+
+      let i = 1
+      this.tableItems = this.orders.flatMap(order =>
+        order.orderProducts.map((product) => ({
+          number: i++,
+          product: product.titleCard,
+          kindProduct: product.kindProduct,
+          price: product.price,
+          amount: product.amount,
+          id: order.orderId,
+          date: new Date(order.orderId).toUTCString(),
+          status: this.getRandomStatus()
+        }))
+      )
     }
   }
 </script>
