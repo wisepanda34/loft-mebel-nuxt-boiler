@@ -2,17 +2,9 @@ import { defineStore } from 'pinia'
 
 export const useUser = defineStore('userStore', {
   state () {
+    const userDataStorage = JSON.parse(localStorage.getItem('userDataStorage')) || {}
     return {
-      userData: {
-        name: '',
-        surname: '',
-        email: '',
-        phone: '',
-        city: '',
-        street: '',
-        house: '',
-        flat: ''
-      }
+      userData: userDataStorage
     }
   },
   getters: {
@@ -25,9 +17,10 @@ export const useUser = defineStore('userStore', {
       await new Promise(resolve => {
         setTimeout(() => {
           resolve()
-        }, 2000)
+        }, 1000)
       })
       this.userData = payload
+      localStorage.setItem('userDataStorage', JSON.stringify(this.userData))
     }
   }
 })

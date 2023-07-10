@@ -180,15 +180,19 @@
     // },
     },
     mounted () {
-      // преобразование данных из геттера getUserData в массив,
+      // преобразование данных из store в массив,
       // который перебирается и копирует значения в объект userData.
-      Object.keys(this.userData).forEach(key => {
-        const userValue = this.userData[key]
-        if (userValue) {
-          this.userInfo[key] = userValue
-        }
-      })
-
+      if (this.userData) {
+        console.log('mounted worked')
+        Object.keys(this.userData).forEach(key => {
+          const userValue = this.userData[key]
+          if (userValue) {
+            this.userInfo[key] = userValue
+          }
+        })
+      } else {
+        console.log('mounted didnt work')
+      }
       // let i = 1
       // this.tableItems = this.getOrders.flatMap(order =>
       //   order.orderProducts.map((product) => ({
