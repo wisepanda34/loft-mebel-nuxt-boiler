@@ -2,9 +2,8 @@ import { defineStore } from 'pinia'
 
 export const useUser = defineStore('userStore', {
   state () {
-    const userDataStorage = JSON.parse(localStorage.getItem('userDataStorage')) || {}
     return {
-      userData: userDataStorage
+      userData: JSON.parse(localStorage.getItem('userDataStorage')) || {}
     }
   },
   getters: {
