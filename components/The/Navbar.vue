@@ -5,11 +5,11 @@
         v-for="(link,i) in links"
         :key="i"
         :to="link.path"
+        :class="{ active: isActive(link.path) }"
+        @click="chooseMenu"
       >
         {{ link.name }}
       </nuxt-link>
-      <!--      :class="{ active:isActive('/') }"-->
-      <!--      @click="chooseMenu"-->
     </nav>
     <div class="navbar__delivery">
       <nuxt-link
@@ -36,29 +36,55 @@
   </div>
 </template>
 
-<script setup>
-  const links = [
-    {
-      name: 'Home',
-      path: '/'
+<script>
+  import { useRoute } from 'vue-router'
+
+  export default {
+    data () {
+      const links = [
+        {
+          name: 'Home',
+          path: '/'
+        },
+        {
+          name: 'About',
+          path: '/about'
+        },
+        {
+          name: 'Catalog',
+          path: '/catalog'
+        },
+        {
+          name: 'Contacts',
+          path: '/contacts'
+        },
+        {
+          name: 'Reviews',
+          path: '/reviewsPage'
+        }
+      ]
+      return {
+        links
+      }
     },
-    {
-      name: 'About',
-      path: '/about'
+    setup () {
+      const route = useRoute()
+
+      const isActive = (routePath) => {
+        return route.path === routePath
+      }
+      return {
+        isActive
+      }
     },
-    {
-      name: 'Catalog',
-      path: '/catalog'
-    },
-    {
-      name: 'Contacts',
-      path: '/contacts'
-    },
-    {
-      name: 'Reviews',
-      path: '/reviewsPage'
+    methods: {
+      chooseMenu () {
+        this.$emit('close-menuTransform')
+      }
+      // проверка перехода по роуту, содержащемуся в конкретном route-link
     }
-  ]
+  }
+
 </script>
 
 <style lang="scss" scoped>

@@ -3,12 +3,14 @@
     <div class="container">
       <TheNavbar class="header__navbar" />
       <div class="header__main">
-        <div class="header__burger">
+        <div
+          class="header__burger"
+          @click="activeMenu"
+        >
           <span />
           <span />
           <span />
         </div>
-        <!--        @click="activeMenu"-->
 
         <div class="header__logo">
           <nuxt-link to="/">Loft <br> Furniture</nuxt-link>
@@ -63,8 +65,10 @@
 
         <div class="header__icons">
           <nuxt-link to="/favoritesPage">
-            <div class="header__icons_favorite">
-              <!--              :class="{active:isActive('/favoritesPage')}"-->
+            <div
+              class="header__icons_favorite"
+              :class="{ active:isActive('/favoritesPage') }"
+            >
               <img
                 src="/images/icons/wishlist-icon.svg"
                 alt="i"
@@ -77,9 +81,11 @@
               <!--              </div>-->
             </div>
           </nuxt-link>
-          <nuxt-link to="/cart">
+          <nuxt-link
+            to="/cart"
+            :class="{ active:isActive('/cart') }"
+          >
             <div class="header__icons_cart">
-              <!--              :class="{active:isActive('/cart')}"-->
               <img
                 src="/images/icons/bag.svg"
                 alt="i"
@@ -95,8 +101,8 @@
           <nuxt-link
             to="/account"
             class="header__icons_account flex-center"
+            :class="{ active:isActive('/account') }"
           >
-            <!--            :class="{active:isActive('/account')}"-->
             <img
               src="/images/icons/profile-icon.svg"
               alt="i"
@@ -105,17 +111,75 @@
         </div>
       </div>
 
-      <!--      <menu-transform class="header__menuTransform" :class="{'menuTransform-active':isMenuActive}" @close-menu="closeMenu"/>-->
+      <menu-transform
+        class="header__menuTransform"
+        :class="{ 'menuTransform-active':isMenuActive }"
+        @close-menu="closeMenu"
+      />
     </div>
   </div>
 </template>
 <script>
+  import { useRoute } from 'vue-router'
   export default {
     data () {
       return {
         isMenuActive: false,
         // windowWidth: window.innerWidth,
         searchQuery: ''
+      }
+    },
+    setup () {
+      const route = useRoute()
+
+      const isActive = (routePath) => {
+        return route.path === routePath
+      }
+      return {
+        isActive
+      }
+    },
+    // computed: {
+    // ...mapGetters({
+    //   searchProduct: "products/searchProduct",
+    //   getProduct: "products/getProduct",
+    //   //количество всех элементов в карзине
+    //   totalElements: 'cartList/getTotalElements',
+    //   totalFavorites: 'favorites/getTotalFavorites'
+    // }),
+    // searched() {
+    //   return this.searchProduct(this.searchQuery)
+    // },
+    // },
+    // mounted() {
+    // window.addEventListener("resize", this.handleWindowResize);
+    // window.addEventListener("click", this.handleOutsideClick);
+    // },
+    // destroyed() {
+    // window.removeEventListener("resize", this.handleWindowResize);
+    // window.removeEventListener("click", this.handleOutsideClick);
+    // },
+    methods: {
+      handleWindowResize () {
+        // this.windowWidth = window.innerWidth
+      },
+      handleOutsideClick (event) {
+        const searchContainer = this.$refs.searchContainer
+        if (!searchContainer) return
+        if (!searchContainer.contains(event.target)) {
+          this.closeSearch()
+        }
+      },
+      activeMenu () {
+        this.isMenuActive = true
+        document.body.classList.add('no-scroll')
+      },
+      closeMenu () {
+        this.isMenuActive = false
+        document.body.classList.remove('no-scroll')
+      },
+      closeSearch () {
+        this.searchQuery = ''
       }
     }
   }
