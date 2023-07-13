@@ -9,6 +9,7 @@
           :class="{
             'disabled_class': loading
           }"
+          novalidate
           @submit.prevent="handleSubmit"
         >
           <div class="profile__personal-grid">
@@ -53,11 +54,14 @@
 </template>
 
 <script>
+  import { useVuelidate } from '@vuelidate/core'
+  import { required, email, minLength } from '@vuelidate/validators'
   import MyInput from '~/components/UI/MyInput.vue'
   import MyButton from '~/components/UI/MyButton.vue'
   import Vue3EasyDataTable from 'vue3-easy-data-table'
   import { useUser } from '~/stores/user'
   import { useOrders } from '~/stores/orders'
+
   export default {
     name: 'Profile',
     components: { MyButton, MyInput, Vue3EasyDataTable },
@@ -89,13 +93,24 @@
     },
     setup () {
       try {
+        const v$ = useVuelidate()
         const userStore = useUser()
         const ordersStore = useOrders()
         const userData = userStore.userData
         const orders = ordersStore.orders
-        return { userStore, userData, orders, ordersStore }
+        return { userStore, userData, orders, ordersStore, v$ }
       } catch (error) {
         console.error('Profile setup error', error)
+      }
+    },
+    validations () {
+      return {
+        useInfo: {
+          name: { required, minLength }, // Matches this.firstName
+          surname: { required, minLength }, // Matches this.lastName
+          email: { required, email } // Matches this.contact.email
+          // phone: { required, phone } // Matches this.contact.email
+        }
       }
     },
     methods: {
@@ -163,8 +178,8 @@
     mounted () {
       // преобразование данных из store в массив,
       // который перебирается и копирует значения в объект userData.
-      Object.keys(this.userData).forEach(key => {
-        const userValue = this.userData[key]
+      Object.keys(this.userStore.getUserData).forEach(key => {
+        const userValue = this.userStore.getUserData[key]
         if (userValue) {
           this.userInfo[key] = userValue
         }

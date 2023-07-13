@@ -199,24 +199,28 @@ export const useProducts = defineStore('productsStore', {
           like: false
         }
       ]
-  })
+  }),
+  getters: {
+    getProducts () {
+      return this.products
+    },
+    // отдаем в компонент продукт, найденный по id
+    getProduct (id) {
+      return this.products.find(item => item.id === id)
+    },
+    // отдаем в компонент те продукты, у которых найдены совпадения
+    searchProduct (query) {
+      if (!query) return []
+      return this.products.filter(item => {
+        const productsIncludeSearchParam = [
+          'titleCard',
+          'kindProduct',
+          'typeProduct',
+          'category'
+        ].find(param => item[param].toLowerCase().includes(query.trim().toLowerCase()))
+
+        return productsIncludeSearchParam
+      })
+    }
+  }
 })
-// getters: {
-//   getProducts: state => state.products,
-//   // отдаем в компонент продукт, найденный по id
-//   getProduct: state => id => state.products.find(item => item.id === id),
-//   //отдаем в компонент те продукты, у которых найдены совпадения
-//   searchProduct: state => query => {
-//     if (!query) return []
-//     return state.products.filter(item => {
-//       const productsIncludeSearchParam = [
-//         'titleCard',
-//         'kindProduct',
-//         'typeProduct',
-//         'category'
-//       ].find(param => item[param].toLowerCase().includes(query.trim().toLowerCase()))
-//
-//       return productsIncludeSearchParam
-//     })
-//   }
-// }

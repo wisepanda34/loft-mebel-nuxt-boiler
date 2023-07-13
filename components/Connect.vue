@@ -6,23 +6,27 @@
         class="connect__form"
         @submit="handleSubmit"
       >
+        <!--        =================================================    -->
+
         <div class="connect__form_inputs">
           <div class="connect__form_name">
             <label for="input_name">Your name
               <my-input
+                v-model.trim="connectName"
                 class="connect__form_input"
                 name="input_name"
               />
             </label>
           </div>
 
+          <!--        =================================================    -->
           <div class="connect__form_phone">
             <label for="input_phone">Your phone
               <my-input
+                v-model.trim="connectPhone"
                 class="connect__form_input connect__form_input-phone"
                 name="input_phone"
                 type="tel"
-                pattern="[0-9]*"
               />
             </label>
           </div>
@@ -32,8 +36,6 @@
           <label>Message
             <textarea
               name="textarea_message"
-              minLength="5"
-              maxLength="100"
             />
           </label>
         </div>
@@ -84,6 +86,9 @@
 </template>
 
 <script>
+  // import { computed } from '@vue/composition-api'
+  // import { useVuelidate } from '@vuelidate/core'
+  import { required, numeric } from '@vuelidate/validators'
   import { useLinksFooter } from '~/stores/linksFooter'
   import { useClient } from '~/stores/client'
   import MyInput from '@/components/UI/MyInput.vue'
@@ -93,19 +98,46 @@
     name: 'Connect',
     components: { MyInput, MyButton },
     setup () {
-      const linksFooterStore = useLinksFooter()
-      const clientStore = useClient()
-      const linksFooter = computed(() => linksFooterStore.linksFooter)
-      return { linksFooter, linksFooterStore, clientStore }
+      try {
+        // const v$ = useVuelidate()
+        const linksFooterStore = useLinksFooter()
+        const clientStore = useClient()
+        const linksFooter = computed(() => linksFooterStore.linksFooter)
+        return { linksFooter, linksFooterStore, clientStore }
+      } catch (e) {
+        console.log('error Connect setup', e)
+      }
+      return {}
+    },
+    data () {
+      return {
+        connectName: '',
+        connectPhone: '',
+        connectText: ''
+      }
+    },
+    validations () {
+      return {
+        connectName: { required },
+        connectPhone: { required, numeric },
+        connectText: { required }
+      }
     },
     methods: {
       // ...mapActions('clients',['addNewClient']),
       handleSubmit (event) {
         event.preventDefault()
+
         const name = event.target.elements.input_name.value
         const phone = event.target.elements.input_phone.value
         const message = event.target.elements.textarea_message.value
         const newClient = { name, phone, message }
+        // Проверка валидации полей
+        this.v$?.value.$touch()
+        // Проверка валидности всей формы
+        if (this.v$?.value.$invalid) {
+          return
+        }
         this.addNewClient(newClient)
         event.target.reset()
       },
@@ -117,6 +149,13 @@
 </script>
 
 <style lang="scss" scoped>
+.reqInput{
+  background: rgba(250, 97, 70, 0.7);
+}
+.feedback{
+  color: tomato;
+  padding: 5px;
+}
 .connect{
   // min-height: 400px;
   &__title{
