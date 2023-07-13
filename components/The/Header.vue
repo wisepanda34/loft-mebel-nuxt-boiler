@@ -1,126 +1,129 @@
 <template>
-  <div class="header">
-    <div class="container">
-      <TheNavbar class="header__navbar" />
-      <div class="header__main">
-        <div
-          class="header__burger"
-          @click="activeMenu"
-        >
-          <span />
-          <span />
-          <span />
-        </div>
-
-        <div class="header__logo">
-          <nuxt-link to="/">Loft <br> Furniture</nuxt-link>
-        </div>
-
-        <div
-          ref="searchContainer"
-          class="header__search"
-        >
-          <input
-            v-model="searchQuery"
-            class="header__search_input"
-          >
-          <svg
-            class="header__search_icon"
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M15 15L11 11M7 13C3.68629 13 1 10.3137 1 7C1 3.68629 3.68629 1 7 1C10.3137 1 13 3.68629 13 7C13 10.3137 10.3137 13 7 13Z"
-              stroke="black"
-            />
-          </svg>
-
-          <!--          <ul-->
-          <!--            v-if="searched.length"-->
-          <!--            class="header__search_list"-->
-          <!--          >-->
-          <!--            <li-->
-          <!--              v-for="item in searched"-->
-          <!--              class="header__search_item"-->
-          <!--            >-->
-          <!--              <nuxt-link-->
-          <!--                class="header__search_link"-->
-          <!--                :to="`/product/${item.id}`"-->
-          <!--              >-->
-          <!--                &lt;!&ndash;                @click="closeSearch"&ndash;&gt;-->
-          <!--                <div class="header__search_pic">-->
-          <!--                  <img-->
-          <!--                    :src="item.img"-->
-          <!--                    alt="img"-->
-          <!--                  >-->
-          <!--                </div>-->
-          <!--                {{ item.titleCard }}-->
-          <!--              </nuxt-link>-->
-          <!--            </li>-->
-          <!--          </ul>-->
-        </div>
-
-        <div class="header__icons">
-          <nuxt-link to="/favoritesPage">
-            <div
-              class="header__icons_favorite"
-              :class="{ active:isActive('/favoritesPage') }"
-            >
-              <img
-                src="/images/icons/wishlist-icon.svg"
-                alt="i"
-              >
-              <!--              <div-->
-              <!--                v-if="totalFavorites"-->
-              <!--                class="header__icons_yellow-round"-->
-              <!--              >-->
-              <!--                {{ totalFavorites }}-->
-              <!--              </div>-->
-            </div>
-          </nuxt-link>
-          <nuxt-link
-            to="/cart"
-            :class="{ active:isActive('/cart') }"
-          >
-            <div class="header__icons_cart">
-              <img
-                src="/images/icons/bag.svg"
-                alt="i"
-              >
-              <!--              <div-->
-              <!--                v-if="totalElements"-->
-              <!--                class="header__icons_red-round"-->
-              <!--              >-->
-              <!--                {{ totalElements }}-->
-              <!--              </div>-->
-            </div>
-          </nuxt-link>
-          <nuxt-link
-            to="/account"
-            class="header__icons_account flex-center"
-            :class="{ active:isActive('/account') }"
-          >
-            <img
-              src="/images/icons/profile-icon.svg"
-              alt="i"
-            >
-          </nuxt-link>
-        </div>
+  <header class="header">
+    <TheNavbar class="header__navbar" />
+    <div class="header__main">
+      <div
+        class="header__burger"
+        @click="activeMenu"
+      >
+        <span />
+        <span />
+        <span />
       </div>
 
-      <menu-transform
-        class="header__menuTransform"
-        :class="{ 'menuTransform-active':isMenuActive }"
-        @close-menu="closeMenu"
-      />
+      <div class="header__logo">
+        <nuxt-link to="/">Loft <br> Furniture</nuxt-link>
+      </div>
+
+      <div
+        ref="searchContainer"
+        class="header__search"
+      >
+        <input
+          v-model="searchQuery"
+          class="header__search_input"
+        >
+        <svg
+          class="header__search_icon"
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M15 15L11 11M7 13C3.68629 13 1 10.3137 1 7C1 3.68629 3.68629 1 7 1C10.3137 1 13 3.68629 13 7C13 10.3137 10.3137 13 7 13Z"
+            stroke="black"
+          />
+        </svg>
+
+        <!--        <ul-->
+        <!--          v-if="searched.length"-->
+        <!--          class="header__search_list"-->
+        <!--        >-->
+        <!--          <li-->
+        <!--            v-for="item in searched"-->
+        <!--            :key="item.id"-->
+        <!--            class="header__search_item"-->
+        <!--          >-->
+        <!--            <nuxt-link-->
+        <!--              class="header__search_link"-->
+        <!--              :to="`/product/${item.id}`"-->
+        <!--            >-->
+        <!--              &lt;!&ndash;                @click="closeSearch"&ndash;&gt;-->
+        <!--              <div class="header__search_pic">-->
+        <!--                <img-->
+        <!--                  :src="item.img"-->
+        <!--                  alt="img"-->
+        <!--                >-->
+        <!--              </div>-->
+        <!--              {{ item.titleCard }}-->
+        <!--            </nuxt-link>-->
+        <!--          </li>-->
+        <!--        </ul>-->
+      </div>
+
+      <div class="header__icons">
+        <nuxt-link to="/favoritesPage">
+          <div
+            class="header__icons_favorite"
+            :class="{ active:isActive('/favoritesPage') }"
+          >
+            <img
+              src="/images/icons/wishlist-icon.svg"
+              alt="i"
+            >
+            <div
+              v-if="favoritesStore.getFavoritesLength"
+              class="header__icons_yellow-round"
+            >
+              {{ favoritesStore.getFavoritesLength }}
+            </div>
+          </div>
+        </nuxt-link>
+        <nuxt-link
+          to="/cart"
+          :class="{ active:isActive('/cart') }"
+        >
+          <div class="header__icons_cart">
+            <img
+              src="images/icons/bag.svg"
+              alt="i"
+            >
+            <div
+              v-if="cartListStore.getTotalElements"
+              class="header__icons_red-round"
+            >
+              {{ cartListStore.getTotalElements }}
+            </div>
+          </div>
+        </nuxt-link>
+        <nuxt-link
+          to="/account"
+          class="header__icons_account flex-center"
+          :class="{ active:isActive('/account') }"
+        >
+          <img
+            src="/images/icons/profile-icon.svg"
+            alt="i"
+          >
+        </nuxt-link>
+      </div>
     </div>
-  </div>
+
+    <menu-transform
+      class="header__menuTransform"
+      :class="{ 'menuTransform-active':isMenuActive }"
+      @close-menu="closeMenu"
+    />
+  </header>
 </template>
 <script>
   import { useRoute } from 'vue-router'
+  import { useCartList } from '~/stores/cartList'
+  import { useFavorites } from '~/stores/favorites'
+  import { useProducts } from '~/stores/products'
+
   export default {
     data () {
       return {
@@ -130,27 +133,31 @@
       }
     },
     setup () {
-      const route = useRoute()
-
-      const isActive = (routePath) => {
-        return route.path === routePath
-      }
-      return {
-        isActive
+      try {
+        const route = useRoute()
+        const cartListStore = useCartList()
+        const favoritesStore = useFavorites()
+        const productsStore = useProducts()
+        const getProduct = productsStore.getProduct
+        // const searchProduct = productsStore.searchProduct
+        const isActive = (routePath) => {
+          return route.path === routePath
+        }
+        return {
+          isActive, cartListStore, favoritesStore, getProduct
+        }
+      } catch (e) {
+        console.log('Header setup', e)
       }
     },
-    // computed: {
-    // ...mapGetters({
-    //   searchProduct: "products/searchProduct",
-    //   getProduct: "products/getProduct",
-    //   //количество всех элементов в карзине
-    //   totalElements: 'cartList/getTotalElements',
-    //   totalFavorites: 'favorites/getTotalFavorites'
-    // }),
-    // searched() {
-    //   return this.searchProduct(this.searchQuery)
-    // },
-    // },
+    computed: {
+      // searched () {
+      // this.productsStore.searchProduct(this.searchQuery)
+      // return this.searchProduct()
+      // ...mapState(useProducts, ['searchProduct']),
+
+      // }
+    },
     // mounted() {
     // window.addEventListener("resize", this.handleWindowResize);
     // window.addEventListener("click", this.handleOutsideClick);
@@ -163,12 +170,16 @@
       handleWindowResize () {
         // this.windowWidth = window.innerWidth
       },
+      // логика очистки поля при клике вне searchContainer
       handleOutsideClick (event) {
         const searchContainer = this.$refs.searchContainer
         if (!searchContainer) return
         if (!searchContainer.contains(event.target)) {
           this.closeSearch()
         }
+      },
+      closeSearch () {
+        this.searchQuery = ''
       },
       activeMenu () {
         this.isMenuActive = true
@@ -177,9 +188,6 @@
       closeMenu () {
         this.isMenuActive = false
         document.body.classList.remove('no-scroll')
-      },
-      closeSearch () {
-        this.searchQuery = ''
       }
     }
   }

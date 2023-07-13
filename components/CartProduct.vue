@@ -74,10 +74,8 @@
     },
     methods: {
       handlerRemoveProduct (id) {
-        console.log('id', id)
         this.cartListStore.removeFromCart(id)
-        // this.$store.dispatch('cartList/removeFromCart', id)
-        this.modalStore.openVoiceModal('Product was removed from cart!')
+        // this.modalStore.openVoiceModal('Product was removed from cart!')
       },
       increment (id) {
         this.cartListStore.incrementQuantity(id)
@@ -164,6 +162,7 @@
     justify-content: center;
     align-items: center;
     color: #C9C9C9;
+    cursor: pointer;
   }
 }
 @media (max-width:576px) {

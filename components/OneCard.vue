@@ -43,8 +43,8 @@
       <MyButton
         v-show="isBtnShow"
         class="card__descr-btn"
+        @click.prevent="handleAddToCartAndOpenVoiceModal(item)"
       >
-        <!--      @click.prevent="handleAddToCartAndOpenVoiceModal(item)"-->
         Add to cart
       </MyButton>
     </div>
@@ -53,7 +53,7 @@
 
 <script>
   import MyButton from '~/components/UI/MyButton.vue'
-  // import { useCartList } from '~/stores/cartList'
+  import { useCartList } from '~/stores/cartList'
   // import { useFavorites } from '~/stores/favorites'
   // import { useModal } from '~/stores/modal'
 
@@ -68,44 +68,47 @@
         default: () => {}
       },
       isBtnShow: Boolean
+    },
+    setup () {
+      try {
+        const cartListStore = useCartList()
+        // const favoritesStore = useFavorites()
+        // const modalStore = useModal()
+        console.log('OneCard setup is working')
+        return {
+          cartListStore
+          // favoritesStore,
+          // modalStore
+        }
+      } catch (error) {
+        console.error('Unhandled OneCard setup error:', error)
+        console.log('OneCard setup error')
+      }
+    },
+    methods: {
+      handleAddToCartAndOpenVoiceModal (card) {
+        this.cartListStore.addToCart(card)
+        console.log('addToCart', card)
+
+        // this.modalStore.openVoiceModal('That product was added to cart!')
+      }
+      // handleAddToFavorites (card, like) {
+      //   const isFavorite = this.isCardInFavorites(card)
+      //   if (isFavorite) {
+      //     this.favoritesStore.removeFromFavorites(card)
+      //   } else {
+      //     const newCard = { ...card, like }
+      //     this.favoritesStore.addToFavorites(newCard)
+      //   }
+      // },
+      // // обращаемся в store/favorites и с помощью some() проверяем наличие этого card в favorites
+      // isCardInFavorites (card) {
+      //   return this.favoritesStore.state.favorites.some((favorites) => favorites.id === card.id)
+      // },
+      // removeFromFavorites (card) {
+      //   this.favoritesStore.removeFromFavorites(card)
+      // }
     }
-    // setup () {
-    //   try {
-    //     const cartListStore = useCartList()
-    //     const favoritesStore = useFavorites()
-    //     const modalStore = useModal()
-    //     console.log('OneCard setup is working')
-    //     return {
-    //       cartListStore, favoritesStore, modalStore
-    //     }
-    //   } catch (error) {
-    //     console.error('Unhandled OneCard setup error:', error)
-    //     console.log('OneCard setup error')
-    //   }
-    // },
-    // methods: {
-    //   handleAddToCartAndOpenVoiceModal (card) {
-    //     this.cartListStore.addToCart(card)
-    //
-    //     this.modalStore.openVoiceModal('That product was added to cart!')
-    //   },
-    //   handleAddToFavorites (card, like) {
-    //     const isFavorite = this.isCardInFavorites(card)
-    //     if (isFavorite) {
-    //       this.favoritesStore.removeFromFavorites(card)
-    //     } else {
-    //       const newCard = { ...card, like }
-    //       this.favoritesStore.addToFavorites(newCard)
-    //     }
-    //   },
-    //   // обращаемся в store/favorites и с помощью some() проверяем наличие этого card в favorites
-    //   isCardInFavorites (card) {
-    //     return this.favoritesStore.state.favorites.some((favorites) => favorites.id === card.id)
-    //   },
-    //   removeFromFavorites (card) {
-    //     this.favoritesStore.removeFromFavorites(card)
-    //   }
-    // }
   }
 </script>
 

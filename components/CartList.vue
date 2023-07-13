@@ -5,12 +5,11 @@
         <h4>Your cart</h4>
         <h4 v-show="cartList.length"><span>{{ cartListStore.getTotalElements }}</span> items</h4>
       </div>
-      <ul
-        v-for="item in cartList"
-        :key="item.id"
-        class="cartlist__list"
-      >
-        <li>
+      <ul class="cartlist__list">
+        <li
+          v-for="item in cartList"
+          :key="item.id"
+        >
           <CartProduct :item="item" />
         </li>
       </ul>
@@ -70,7 +69,7 @@
     setup () {
       try {
         const cartListStore = useCartList()
-        const cartList = cartListStore.cartList
+        const cartList = computed(() => cartListStore.cartList)
         const productsStore = useProducts()
         const recommendList = productsStore.products
 
