@@ -148,7 +148,7 @@
     display: flex;
     flex-direction: row-reverse;
     gap: 20px;
-    width: 100%;
+    //width: 100%;
     overflow-x: auto;
     margin: 0 ;
     scrollbar-width: thin;

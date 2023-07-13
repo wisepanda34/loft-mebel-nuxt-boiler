@@ -91,7 +91,6 @@
       },
       handleAddToFavorites (card, like) {
         const isFavorite = this.isCardInFavorites(card)
-        console.log('isFavorite', isFavorite)
         if (isFavorite) {
           this.favoritesStore.removeFromFavorites(card)
         } else {

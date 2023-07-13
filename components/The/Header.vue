@@ -83,19 +83,18 @@
         </nuxt-link>
         <nuxt-link
           to="/cart"
+          class="header__icons_cart"
           :class="{ active:isActive('/cart') }"
         >
-          <div class="header__icons_cart">
-            <img
-              src="images/icons/bag.svg"
-              alt="i"
-            >
-            <div
-              v-if="cartListStore.getTotalElements"
-              class="header__icons_red-round"
-            >
-              {{ cartListStore.getTotalElements }}
-            </div>
+          <img
+            src="images/icons/bag.svg"
+            alt="i"
+          >
+          <div
+            v-if="cartListStore.getTotalElements"
+            class="header__icons_red-round"
+          >
+            {{ cartListStore.getTotalElements }}
           </div>
         </nuxt-link>
         <nuxt-link
