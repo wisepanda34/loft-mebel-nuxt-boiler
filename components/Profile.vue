@@ -56,7 +56,7 @@
 
 <script>
   import { useVuelidate } from '@vuelidate/core'
-  import { required, email, minLength } from '@vuelidate/validators'
+  import { required, email, minLength, maxLength, numeric } from '@vuelidate/validators'
   import MyInput from '~/components/UI/MyInput.vue'
   import MyButton from '~/components/UI/MyButton.vue'
   import Vue3EasyDataTable from 'vue3-easy-data-table'
@@ -108,10 +108,10 @@
     validations () {
       return {
         userInfo: {
-          name: { required, minLength: minLength(2) }, // Matches this.firstName
-          surname: { required, minLength: minLength(2) }, // Matches this.lastName
-          email: { required, email } // Matches this.contact.email
-          // phone: { required, phone } // Matches this.contact.email
+          name: { required, minLength: minLength(2), maxLength: maxLength(20) },
+          surname: { required, minLength: minLength(2), maxLength: maxLength(20) },
+          email: { required, email },
+          phone: { required, numeric, minLength: minLength(10), maxLength: maxLength(10) }
         }
       }
     },
@@ -128,7 +128,6 @@
         this.loading = true
         try {
           await this.userStore.updateUserData(this.userInfo)
-          // this.setStorage(this.userData)
         } catch (e) {
           console.error('Profile handleSubmit error', e)
           console.log(e)
