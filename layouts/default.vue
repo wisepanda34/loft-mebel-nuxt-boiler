@@ -10,19 +10,27 @@
 <script>
   import { useCartList } from '~/stores/cartList'
   import { useFavorites } from '~/stores/favorites'
+  import { useOrders } from '~/stores/orders'
+  import { useUser } from '~/stores/user'
 
   export default {
     setup () {
       const cartList = useCartList()
       const favoritesStore = useFavorites()
+      const ordersStore = useOrders()
+      const userStore = useUser()
       return {
         cartList,
-        favoritesStore
+        favoritesStore,
+        ordersStore,
+        userStore
       }
     },
     mounted () {
       this.cartList.fetchCartList()
       this.favoritesStore.fetchFavorites()
+      this.ordersStore.fetchOrders()
+      this.userStore.fetchUser()
     }
   }
 </script>

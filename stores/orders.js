@@ -3,7 +3,6 @@ import { defineStore } from 'pinia'
 export const useOrders = defineStore('ordersStore', {
   state () {
     return {
-      // orders: JSON.parse(localStorage.getItem('ordersStorage')) || []
       orders: []
     }
   },
@@ -13,9 +12,14 @@ export const useOrders = defineStore('ordersStore', {
     }
   },
   actions: {
+    fetchOrders () {
+      if (localStorage) {
+        this.orders = JSON.parse(localStorage.getItem('ordersStorage')) || []
+      }
+    },
     addNewOrder (payload) {
       if (!this.orders) {
-        this.orders = []  // Initialize orders if it is not defined
+        this.orders = []
       }
       this.orders.push(payload)
       localStorage.setItem('ordersStorage', JSON.stringify(this.orders))

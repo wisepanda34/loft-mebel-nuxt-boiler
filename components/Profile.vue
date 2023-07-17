@@ -108,8 +108,8 @@
     validations () {
       return {
         userInfo: {
-          name: { required, minLength: minLength(3) }, // Matches this.firstName
-          surname: { required, minLength: minLength(3) }, // Matches this.lastName
+          name: { required, minLength: minLength(2) }, // Matches this.firstName
+          surname: { required, minLength: minLength(2) }, // Matches this.lastName
           email: { required, email } // Matches this.contact.email
           // phone: { required, phone } // Matches this.contact.email
         }

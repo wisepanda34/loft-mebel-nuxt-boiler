@@ -219,7 +219,6 @@ export const useProducts = defineStore('productsStore', {
           'typeProduct',
           'category'
         ].find(param => item[param].toLowerCase().includes(query.trim().toLowerCase()))
-        console.log('productsIncludeSearchParam', productsIncludeSearchParam)
         return productsIncludeSearchParam
       })
     }
