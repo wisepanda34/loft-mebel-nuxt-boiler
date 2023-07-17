@@ -2,10 +2,9 @@ import { defineStore } from 'pinia'
 
 export const useCartList = defineStore('cartListStore', {
   state () {
-    const cartListStorage = JSON.parse(localStorage.getItem('cartListStorage')) || []
     return {
-      cartList: cartListStorage
-      // cartList: []
+      // cartList: cartListStorage
+      cartList: []
     }
   },
   getters: {
@@ -20,6 +19,11 @@ export const useCartList = defineStore('cartListStore', {
     }
   },
   actions: {
+    fetchCartList () {
+      if (localStorage) {
+        this.cartList = JSON.parse(localStorage.getItem('cartListStorage')) || []
+      }
+    },
     addToCart (card) {
       // console.log(card)
       const productIdx = this.cartList.findIndex((item) => item.id === card.id) // ищем id продукта, который уже есть в карзине

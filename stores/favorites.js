@@ -2,8 +2,7 @@ import { defineStore } from 'pinia'
 
 export const useFavorites = defineStore('favoritesStore', {
   state: () => ({
-    favorites: JSON.parse(localStorage.getItem('favoritesStorage')) || []
-    // favorites: []
+    favorites: []
   }),
   getters: {
     getFavoritesLength () {
@@ -11,6 +10,11 @@ export const useFavorites = defineStore('favoritesStore', {
     }
   },
   actions: {
+    fetchFavorites () {
+      if (localStorage) {
+        this.favorites = JSON.parse(localStorage.getItem('favoritesStorage')) || []
+      }
+    },
     addToFavorites (newFavorite) {
       this.favorites.push(newFavorite)
       localStorage.setItem('favoritesStorage', JSON.stringify(this.favorites))

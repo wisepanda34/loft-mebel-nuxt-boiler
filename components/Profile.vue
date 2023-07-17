@@ -22,6 +22,7 @@
                 <my-input
                   v-model="userInfo[field]"
                   :name="`input_${field}`"
+                  @input="v$.$touch()"
                 />
               </label>
             </div>
@@ -65,6 +66,7 @@
   export default {
     name: 'Profile',
     components: { MyButton, MyInput, Vue3EasyDataTable },
+
     data () {
       return {
         userInfo: {
@@ -105,9 +107,9 @@
     },
     validations () {
       return {
-        useInfo: {
-          name: { required, minLength }, // Matches this.firstName
-          surname: { required, minLength }, // Matches this.lastName
+        userInfo: {
+          name: { required, minLength: minLength(3) }, // Matches this.firstName
+          surname: { required, minLength: minLength(3) }, // Matches this.lastName
           email: { required, email } // Matches this.contact.email
           // phone: { required, phone } // Matches this.contact.email
         }

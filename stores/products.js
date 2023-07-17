@@ -210,7 +210,6 @@ export const useProducts = defineStore('productsStore', {
     },
     // отдаем в компонент те продукты, у которых найдены совпадения
     getSearchProduct: state => query => {
-      console.log('query',query)
       if (!query) return []
       query = String(query)
       return state.products.filter(item => {

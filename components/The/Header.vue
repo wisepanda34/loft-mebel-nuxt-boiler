@@ -124,7 +124,7 @@
   import { useFavorites } from '~/stores/favorites'
   import { useProducts } from '~/stores/products'
 
-  export default  {
+  export default {
     data () {
       return {
         isMenuActive: false,
@@ -156,7 +156,7 @@
       }
     },
     computed: {
-      searched() {
+      searched () {
         return this.productsStore.getSearchProduct(this.searchQuery)
       }
     },
@@ -244,7 +244,7 @@
     &_list{
       position: absolute;
       z-index: 100;
-      top: 33px;
+      top: 49px;
       left: 20px;
       width: calc(100% - 40px);
       max-height: 50vh;
@@ -404,7 +404,7 @@
         left: 14px;
       }
       &_list{
-        top: 25px;
+        top: 39px;
         left: 0;
         width: 100%;
         font-size: 14px;

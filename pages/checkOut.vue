@@ -131,18 +131,18 @@
         this.order.customer.surname = this.userData.surname
         this.order.customer.email = this.userData.email
         this.order.customer.phone = this.userData.phone
-        this.order.customer.deliveryOrder = this.selected
-        this.order.customer.paymentOrder = this.selected
+        this.order.customer.deliveryOrder = this.blocks[0].selected
+        this.order.customer.paymentOrder = this.blocks[1].selected
         this.order.orderId = Date.now()
         this.order.orderProducts = this.cartList
-        console.log('newOrder',this.order )
+        console.log('newOrder', this.order)
 
         try {
           this.ordersStore.addNewOrder(this.order)
           console.log('addNewOrder')
           // this.useCartList.clearCartList()
           this.modalStore.openVoiceModal('your order has been placed and sent for processing, we will contact you')
-          // this.$router.back()
+          this.$router.go(-1)
         } catch (e) {
           console.log(e)
         } finally {

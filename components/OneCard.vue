@@ -111,9 +111,9 @@
 
 <style lang="scss" scoped>
 .card{
+  flex: 0 0 263px;
   position: relative;
   z-index: 10;
-  width: 263px;
   height:390px;
   display: flex;
   flex-direction: column;

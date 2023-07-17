@@ -3,12 +3,28 @@
     <TheHeader class="theHeader" />
     <slot class="slot" />
     <TheFooter class="theFooter" />
-    <BaseModal />
+    <UIBaseModal />
   </div>
 </template>
 
-<script setup>
-  import BaseModal from '~/components/UI/BaseModal.vue'
+<script>
+  import { useCartList } from '~/stores/cartList'
+  import { useFavorites } from '~/stores/favorites'
+
+  export default {
+    setup () {
+      const cartList = useCartList()
+      const favoritesStore = useFavorites()
+      return {
+        cartList,
+        favoritesStore
+      }
+    },
+    mounted () {
+      this.cartList.fetchCartList()
+      this.favoritesStore.fetchFavorites()
+    }
+  }
 </script>
 
 <style lang="scss">

@@ -1,9 +1,11 @@
 <template>
-  <CartList />
+  <ClientOnly>
+    <CartList />
+  </ClientOnly>
 </template>
 
-<script setup>
-  import CartList from '~/components/CartList.vue'
+<script >
+  // import CartList from '~/components/CartList.vue'
 
 </script>
 
