@@ -207,20 +207,21 @@ export const useProducts = defineStore('productsStore', {
     // отдаем в компонент продукт, найденный по id
     getProduct (id) {
       return this.products.find(item => item.id === id)
-    }
+    },
     // отдаем в компонент те продукты, у которых найдены совпадения
-    // searchProduct (query) {
-    //   if (!query) return []
-    //   return this.products.filter(item => {
-    //     const productsIncludeSearchParam = [
-    //       'titleCard',
-    //       'kindProduct',
-    //       'typeProduct',
-    //       'category'
-    //     ].find(param => item[param].toLowerCase().includes(query.trim().toLowerCase()))
-    //
-    //     return productsIncludeSearchParam
-    //   })
-    // }
+    getSearchProduct (query) {
+      if (!query) return []
+      query = String(query)
+      return this.products.filter(item => {
+        const productsIncludeSearchParam = [
+          'titleCard',
+          'kindProduct',
+          'typeProduct',
+          'category'
+        ].find(param => item[param].toLowerCase().includes(query.trim().toLowerCase()))
+        console.log('productsIncludeSearchParam', productsIncludeSearchParam)
+        return productsIncludeSearchParam
+      })
+    }
   }
 })

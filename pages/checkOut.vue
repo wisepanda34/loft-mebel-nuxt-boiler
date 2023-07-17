@@ -123,7 +123,6 @@
       }
     },
     methods: {
-
       handleSubmitOrder () {
         if (this.loading) return // это логика для исключения повторной генерации события handleSubmit в момент отправления данных из формы в хранилище
         this.loading = true
@@ -136,12 +135,14 @@
         this.order.customer.paymentOrder = this.selected
         this.order.orderId = Date.now()
         this.order.orderProducts = this.cartList
+        console.log('newOrder',this.order )
 
         try {
-          this.orders.addNewOrder(this.order)
-          this.useCartList.clearCartList()
+          this.ordersStore.addNewOrder(this.order)
+          console.log('addNewOrder')
+          // this.useCartList.clearCartList()
           this.modalStore.openVoiceModal('your order has been placed and sent for processing, we will contact you')
-          this.$router.back()
+          // this.$router.back()
         } catch (e) {
           console.log(e)
         } finally {
@@ -176,7 +177,7 @@
   &__form{
 
     &__subtitle{
-      margin: 30px 0 20px 0;
+      margin: 30px 0 40px 0;
     }
     &_grid{
       padding: 20px 0;
@@ -193,7 +194,7 @@
       display: flex;
       flex-direction: column;
       gap: 15px;
-      padding: 0 0 20px;
+      padding: 20px 0 30px;
     }
     &_btn{
       width: 150px;

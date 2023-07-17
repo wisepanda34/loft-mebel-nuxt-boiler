@@ -21,6 +21,7 @@
       >
         <input
           v-model="searchQuery"
+          type="text"
           class="header__search_input"
         >
         <svg
@@ -37,30 +38,30 @@
           />
         </svg>
 
-        <!--        <ul-->
-        <!--          v-if="searched.length"-->
-        <!--          class="header__search_list"-->
-        <!--        >-->
-        <!--          <li-->
-        <!--            v-for="item in searched"-->
-        <!--            :key="item.id"-->
-        <!--            class="header__search_item"-->
-        <!--          >-->
-        <!--            <nuxt-link-->
-        <!--              class="header__search_link"-->
-        <!--              :to="`/product/${item.id}`"-->
-        <!--            >-->
-        <!--              &lt;!&ndash;                @click="closeSearch"&ndash;&gt;-->
-        <!--              <div class="header__search_pic">-->
-        <!--                <img-->
-        <!--                  :src="item.img"-->
-        <!--                  alt="img"-->
-        <!--                >-->
-        <!--              </div>-->
-        <!--              {{ item.titleCard }}-->
-        <!--            </nuxt-link>-->
-        <!--          </li>-->
-        <!--        </ul>-->
+        <ul
+          v-if="searchProduct.length"
+          class="header__search_list"
+        >
+          <li
+            v-for="item in searchProduct"
+            :key="item.id"
+            class="header__search_item"
+          >
+            <nuxt-link
+              class="header__search_link"
+              :to="`/product/${item.id}`"
+            >
+              <!--                @click="closeSearch"-->
+              <div class="header__search_pic">
+                <img
+                  :src="item.img"
+                  alt="img"
+                >
+              </div>
+              {{ item.titleCard }}
+            </nuxt-link>
+          </li>
+        </ul>
       </div>
 
       <div class="header__icons">
@@ -138,37 +139,26 @@
         const favoritesStore = useFavorites()
         const productsStore = useProducts()
         const getProduct = productsStore.getProduct
-        // const searchProduct = productsStore.searchProduct
+        const searchProduct = computed(() => productsStore.getSearchProduct)
         const isActive = (routePath) => {
           return route.path === routePath
         }
         return {
-          isActive, cartListStore, favoritesStore, getProduct
+          isActive, cartListStore, favoritesStore, getProduct, searchProduct
         }
       } catch (e) {
         console.log('Header setup', e)
       }
     },
     computed: {
-      // searched () {
-      // this.productsStore.searchProduct(this.searchQuery)
-      // return this.searchProduct()
-      // ...mapState(useProducts, ['searchProduct']),
 
-      // }
     },
-    // mounted() {
-    // window.addEventListener("resize", this.handleWindowResize);
-    // window.addEventListener("click", this.handleOutsideClick);
-    // },
-    // destroyed() {
-    // window.removeEventListener("resize", this.handleWindowResize);
-    // window.removeEventListener("click", this.handleOutsideClick);
-    // },
+    watch: {
+      searchQuery (newValue) {
+
+      }
+    },
     methods: {
-      handleWindowResize () {
-        // this.windowWidth = window.innerWidth
-      },
       // логика очистки поля при клике вне searchContainer
       handleOutsideClick (event) {
         const searchContainer = this.$refs.searchContainer

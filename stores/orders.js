@@ -14,6 +14,9 @@ export const useOrders = defineStore('ordersStore', {
   },
   actions: {
     addNewOrder (payload) {
+      if (!this.orders) {
+        this.orders = []  // Initialize orders if it is not defined
+      }
       this.orders.push(payload)
       localStorage.setItem('ordersStorage', JSON.stringify(this.orders))
     }

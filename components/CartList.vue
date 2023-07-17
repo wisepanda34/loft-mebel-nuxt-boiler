@@ -30,7 +30,7 @@
         </div>
         <div>
           <nuxt-link
-            to="/"
+            to="/checkOut"
             class="cartlist__act-btn btn"
           >
             Checkout
