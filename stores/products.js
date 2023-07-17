@@ -209,10 +209,11 @@ export const useProducts = defineStore('productsStore', {
       return this.products.find(item => item.id === id)
     },
     // отдаем в компонент те продукты, у которых найдены совпадения
-    getSearchProduct (query) {
+    getSearchProduct: state => query => {
+      console.log('query',query)
       if (!query) return []
       query = String(query)
-      return this.products.filter(item => {
+      return state.products.filter(item => {
         const productsIncludeSearchParam = [
           'titleCard',
           'kindProduct',

@@ -2,9 +2,10 @@ import { defineStore } from 'pinia'
 
 export const useCartList = defineStore('cartListStore', {
   state () {
+    const cartListStorage = JSON.parse(localStorage.getItem('cartListStorage')) || []
     return {
-      // cartList: JSON.parse(localStorage.getItem('cartListStorage')) || []
-      cartList: []
+      cartList: cartListStorage
+      // cartList: []
     }
   },
   getters: {
@@ -36,16 +37,16 @@ export const useCartList = defineStore('cartListStore', {
         return
       }
       this.cartList = [...this.cartList, product]
-      // localStorage.setItem('cartListStorage', JSON.stringify(this.cartList))
+      localStorage.setItem('cartListStorage', JSON.stringify(this.cartList))
     },
     removeFromCart (cardId) {
       this.cartList = this.cartList.filter(item => item.id !== cardId)
-        // localStorage.setItem('cartListStorage', JSON.stringify(this.cartList))
+        localStorage.setItem('cartListStorage', JSON.stringify(this.cartList))
     },
     incrementQuantity (itemId) {
       const product = this.cartList.find(item => item.id === itemId)
           if (product) product.amount++
-          // localStorage.setItem('cartListStorage', JSON.stringify(this.cartList))
+          localStorage.setItem('cartListStorage', JSON.stringify(this.cartList))
     },
     decrementQuantity (itemId) {
       const product = this.cartList.find(item => item.id === itemId)
@@ -54,11 +55,11 @@ export const useCartList = defineStore('cartListStore', {
           } else {
             this.cartList = this.cartList.filter(item => item.id !== itemId)
           }
-      // localStorage.setItem('cartListStorage', JSON.stringify(this.cartList))
+      localStorage.setItem('cartListStorage', JSON.stringify(this.cartList))
     },
     clearCartList () {
       this.cartList = []
-      // localStorage.removeItem('cartListStorage')
+      localStorage.removeItem('cartListStorage')
     }
   }
 })

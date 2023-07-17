@@ -39,11 +39,11 @@
         </svg>
 
         <ul
-          v-if="searchProduct.length"
+          v-if="searched.length"
           class="header__search_list"
         >
           <li
-            v-for="item in searchProduct"
+            v-for="item in searched"
             :key="item.id"
             class="header__search_item"
           >
@@ -124,7 +124,7 @@
   import { useFavorites } from '~/stores/favorites'
   import { useProducts } from '~/stores/products'
 
-  export default {
+  export default  {
     data () {
       return {
         isMenuActive: false,
@@ -139,25 +139,32 @@
         const favoritesStore = useFavorites()
         const productsStore = useProducts()
         const getProduct = productsStore.getProduct
-        const searchProduct = computed(() => productsStore.getSearchProduct)
+        // const searchProduct = computed(() => productsStore.getSearchProduct('a'))
         const isActive = (routePath) => {
           return route.path === routePath
         }
         return {
-          isActive, cartListStore, favoritesStore, getProduct, searchProduct
+          isActive,
+          cartListStore,
+          favoritesStore,
+          getProduct,
+          // searchProduct,
+          productsStore
         }
       } catch (e) {
         console.log('Header setup', e)
       }
     },
     computed: {
-
-    },
-    watch: {
-      searchQuery (newValue) {
-
+      searched() {
+        return this.productsStore.getSearchProduct(this.searchQuery)
       }
     },
+    // watch: {
+    //   searchQuery (newValue) {
+    //
+    //   }
+    // },
     methods: {
       // логика очистки поля при клике вне searchContainer
       handleOutsideClick (event) {

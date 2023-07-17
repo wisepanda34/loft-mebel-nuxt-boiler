@@ -1,7 +1,9 @@
 <template>
-  <Menu />
-  <Banner />
-  <Cards />
+  <div>
+    <Menu />
+    <Banner />
+    <Cards />
+  </div>
 </template>
 
 <script>
