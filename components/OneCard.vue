@@ -1,53 +1,57 @@
 <template>
-  <!--    <router-link class='card' :to="`/product/${item.id}`" >-->
-  <div class="card">
-    <div class="card__pic">
-      <div
-        class="card__heart"
-        @click.prevent="handleAddToFavorites(item,true)"
-      >
-        <svg
-          :class="['card__icon', { 'isActiveFavorite':isCardInFavorites(item) }]"
-          class="card__icon"
-          width="22"
-          height="19"
-          viewBox="0 0 22 19"
-          fill="none"
-          stroke="none"
-          xmlns="http://www.w3.org/2000/svg"
+  <nuxt-link
+    class="card"
+    :to="`/product/${item.id}`"
+  >
+    <div class="card">
+      <div class="card__pic">
+        <div
+          class="card__heart"
+          @click.prevent="handleAddToFavorites(item,true)"
         >
-          <path
-            d="M2.467 9.55034L10.9167 18L19.3663 9.55034C20.3056 8.61103 20.8333 7.33706 20.8333 6.00867C20.8333 3.24246 18.5909 1 15.8247 1C14.4963 1 13.2223 1.5277 12.283 2.46701L10.9167 3.83333L9.55034 2.46701C8.61103 1.5277 7.33706 1 6.00867 1C3.24246 1 1 3.24246 1 6.00867C1 7.33706 1.5277 8.61103 2.467 9.55034Z"
-            stroke="black"
-            stroke-linejoin="round"
-          />
-        </svg>
+          <svg
+            :class="['card__icon', { 'isActiveFavorite':isCardInFavorites(item) }]"
+            class="card__icon"
+            width="22"
+            height="19"
+            viewBox="0 0 22 19"
+            fill="none"
+            stroke="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M2.467 9.55034L10.9167 18L19.3663 9.55034C20.3056 8.61103 20.8333 7.33706 20.8333 6.00867C20.8333 3.24246 18.5909 1 15.8247 1C14.4963 1 13.2223 1.5277 12.283 2.46701L10.9167 3.83333L9.55034 2.46701C8.61103 1.5277 7.33706 1 6.00867 1C3.24246 1 1 3.24246 1 6.00867C1 7.33706 1.5277 8.61103 2.467 9.55034Z"
+              stroke="black"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+        <img
+          class="card__img"
+          :src="item.img"
+          alt="img"
+        >
       </div>
-      <img
-        class="card__img"
-        :src="item.img"
-        alt="img"
-      >
-    </div>
-    <div class="card__info">
-      <div class="card__info-title">{{ item.titleCard }}</div>
-      <div class="card__info-subtitle">{{ item.kindProduct }}</div>
-      <div class="card__info-price">{{ item.price }} &#36;</div>
-    </div>
-    <div class="card__descr">
-      <p>Size</p>
-      <div class="card__descr-size">
-        <div><span>width</span><p>{{ item.width }} sm</p></div>&#9587;<div><span>deep</span><p>{{ item.deep }} sm</p></div>&#9587;<div><span>height</span><p>{{ item.height }} sm</p></div>
+      <div class="card__info">
+        <div class="card__info-title">{{ item.titleCard }}</div>
+        <div class="card__info-subtitle">{{ item.kindProduct }}</div>
+        <div class="card__info-price">{{ item.price }} &#36;</div>
       </div>
-      <MyButton
-        v-show="isBtnShow"
-        class="card__descr-btn"
-        @click.prevent="handleAddToCartAndOpenVoiceModal(item)"
-      >
-        Add to cart
-      </MyButton>
+      <div class="card__descr">
+        <p>Size</p>
+        <div class="card__descr-size">
+          <div><span>width</span><p>{{ item.width }} sm</p></div>&#9587;<div><span>deep</span><p>{{ item.deep }} sm</p></div>&#9587;<div><span>height</span><p>{{ item.height }} sm</p></div>
+        </div>
+        <MyButton
+          v-show="isBtnShow"
+          class="card__descr-btn"
+          @click.prevent="handleAddToCartAndOpenVoiceModal(item)"
+        >
+          Add to cart
+        </MyButton>
+      </div>
     </div>
-  </div>
+  </nuxt-link>
 </template>
 
 <script>

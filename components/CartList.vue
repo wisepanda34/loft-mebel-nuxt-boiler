@@ -40,13 +40,15 @@
 
       <h4 class="">You may like</h4>
       <div class="cartlist__recommendation">
-        <OneCard
-          v-for="item in recommendList"
-          :key="item.id"
-          class="no-margin-bottom"
-          :item="item"
-          :is-btn-show="isBtnShow"
-        />
+        <ClientOnly>
+          <OneCard
+            v-for="item in recommendList"
+            :key="item.id"
+            class="no-margin-bottom"
+            :item="item"
+            :is-btn-show="isBtnShow"
+          />
+        </ClientOnly>
       </div>
     </div>
   </section>

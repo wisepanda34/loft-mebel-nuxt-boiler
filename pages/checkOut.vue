@@ -151,7 +151,7 @@
       }
     },
     mounted () {
-      const getUserDataKeys = Object.keys(this.user)// массив, включающий keys объекта getUserData
+      const getUserDataKeys = Object.keys(this.userStore.userData)// массив, включающий keys объекта getUserData
       const thisUserDataKeys = Object.keys(this.userData)// массив полей из шаблона, которые мы хотим вывести на экран
 
       // ниже логика для вывода тех полей в форме, которые указаны в userData()
