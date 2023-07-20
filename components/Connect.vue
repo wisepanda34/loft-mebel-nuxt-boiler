@@ -4,10 +4,9 @@
     <div class="connect__wrapper">
       <form
         class="connect__form"
+        novalidate
         @submit="handleSubmit"
       >
-        <!--        =================================================    -->
-
         <div class="connect__form_inputs">
           <div class="connect__form_name">
             <label for="input_name">Your name
@@ -15,11 +14,17 @@
                 v-model.trim="connectName"
                 class="connect__form_input"
                 name="input_name"
+                @input="v$.$touch()"
               />
             </label>
+            <!--            :class="{ invalidBorder: (v$.connectName.$dirty && !v$.connectName.required) || (v$.connectName.$dirty && !v$.connectName.minLength) || (v$.connectName.$dirty && !v$.connectName.maxLength) }"-->
+
+            <!--            <div v-if="v$.connectName.$dirty && !v$.connectName.required">This field is a required</div>-->
+            <!--            <div v-else-if="(v$.connectName.$dirty && !v$.connectName.minLength) || (v$.connectName.$dirty && !v$.connectName.maxLength)">-->
+            <!--              Symbol's amount must be from 3 to 20-->
+            <!--            </div>-->
           </div>
 
-          <!--        =================================================    -->
           <div class="connect__form_phone">
             <label for="input_phone">Your phone
               <my-input
@@ -27,6 +32,7 @@
                 class="connect__form_input connect__form_input-phone"
                 name="input_phone"
                 type="tel"
+                @input="v$.$touch()"
               />
             </label>
           </div>
@@ -35,6 +41,7 @@
         <div class="connect__form_textarea">
           <label>Message
             <textarea
+              v-model="connectText"
               name="textarea_message"
             />
           </label>
@@ -51,35 +58,36 @@
           <my-button
             class="connect__form_submit"
             type="submit"
+            :disabled="loading"
           >
             Send
           </my-button>
         </div>
       </form>
+    </div>
 
-      <div class="connect__contacts">
-        <ul class="connect__contacts_list">
-          <li
-            v-for="(link,i) in linksFooter"
-            :key="i"
-            class="connect__contacts_item"
+    <div class="connect__contacts">
+      <ul class="connect__contacts_list">
+        <li
+          v-for="(link,i) in linksFooter"
+          :key="i"
+          class="connect__contacts_item"
+        >
+          <a
+            :href="link.href"
+            class="connect__contacts_link"
           >
-            <a
-              :href="link.href"
-              class="connect__contacts_link"
+            <img
+              :src="`${link.src}`"
+              alt="i"
             >
-              <img
-                :src="`${link.src}`"
-                alt="i"
-              >
-              <div>{{ link.value }}</div>
-            </a>
-          </li>
-        </ul>
+            <div>{{ link.value }}</div>
+          </a>
+        </li>
+      </ul>
 
-        <div class="connect__contacts_address">
-          Boston, Lincoln avenue, 45 Lincoln center, 2 floor
-        </div>
+      <div class="connect__contacts_address">
+        Boston, Lincoln avenue, 45 Lincoln center, 2 floor
       </div>
     </div>
   </section>
@@ -87,8 +95,8 @@
 
 <script>
   // import { computed } from '@vue/composition-api'
-  // import { useVuelidate } from '@vuelidate/core'
-  import { required, numeric } from '@vuelidate/validators'
+  import { useVuelidate } from '@vuelidate/core'
+  import { required, minLength, maxLength, numeric } from '@vuelidate/validators'
   import { useLinksFooter } from '~/stores/linksFooter'
   import { useClient } from '~/stores/client'
   import MyInput from '@/components/UI/MyInput.vue'
@@ -98,52 +106,44 @@
     name: 'Connect',
     components: { MyInput, MyButton },
     setup () {
-      try {
-        // const v$ = useVuelidate()
-        const linksFooterStore = useLinksFooter()
-        const clientStore = useClient()
-        const linksFooter = computed(() => linksFooterStore.linksFooter)
-        return { linksFooter, linksFooterStore, clientStore }
-      } catch (e) {
-        console.log('error Connect setup', e)
-      }
-      return {}
+      const v$ = useVuelidate()
+      const linksFooterStore = useLinksFooter()
+      const clientStore = useClient()
+      const linksFooter = computed(() => linksFooterStore.linksFooter)
+      return { linksFooter, linksFooterStore, clientStore, v$ }
     },
     data () {
       return {
         connectName: '',
         connectPhone: '',
-        connectText: ''
+        connectText: '',
+        loading: false
       }
     },
     validations () {
       return {
-        connectName: { required },
-        connectPhone: { required, numeric },
-        connectText: { required }
+        connectName: { required, minLength: minLength(3), maxLength: maxLength(20) },
+        connectPhone: { required, numeric, minLength: minLength(2), maxLength: maxLength(10) }
       }
     },
     methods: {
-      // ...mapActions('clients',['addNewClient']),
       handleSubmit (event) {
         event.preventDefault()
-
+        if (this.loading) return
+        this.loading = true
         const name = event.target.elements.input_name.value
         const phone = event.target.elements.input_phone.value
         const message = event.target.elements.textarea_message.value
-        const newClient = { name, phone, message }
-        // Проверка валидации полей
-        this.v$?.value.$touch()
-        // Проверка валидности всей формы
-        if (this.v$?.value.$invalid) {
-          return
-        }
-        this.addNewClient(newClient)
-        event.target.reset()
-      },
-      addNewClient (newClient) {
+        const date = new Date()
+        const newClient = { name, phone, message, date }
         this.clientStore.addNewClient(newClient)
+        event.target.reset()
+        this.connectText = ''
+        this.loading = false
       }
+    },
+    mounted () {
+      this.clientStore.fetchClientData()
     }
   }
 </script>
@@ -155,6 +155,9 @@
 .feedback{
   color: tomato;
   padding: 5px;
+}
+.invalidBorder{
+  background: rgba(250, 97, 70, 0.7);
 }
 .connect{
   // min-height: 400px;

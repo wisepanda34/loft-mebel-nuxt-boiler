@@ -135,46 +135,6 @@
           this.loading = false
         }
       }
-    // onSubmit(values) {
-    //   console.log(JSON.stringify(values, null, 2));
-    // },
-    // validateEmail(value) {
-    //   // if the field is empty
-    //   if (!value) {
-    //
-    //     console.log('value is empty')
-    //
-    //     return 'This field is required';
-    //   }
-    //   // if the field is not a valid email
-    //   const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-    //   if (!regex.test(value)) {
-    //     console.log('value is an incorrect')
-    //     return 'This field must be a valid email';
-    //   }
-    //   // All is good
-    //   console.log('All is good')
-    //   return true;
-    // },
-    // validateUserName(value) {
-    //   // if the field is empty
-    //   if (!value) {
-    //
-    //     console.log('This field is required')
-    //
-    //     return 'This field is required';
-    //   }
-    //   // if the field is not a valid userName
-    //   const regex = /^[a-zA-Z0-9_-]{3,16}$/i;
-    //
-    //   if (!regex.test(value)) {
-    //     console.log('value is an incorrect')
-    //     return 'This field must be a valid userName';
-    //   }
-    //   // All is good
-    //   console.log('All is good')
-    //   return true;
-    // },
     },
     mounted () {
       // преобразование данных из store в массив,

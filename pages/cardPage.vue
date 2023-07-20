@@ -47,7 +47,7 @@
 
 <script>
   import { useProducts } from '~/stores/products'
-  import { computed } from '@vue/composition-api'
+  // import { computed } from '@vue/composition-api'
 
   export default {
     name: 'CardPage',
