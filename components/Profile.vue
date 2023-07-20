@@ -25,6 +25,7 @@
                   @input="v$.$touch()"
                 />
               </label>
+              <!--              <div v-if="`v$.${userInfo[field]}.$dirty && v$.${userInfo[field]}.$invalid`">This field is not an valid</div>-->
             </div>
           </div>
 

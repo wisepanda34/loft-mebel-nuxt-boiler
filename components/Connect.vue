@@ -13,16 +13,17 @@
               <my-input
                 v-model.trim="connectName"
                 class="connect__form_input"
+                :class="{ invalidBorder: v$.connectName.$dirty && v$.connectName.$invalid }"
                 name="input_name"
                 @input="v$.$touch()"
               />
             </label>
-            <!--            :class="{ invalidBorder: (v$.connectName.$dirty && !v$.connectName.required) || (v$.connectName.$dirty && !v$.connectName.minLength) || (v$.connectName.$dirty && !v$.connectName.maxLength) }"-->
-
-            <!--            <div v-if="v$.connectName.$dirty && !v$.connectName.required">This field is a required</div>-->
-            <!--            <div v-else-if="(v$.connectName.$dirty && !v$.connectName.minLength) || (v$.connectName.$dirty && !v$.connectName.maxLength)">-->
-            <!--              Symbol's amount must be from 3 to 20-->
-            <!--            </div>-->
+            <div
+              v-if="(v$.connectName.$dirty && v$.connectName.$invalid)"
+              class="invalidMessage"
+            >
+              This field is not an valid. 3-20 symbols
+            </div>
           </div>
 
           <div class="connect__form_phone">
@@ -30,11 +31,18 @@
               <my-input
                 v-model.trim="connectPhone"
                 class="connect__form_input connect__form_input-phone"
+                :class="{ invalidBorder: v$.connectPhone.$dirty && v$.connectPhone.$invalid }"
                 name="input_phone"
                 type="tel"
                 @input="v$.$touch()"
               />
             </label>
+            <div
+              v-show="(v$.connectPhone.$dirty && v$.connectPhone.$invalid)"
+              class="invalidMessage"
+            >
+              This field is not an valid. Only numeric 3-10 symbols
+            </div>
           </div>
         </div>
 
@@ -64,30 +72,29 @@
           </my-button>
         </div>
       </form>
-    </div>
-
-    <div class="connect__contacts">
-      <ul class="connect__contacts_list">
-        <li
-          v-for="(link,i) in linksFooter"
-          :key="i"
-          class="connect__contacts_item"
-        >
-          <a
-            :href="link.href"
-            class="connect__contacts_link"
+      <div class="connect__contacts">
+        <ul class="connect__contacts_list">
+          <li
+            v-for="(link,i) in linksFooter"
+            :key="i"
+            class="connect__contacts_item"
           >
-            <img
-              :src="`${link.src}`"
-              alt="i"
+            <a
+              :href="link.href"
+              class="connect__contacts_link"
             >
-            <div>{{ link.value }}</div>
-          </a>
-        </li>
-      </ul>
+              <img
+                :src="`${link.src}`"
+                alt="i"
+              >
+              <div>{{ link.value }}</div>
+            </a>
+          </li>
+        </ul>
 
-      <div class="connect__contacts_address">
-        Boston, Lincoln avenue, 45 Lincoln center, 2 floor
+        <div class="connect__contacts_address">
+          Boston, Lincoln avenue, 45 Lincoln center, 2 floor
+        </div>
       </div>
     </div>
   </section>
@@ -96,7 +103,7 @@
 <script>
   // import { computed } from '@vue/composition-api'
   import { useVuelidate } from '@vuelidate/core'
-  import { required, minLength, maxLength, numeric } from '@vuelidate/validators'
+  import { required, minLength, maxLength, numeric, helpers } from '@vuelidate/validators'
   import { useLinksFooter } from '~/stores/linksFooter'
   import { useClient } from '~/stores/client'
   import MyInput from '@/components/UI/MyInput.vue'
@@ -122,8 +129,17 @@
     },
     validations () {
       return {
-        connectName: { required, minLength: minLength(3), maxLength: maxLength(20) },
-        connectPhone: { required, numeric, minLength: minLength(2), maxLength: maxLength(10) }
+        connectName: {
+          required,
+          minLength: minLength(3),
+          maxLength: maxLength(20)
+        },
+        connectPhone: {
+          required,
+          numeric,
+          minLength: minLength(2),
+          maxLength: maxLength(10)
+        }
       }
     },
     methods: {
@@ -157,7 +173,10 @@
   padding: 5px;
 }
 .invalidBorder{
-  background: rgba(250, 97, 70, 0.7);
+  color: rgba(250, 97, 70, 0.7);
+}
+.invalidMessage{
+  color: rgba(250, 97, 70, 0.7);
 }
 .connect{
   // min-height: 400px;
