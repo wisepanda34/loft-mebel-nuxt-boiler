@@ -22,10 +22,15 @@
                 <my-input
                   v-model="userInfo[field]"
                   :name="`input_${field}`"
-                  @input="v$.$touch()"
+                  @input="`v$.userInfo.${field}.$touch()`"
                 />
               </label>
-              <!--              <div v-if="`v$.${userInfo[field]}.$dirty && v$.${userInfo[field]}.$invalid`">This field is not an valid</div>-->
+              <div
+                v-if="checkError(field)"
+                class="invalidMessage"
+              >
+                This field is not an valid
+              </div>
             </div>
           </div>
 
@@ -112,7 +117,7 @@
           name: { required, minLength: minLength(2), maxLength: maxLength(20) },
           surname: { required, minLength: minLength(2), maxLength: maxLength(20) },
           email: { required, email },
-          phone: { required, numeric, minLength: minLength(10), maxLength: maxLength(10) }
+          phone: { required, numeric, minLength: minLength(4), maxLength: maxLength(10) }
         }
       }
     },
@@ -135,6 +140,9 @@
         } finally {
           this.loading = false
         }
+      },
+      checkError (name) {
+        return this.v$.userInfo[name]?.$invalid
       }
     },
     mounted () {
@@ -169,6 +177,11 @@
   //&--easy-table-header-font-size{
   //  font-size: 16px;
   //}
+}
+.invalidMessage{
+  font-size: 12px;
+  color: red;
+  margin: 10px 0;
 }
 .profile{
   &__wrapper{

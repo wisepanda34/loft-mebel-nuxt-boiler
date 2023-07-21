@@ -13,13 +13,13 @@
               <my-input
                 v-model.trim="connectName"
                 class="connect__form_input"
-                :class="{ invalidBorder: v$.connectName.$dirty && v$.connectName.$invalid }"
+                :class="{ invalidBorder: checkError('connectName') }"
                 name="input_name"
-                @input="v$.$touch()"
+                @input="v$.connectName.$touch()"
               />
             </label>
             <div
-              v-if="(v$.connectName.$dirty && v$.connectName.$invalid)"
+              v-if="checkError('connectName') "
               class="invalidMessage"
             >
               This field is not an valid. 3-20 symbols
@@ -31,14 +31,14 @@
               <my-input
                 v-model.trim="connectPhone"
                 class="connect__form_input connect__form_input-phone"
-                :class="{ invalidBorder: v$.connectPhone.$dirty && v$.connectPhone.$invalid }"
+                :class="{ invalidBorder: checkError('connectPhone') }"
                 name="input_phone"
                 type="tel"
-                @input="v$.$touch()"
+                @input="v$.connectPhone.$touch()"
               />
             </label>
             <div
-              v-show="(v$.connectPhone.$dirty && v$.connectPhone.$invalid)"
+              v-show="checkError('connectPhone') "
               class="invalidMessage"
             >
               This field is not an valid. Only numeric 3-10 symbols
@@ -156,6 +156,9 @@
         event.target.reset()
         this.connectText = ''
         this.loading = false
+      },
+      checkError (name) {
+        return this.v$[name]?.$error
       }
     },
     mounted () {
@@ -165,18 +168,10 @@
 </script>
 
 <style lang="scss" scoped>
-.reqInput{
-  background: rgba(250, 97, 70, 0.7);
-}
-.feedback{
-  color: tomato;
-  padding: 5px;
-}
-.invalidBorder{
-  color: rgba(250, 97, 70, 0.7);
-}
 .invalidMessage{
-  color: rgba(250, 97, 70, 0.7);
+  font-size: 12px;
+  color: red;
+  margin-bottom: 10px;
 }
 .connect{
   // min-height: 400px;

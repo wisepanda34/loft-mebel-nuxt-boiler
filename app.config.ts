@@ -1,5 +1,5 @@
 export default defineAppConfig({
-  name: 'Nuxt3 Dev Kit',
+  name: 'LF nuxt 3',
   author: {
     name: 'lavrov_inc'
   }

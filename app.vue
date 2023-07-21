@@ -22,7 +22,7 @@
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
         name: 'description',
-        content: 'Loft mebel nuxt3'
+        content: 'Loft furniture nuxt3'
       }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]

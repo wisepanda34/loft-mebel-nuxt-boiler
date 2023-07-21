@@ -201,13 +201,15 @@ export const useProducts = defineStore('productsStore', {
       ]
   }),
   getters: {
-    getProducts () {
-      return this.products
-    },
     // отдаем в компонент продукт, найденный по id
-    getProduct (id) {
-      return this.products.find(item => item.id === id)
-    },
+    // getProduct (id) {
+    //   const prod = this.products.find(item => item.id === id)
+    //   console.log(prod)
+    //   return {
+    //     prod
+    //   }
+    // },
+    getProduct: state => id => state.products.find(item => item.id === id),
     // отдаем в компонент те продукты, у которых найдены совпадения
     getSearchProduct: state => query => {
       if (!query) return []
