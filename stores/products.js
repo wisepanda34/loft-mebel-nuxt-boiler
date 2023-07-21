@@ -203,11 +203,7 @@ export const useProducts = defineStore('productsStore', {
   getters: {
     // отдаем в компонент продукт, найденный по id
     // getProduct (id) {
-    //   const prod = this.products.find(item => item.id === id)
-    //   console.log(prod)
-    //   return {
-    //     prod
-    //   }
+    //   return this.products.find(item => item.id === id)
     // },
     getProduct: state => id => state.products.find(item => item.id === id),
     // отдаем в компонент те продукты, у которых найдены совпадения

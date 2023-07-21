@@ -44,7 +44,7 @@
           <OneCard
             v-for="item in recommendList"
             :key="item.id"
-            class="no-margin-bottom"
+            class="no-margin-bottom recommendWidth"
             :item="item"
             :is-btn-show="isBtnShow"
           />
@@ -174,6 +174,9 @@
 }
 .no-margin-bottom{
   margin-bottom: 10px;
+}
+.recommendWidth{
+  flex: 0 0 263px;
 }
 @media (max-width: 767px) {
   .cartlist{

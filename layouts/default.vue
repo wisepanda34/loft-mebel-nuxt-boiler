@@ -43,6 +43,6 @@
     font-size: 16px;
   }
   .slot{
-    flex:1 1 auto;
+    flex: 1 1 auto;
   }
 </style>
