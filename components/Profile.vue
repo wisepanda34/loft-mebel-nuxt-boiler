@@ -51,6 +51,9 @@
           class="dataTable"
           :headers="headers"
           :items="tableItems"
+          table-class-name="customize-table"
+          header-text-direction="center"
+          body-text-direction="center"
           border-cell
           buttons-pagination
           alternating
@@ -90,14 +93,14 @@
         },
         loading: false,
         headers: [
-          { text: '#', value: 'number', fixed: true, width: 22 },
+          { text: '#', value: 'number', fixed: true, width: 22, sortable: true },
           { text: 'Product', value: 'product', fixed: true },
           { text: 'Kind', value: 'kindProduct' },
-          { text: 'Date', value: 'date' },
+          { text: 'Date', value: 'date', sortable: true },
           { text: 'ID order', value: 'id' },
-          { text: 'Amount', value: 'amount', width: 50 },
-          { text: 'Price', value: 'price', width: 50 },
-          { text: 'Status', value: 'status' }
+          { text: 'Amount', value: 'amount', width: 50, sortable: true },
+          { text: 'Price', value: 'price', width: 50, sortable: true },
+          { text: 'Status', value: 'status', sortable: true }
         ],
         tableItems: []
       }
@@ -186,6 +189,15 @@
   font-size: 12px;
   color: red;
   margin: 10px 0;
+}
+.customize-table{
+  --easy-table-header-font-size: 14px;
+  --easy-table-header-height: 50px;
+  --easy-table-header-font-color: #245462;
+  --easy-table-header-background-color: lightgray;
+
+  --easy-table-body-row-hover-font-color: #2d3a4f;
+  --easy-table-body-row-hover-background-color: #eee;
 }
 .profile{
   &__wrapper{
