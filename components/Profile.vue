@@ -52,6 +52,8 @@
           :headers="headers"
           :items="tableItems"
           border-cell
+          buttons-pagination
+          alternating
         />
 
         <div class="profile__orders-btn">See all</div>
@@ -66,6 +68,7 @@
   import MyInput from '~/components/UI/MyInput.vue'
   import MyButton from '~/components/UI/MyButton.vue'
   import Vue3EasyDataTable from 'vue3-easy-data-table'
+  import 'vue3-easy-data-table/dist/style.css'
   import { useUser } from '~/stores/user'
   import { useOrders } from '~/stores/orders'
 
@@ -87,7 +90,7 @@
         },
         loading: false,
         headers: [
-          { text: '#', value: 'number', fixed: true, width: 30 },
+          { text: '#', value: 'number', fixed: true, width: 22 },
           { text: 'Product', value: 'product', fixed: true },
           { text: 'Kind', value: 'kindProduct' },
           { text: 'Date', value: 'date' },
@@ -174,9 +177,10 @@
 
 <style lang="scss" scoped>
 .dataTable{
-  //&--easy-table-header-font-size{
-  //  font-size: 16px;
-  //}
+  width: 100%;
+  &--easy-table-header-font-size{
+    font-size: 16px;
+  }
 }
 .invalidMessage{
   font-size: 12px;
@@ -196,7 +200,7 @@
     }
   }
   &__personal{
-    flex: 0 1 46%;
+    //flex: 0 1 46%;
     padding-bottom: 5%;
 
     &-grid{
@@ -275,7 +279,6 @@
   }
 
   &__orders{
-    flex: 0 1 50%;
     padding-bottom: 20px;
     &-grid{
       display: grid;
@@ -394,7 +397,7 @@
     }
 
     &__orders{
-      flex: 0 1 50%;
+      //flex: 0 1 50%;
       &-grid{
         display: grid;
         grid-template-columns: 4fr 1fr 1fr 1fr;
