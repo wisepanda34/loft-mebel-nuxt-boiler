@@ -103,7 +103,7 @@
     gap: 20px;
   }
 }
-.active {
+.navbar .active {
   color: #5f909d;
 }
 @media (max-width: 767px) {
