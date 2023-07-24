@@ -21,7 +21,7 @@
           <div class="footer__address-block">
             <div class="footer__address-logo">LF</div>
             <div class="footer__address-addr">
-              Boston, Lincoln avenue, 45 <br>Lincoln center, 2 floor
+              Boston, Lincoln avenue, 19 <br>Lincoln center, 2 floor
             </div>
           </div>
 

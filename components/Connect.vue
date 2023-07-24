@@ -93,7 +93,7 @@
         </ul>
 
         <div class="connect__contacts_address">
-          Boston, Lincoln avenue, 45 Lincoln center, 2 floor
+          Boston, Lincoln avenue, 19 Lincoln center, 2 floor
         </div>
       </div>
     </div>
