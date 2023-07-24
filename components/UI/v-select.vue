@@ -1,8 +1,11 @@
 <template>
-  <div class="v-select">
+  <div
+    ref="selectRef"
+    class="v-select"
+  >
     <p
       class="v-select__default center"
-      @click="areOptionsVisible = !areOptionsVisible"
+      @click="toggleOptionsVisibility"
     >
       {{ selected }}
     </p>
@@ -10,6 +13,7 @@
       v-if="areOptionsVisible"
       class="v-select__options"
     >
+      <!--      @mouseout="hideSelect"-->
       <p
         v-for="option in options"
         :key="option.value"
@@ -41,19 +45,28 @@
       }
     },
     methods: {
+      toggleOptionsVisibility () {
+        this.areOptionsVisible = !this.areOptionsVisible
+      },
       sortedOption (option) {
         this.$emit('select', option)
         this.areOptionsVisible = false
       },
-      hideSelect () {
-        this.areOptionsVisible = false
+      // hideSelect () {
+      //   this.areOptionsVisible = false
+      // },
+      // Метод для обработки клика по элементу document
+      handleDocumentClick (event) {
+        if (!this.$refs.selectRef.contains(event.target)) {
+          this.areOptionsVisible = false
+        }
       }
     },
     mounted () {
-      document.addEventListener('click', this.hideSelect.bind(this), true)
+      document.addEventListener('click', this.handleDocumentClick, true)
     },
     beforeDestroy () {
-      document.removeEventListener('click', this.hideSelect)
+      document.removeEventListener('click', this.handleDocumentClick)
     }
   }
 </script>

@@ -29,7 +29,6 @@
             stroke="black"
           />
         </svg>
-
         <span>+1 (964) 89 99 119</span>
       </nuxt-link>
       <nuxt-link
@@ -77,9 +76,16 @@
             fill="black"
           />
         </svg>
-
         <span>Delivery</span>
       </nuxt-link>
+      <div class="navbar__delivery-lang">
+        <UIVSelect
+          class="navbar__delivery-select"
+          :selected="selectedLang"
+          :options="langOptions"
+          @select="sortedLang"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -112,7 +118,13 @@
         }
       ]
       return {
-        links
+        links,
+        selectedLang: '',
+        langOptions: [
+          { value: 'en', name: 'en' },
+          { value: 'fr', name: 'fr' },
+          { value: 'sp', name: 'sp' }
+        ]
       }
     },
     setup () {
@@ -128,8 +140,13 @@
     methods: {
       chooseMenu () {
         this.$emit('close-menuTransform')
+      },
+      sortedLang (option) {
+        this.selectedLang = option.value
       }
-      // проверка перехода по роуту, содержащемуся в конкретном route-link
+    },
+    mounted () {
+      if (this.langOptions.length > 0) { this.selectedLang = this.langOptions[0].value }
     }
   }
 
@@ -149,6 +166,12 @@
   &__delivery{
     display: flex;
     gap: 20px;
+    &-deliv, &-phone{
+      align-items: center;
+    }
+    &-select{
+      width: 30px;
+    }
   }
 }
 .navbar .active {

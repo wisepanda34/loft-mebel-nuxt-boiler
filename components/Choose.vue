@@ -32,18 +32,14 @@
 
       <div class="choose__block">
         <div class="choose__options">
-          <my-button
+          <UIMyButton
             class="choose__btn"
             @click="openFilter"
           >
             Filter
-          </my-button>
-          <!--            <my-select-->
-          <!--                class="choose__select"-->
-          <!--                v-model="selectedSort"-->
-          <!--                :options="sortOptions"-->
-          <!--            />-->
-          <v-select
+          </UIMyButton>
+
+          <UIVSelect
             :selected="selectedSort"
             :options="sortOptions"
             @select="sorted"
@@ -64,14 +60,12 @@
 
 <script>
   import Filter from '@/components/Filter.vue'
-  import MyButton from '@/components/UI/MyButton.vue'
   import OneCard from '@/components/OneCard.vue'
-  import VSelect from '@/components/UI/v-select.vue'
   import { useProducts } from '~/stores/products'
 
   export default {
     name: 'Choose',
-    components: { VSelect, OneCard, MyButton, Filter },
+    components: { OneCard, Filter },
     data () {
       return {
         selectedSort: '',
@@ -93,9 +87,6 @@
       return { products }
     },
     computed: {
-      // ...mapGetters({
-      //   products: 'products/getProducts'
-      // }),
       sortedProducts () {
         if (this.selectedSort === 'ascending') {
           return [...this.products].sort((a, b) => a.price - b.price)
