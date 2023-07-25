@@ -13,29 +13,7 @@ export default defineNuxtConfig({
   i18n: {
     // module options
     vueI18n: './i18n.config.ts' // if you are using custom path, default
-    // strategy: 'prefix_except_default',
-    // lazy: true,
-    // locales: [
-    //   {
-    //     code: 'en-UK',
-    //     iso: 'en-UK',
-    //     name: 'English(UK)',
-    //     file: 'en.json'
-    //   },
-    //   {
-    //     code: 'fr-FR',
-    //     iso: 'fr-FR',
-    //     name: 'French(FR)',
-    //     file: 'fr.json'
-    //   },
-    //   {
-    //     code: 'es-ES',
-    //     iso: 'es-ES',
-    //     name: 'Spanish(ES)',
-    //     file: 'es.json'
-    //   }
-    // ],
-    // langDir: 'locales'
+
   },
   // swiper: {
   //   Swiper options
