@@ -1,5 +1,5 @@
 export default defineI18nConfig(() => ({
-  // legacy: false,
+  legacy: false,
   strategy: 'prefix_except_default',
   lazy: true,
   langDir: 'locales',
