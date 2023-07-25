@@ -57,7 +57,7 @@
       // },
       // Метод для обработки клика по элементу document
       handleDocumentClick (event) {
-        if (!this.$refs.selectRef.contains(event.target)) {
+        if (this.$refs.selectRef && !this.$refs.selectRef.contains(event.target)) {
           this.areOptionsVisible = false
         }
       }

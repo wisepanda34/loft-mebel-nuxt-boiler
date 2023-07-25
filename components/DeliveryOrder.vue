@@ -39,6 +39,7 @@
   }
   &__title{
     text-align: center;
+    font-size: 40px;
   }
   &__phone{
     display: flex;

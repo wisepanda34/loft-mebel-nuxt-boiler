@@ -80,6 +80,7 @@
       </nuxt-link>
       <div class="navbar__delivery-lang">
         <UIVSelect
+          v-model="locale"
           class="navbar__delivery-select"
           :selected="selectedLang"
           :options="langOptions"
@@ -92,6 +93,7 @@
 
 <script>
   import { useRoute } from 'vue-router'
+  import { useI18n, useLocalePath } from '#imports'
 
   export default {
     data () {
@@ -123,18 +125,20 @@
         langOptions: [
           { value: 'en', name: 'en' },
           { value: 'fr', name: 'fr' },
-          { value: 'sp', name: 'sp' }
+          { value: 'es', name: 'es' }
         ]
       }
     },
     setup () {
       const route = useRoute()
+      const { locale } = useI18n()
 
       const isActive = (routePath) => {
         return route.path === routePath
       }
       return {
-        isActive
+        isActive,
+        locale
       }
     },
     methods: {
