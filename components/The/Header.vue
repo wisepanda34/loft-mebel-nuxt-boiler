@@ -50,8 +50,8 @@
             <nuxt-link
               class="header__search_link"
               :to="`/product/${item.id}`"
+              @click="closeSearch"
             >
-              <!--                @click="closeSearch"-->
               <div class="header__search_pic">
                 <img
                   :src="item.img"
@@ -180,7 +180,6 @@
         const favoritesStore = useFavorites()
         const productsStore = useProducts()
         const getProduct = productsStore.getProduct
-        // const searchProduct = computed(() => productsStore.getSearchProduct('a'))
         const isActive = (routePath) => {
           return route.path === routePath
         }
@@ -189,7 +188,6 @@
           cartListStore,
           favoritesStore,
           getProduct,
-          // searchProduct,
           productsStore
         }
       } catch (e) {
@@ -201,11 +199,6 @@
         return this.productsStore.getSearchProduct(this.searchQuery)
       }
     },
-    // watch: {
-    //   searchQuery (newValue) {
-    //
-    //   }
-    // },
     methods: {
       // логика очистки поля при клике вне searchContainer
       handleOutsideClick (event) {

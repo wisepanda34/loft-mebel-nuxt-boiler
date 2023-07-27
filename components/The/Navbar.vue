@@ -79,13 +79,21 @@
         <span>Delivery</span>
       </nuxt-link>
       <div class="navbar__delivery-lang">
-        <UIVSelect
-          v-model="locale"
-          class="navbar__delivery-select"
-          :selected="selectedLang"
-          :options="langOptions"
-          @select="sortedLang"
-        />
+        <!--        <UIVSelect-->
+        <!--          :selected="selectedLang"-->
+        <!--          :options="langOptions"-->
+        <!--          class="navbar__delivery-select"-->
+        <!--          @select="sortedLang"-->
+        <!--        />-->
+        <!--        <LanguageSwitcher />-->
+        <div>
+          <form>
+            <select v-model="locale">
+              <option value="en">en</option>
+              <option value="fr">fr</option>
+            </select>
+          </form>
+        </div>
       </div>
     </div>
   </div>
@@ -93,9 +101,11 @@
 
 <script>
   import { useRoute } from 'vue-router'
-  import { useI18n, useLocalePath } from '#imports'
+  import { useI18n } from '#imports'
+  // import LanguageSwitcher from '~/components/UI/LanguageSwitcher.vue'
 
   export default {
+    // components: { LanguageSwitcher },
     data () {
       const links = [
         {
@@ -131,14 +141,21 @@
     },
     setup () {
       const route = useRoute()
-      const { locale } = useI18n()
-
+      const { locale, setLocale } = useI18n()
+      // console.log('locale', locale)
       const isActive = (routePath) => {
         return route.path === routePath
       }
+      // const language = computed({
+      //   get: () => locale.value,
+      //   set: (value) => {
+      //     setLocale(value)
+      //   }
+      // })
       return {
         isActive,
-        locale
+        locale,
+        setLocale
       }
     },
     methods: {
@@ -147,13 +164,13 @@
       },
       sortedLang (option) {
         this.selectedLang = option.value
+        this.$i18n.setLocale(option.value)
       }
     },
     mounted () {
       if (this.langOptions.length > 0) { this.selectedLang = this.langOptions[0].value }
     }
   }
-
 </script>
 
 <style lang="scss" scoped>
