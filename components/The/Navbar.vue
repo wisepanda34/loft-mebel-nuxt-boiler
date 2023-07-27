@@ -147,6 +147,7 @@
       },
       sortedLang (option) {
         this.$i18n.setLocale(option.value)
+        this.chooseMenu()
       }
     }
   }
@@ -171,6 +172,8 @@
     }
     &-select{
       width: 30px;
+      background: lightgray;
+      border: 1px solid #e7e7e7;
     }
   }
 }
@@ -183,7 +186,7 @@
 .navbar .router-link-active svg path{
   fill: #54838f;
 }
-@media (max-width: 767px) {
+@media (max-width: 992px) {
   .navbar{
     justify-content: flex-start;
     align-items: center;

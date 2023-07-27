@@ -381,27 +381,8 @@
 .header .active svg{
   fill: #79a4b0;
 }
-@media (max-width:992px){
-  .header{
-    &__main{
-      padding: 0;
-    }
-    &__logo{
-      order: 2;
-      margin-top: 0;
-    }
-    &__search{
-      order: 3;
-      margin: 0 20px 0 20px;
-    }
-    &__icons{
-      order: 4;
-      margin-top: 0;
-    }
-  }
-}
 
-@media (max-width:767px){
+@media (max-width:992px){
   .header{
     position: relative;
     padding: 10px 0;
@@ -418,6 +399,7 @@
       flex: 0 1 auto;
       font-size: 18px;
       padding: 0 10px;
+      margin-top: 0;
     }
     &__search{
       order: 4;
@@ -442,7 +424,8 @@
     &__icons{
       order: 3;
       flex: 0 1 auto;
-      gap: 15px
+      gap: 15px;
+      margin-top: 0;
     }
     &__navbar{
       display: none;

@@ -26,7 +26,7 @@
 .menuTransform{
   display: none;
 }
-@media (max-width: 767px){
+@media (max-width: 992px){
   .menuTransform{
     display: block;
     width: 100vw;
