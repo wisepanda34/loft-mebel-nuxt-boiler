@@ -1,7 +1,7 @@
 <template>
   <section class="delivery">
     <div class="delivery__wrapper">
-      <h1 class="delivery__title">{{ $t('title') }}</h1>
+      <h1 class="delivery__title">{{ $t('titleDelivery') }}</h1>
       <p>{{ $t('text1') }}</p>
       <p>{{ $t('text2') }}</p>
       <p>{{ $t('text3') }}</p>

@@ -8,7 +8,7 @@
         :class="{ active: isActive(link.path) }"
         @click="chooseMenu"
       >
-        {{ link.name }}
+        {{ $t(link.name) }}
       </nuxt-link>
     </nav>
     <div class="navbar__delivery">
@@ -99,33 +99,34 @@
     data () {
       const links = [
         {
-          name: 'Home',
+          name: 'nav_Home',
           path: '/'
         },
         {
-          name: 'About',
+          name: 'nav_About',
           path: '/about'
         },
         {
-          name: 'Catalog',
+          name: 'nav_Catalog',
           path: '/catalog'
         },
         {
-          name: 'Contacts',
+          name: 'nav_Contacts',
           path: '/contacts'
         },
         {
-          name: 'Reviews',
+          name: 'nav_Reviews',
           path: '/reviewsPage'
         }
       ]
+      const langOptions = [
+        { value: 'en', name: 'en' },
+        { value: 'fr', name: 'fr' },
+        { value: 'es', name: 'es' }
+      ]
       return {
         links,
-        langOptions: [
-          { value: 'en', name: 'en' },
-          { value: 'fr', name: 'fr' },
-          { value: 'es', name: 'es' }
-        ]
+        langOptions
       }
     },
     setup () {
