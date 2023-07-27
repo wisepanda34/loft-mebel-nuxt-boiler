@@ -122,7 +122,8 @@
       const langOptions = [
         { value: 'en', name: 'en' },
         { value: 'fr', name: 'fr' },
-        { value: 'es', name: 'es' }
+        { value: 'es', name: 'es' },
+        { value: 'de', name: 'de' }
       ]
       return {
         links,
