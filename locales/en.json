@@ -1,6 +1,22 @@
 {
-  "title": "Delivery",
+  "titleDelivery": "Delivery",
   "text1": "Each client can purchase goods in our store and pick them up in our warehouse, as well as receive goods delivered to their homes with assembly.",
   "text2": "Our specialists will qualitatively assemble the furniture you have chosen. Each client will be satisfied with the purchase.",
-  "text3": "Contact phone number for consultation:"
+  "text3": "Contact phone number for consultation:",
+  "nav_Home": "Home",
+  "nav_About": "About",
+  "nav_Catalog": "Catalog",
+  "nav_Contacts": "Contacts",
+  "nav_Reviews": "Reviews",
+  "menuTitleKitchen": "Kitchen",
+  "menuTitleBedroom": "Bedroom",
+  "menuTitleLivingRooms": "Living rooms",
+  "menuTitleLobby": "Lobby",
+  "menuTitleOffice": "Office",
+  "menuTitleChildrenRoom": "Children room",
+  "menuTitleSale": "Sale",
+  "menuTitleNew": "New",
+  "menuTitleMattresses": "Mattresses",
+  "menuTitleCushioned": "Cushioned",
+  "menuTitleCupboard": "Cupboard"
 }

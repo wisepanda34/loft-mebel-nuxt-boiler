@@ -6,12 +6,12 @@
           <h4 class="footer__navigation-title">Navigation</h4>
           <ul class="footer__navigation-list">
             <li
-              v-for="item in menuList"
-              :key="item.title"
+              v-for="(item,i) in menuList"
+              :key="i"
               class="footer__navigation-item"
             >
               <nuxt-link to="/">
-                {{ item.title }}
+                {{ $t(item.title) }}
               </nuxt-link>
             </li>
           </ul>

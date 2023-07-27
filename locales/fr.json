@@ -1,6 +1,22 @@
 {
-  "title": "Livraison",
+  "titleDelivery": "Livraison",
   "text1": "Chaque client peut acheter des marchandises dans notre magasin et les récupérer dans notre entrepôt, ainsi que recevoir des marchandises livrées à domicile avec assemblage.",
   "text2": "Nos spécialistes assembleront qualitativement les meubles que vous aurez choisis. Chaque client sera satisfait de l'achat.",
-  "text3": "Numéro de téléphone de contact pour consultation:"
+  "text3": "Numéro de téléphone de contact pour consultation:",
+  "nav_Home": "Maison",
+  "nav_About": "À propos",
+  "nav_Catalog": "Catalogue",
+  "nav_Contacts": "Contacts",
+  "nav_Reviews": "Commentaires",
+  "menuTitleKitchen": "Cuisine",
+  "menuTitleBedroom": "Chambre à coucher",
+  "menuTitleLivingRooms": "Salons",
+  "menuTitleLobby": "Lobby",
+  "menuTitleOffice": "Bureau",
+  "menuTitleChildrenRoom": "Chambre denfants",
+  "menuTitleSale": "Vente",
+  "menuTitleNew": "Nouvelle",
+  "menuTitleMattresses": "Matelas",
+  "menuTitleCushioned": "Amorti",
+  "menuTitleCupboard": "Armoire"
 }
