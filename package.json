@@ -8,9 +8,12 @@
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
   },
   "devDependencies": {
+    "@nuxtjs/color-mode": "^3.3.0",
     "@nuxtjs/eslint-config": "^12.0.0",
     "@nuxtjs/i18n": "^8.0.0-beta.13",
+    "@nuxtjs/tailwindcss": "^6.8.0",
     "@pinia/nuxt": "^0.4.6",
+    "@sidebase/nuxt-auth": "^0.6.0-beta.3",
     "eslint": "8.22",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-nuxt": "^4.0.0",

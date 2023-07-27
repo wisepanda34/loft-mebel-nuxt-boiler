@@ -8,7 +8,7 @@ export default defineNuxtConfig({
   //   }
   // },
   modules: [
-    '@pinia/nuxt', 'nuxt-swiper', '@nuxtjs/i18n'
+    '@pinia/nuxt', 'nuxt-swiper', '@nuxtjs/i18n', '@nuxtjs/color-mode', '@sidebase/nuxt-auth'
   ],
   i18n: {
     // module options
