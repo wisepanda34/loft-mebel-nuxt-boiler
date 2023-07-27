@@ -78,22 +78,14 @@
         </svg>
         <span>Delivery</span>
       </nuxt-link>
+
       <div class="navbar__delivery-lang">
-        <!--        <UIVSelect-->
-        <!--          :selected="selectedLang"-->
-        <!--          :options="langOptions"-->
-        <!--          class="navbar__delivery-select"-->
-        <!--          @select="sortedLang"-->
-        <!--        />-->
-        <!--        <LanguageSwitcher />-->
-        <div>
-          <form>
-            <select v-model="locale">
-              <option value="en">en</option>
-              <option value="fr">fr</option>
-            </select>
-          </form>
-        </div>
+        <UIVSelect
+          :selected="locale"
+          :options="langOptions"
+          class="navbar__delivery-select"
+          @select="sortedLang"
+        />
       </div>
     </div>
   </div>
@@ -102,10 +94,8 @@
 <script>
   import { useRoute } from 'vue-router'
   import { useI18n } from '#imports'
-  // import LanguageSwitcher from '~/components/UI/LanguageSwitcher.vue'
 
   export default {
-    // components: { LanguageSwitcher },
     data () {
       const links = [
         {
@@ -131,7 +121,6 @@
       ]
       return {
         links,
-        selectedLang: '',
         langOptions: [
           { value: 'en', name: 'en' },
           { value: 'fr', name: 'fr' },
@@ -142,16 +131,9 @@
     setup () {
       const route = useRoute()
       const { locale, setLocale } = useI18n()
-      // console.log('locale', locale)
       const isActive = (routePath) => {
         return route.path === routePath
       }
-      // const language = computed({
-      //   get: () => locale.value,
-      //   set: (value) => {
-      //     setLocale(value)
-      //   }
-      // })
       return {
         isActive,
         locale,
@@ -163,12 +145,8 @@
         this.$emit('close-menuTransform')
       },
       sortedLang (option) {
-        this.selectedLang = option.value
         this.$i18n.setLocale(option.value)
       }
-    },
-    mounted () {
-      if (this.langOptions.length > 0) { this.selectedLang = this.langOptions[0].value }
     }
   }
 </script>
