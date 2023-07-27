@@ -11,7 +11,18 @@ export default defineI18nConfig(() => ({
       nav_About: 'About',
       nav_Catalog: 'Catalog',
       nav_Contacts: 'Contacts',
-      nav_Reviews: 'Reviews'
+      nav_Reviews: 'Reviews',
+      menuTitleKitchen: 'Kitchen',
+      menuTitleBedroom: 'Bedroom',
+      menuTitleLivingRooms: 'Living rooms',
+      menuTitleLobby: 'Lobby',
+      menuTitleOffice: 'Office',
+      menuTitleChildrenRoom: 'Children room',
+      menuTitleSale: 'Sale',
+      menuTitleNew: 'New',
+      menuTitleMattresses: 'Mattresses',
+      menuTitleCushioned: 'Cushioned',
+      menuTitleCupboard: 'Cupboard'
 
     },
     fr: {
@@ -23,7 +34,18 @@ export default defineI18nConfig(() => ({
       nav_About: 'À propos',
       nav_Catalog: 'Catalogue',
       nav_Contacts: 'Contacts',
-      nav_Reviews: 'Commentaires'
+      nav_Reviews: 'Commentaires',
+      menuTitleKitchen: 'Cuisine',
+      menuTitleBedroom: 'Chambre à coucher',
+      menuTitleLivingRooms: 'Salons',
+      menuTitleLobby: 'Lobby',
+      menuTitleOffice: 'Bureau',
+      menuTitleChildrenRoom: 'Chambre d\'enfants',
+      menuTitleSale: 'Vente',
+      menuTitleNew: 'Nouvelle',
+      menuTitleMattresses: 'Matelas',
+      menuTitleCushioned: 'Amorti',
+      menuTitleCupboard: 'Armoire'
     },
     es: {
       titleDelivery: 'Livraison',
@@ -34,7 +56,18 @@ export default defineI18nConfig(() => ({
       nav_About: 'Acerca de',
       nav_Catalog: 'Catalogar',
       nav_Contacts: 'Contactos',
-      nav_Reviews: 'Reseñas'
+      nav_Reviews: 'Reseñas',
+      menuTitleKitchen: 'Cocina',
+      menuTitleBedroom: 'Dormitorio',
+      menuTitleLivingRooms: 'Salas',
+      menuTitleLobby: 'Vestíbulo',
+      menuTitleOffice: 'Oficina',
+      menuTitleChildrenRoom: 'Cuarto de los niños',
+      menuTitleSale: 'Venta',
+      menuTitleNew: 'Nueva',
+      menuTitleMattresses: 'colchones',
+      menuTitleCushioned: 'acolchado',
+      menuTitleCupboard: 'Armario'
     }
   }
 }))

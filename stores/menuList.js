@@ -5,47 +5,47 @@ export const useMenuList = defineStore('menuList', {
         return {
             menuList: [
                 {
-                    title: 'Kitchen',
+                    title: 'menuTitleKitchen',
                     icon: '/images/icons/kitchen-icon.svg'
                 },
                 {
-                    title: 'Bedroom',
+                    title: 'menuTitleBedroom',
                     icon: '/images//icons/bedroom-icon.svg'
                 },
                 {
-                    title: 'Living rooms',
+                    title: 'menuTitleLivingRooms',
                     icon: '/images//icons/livingroom-icon.svg'
                 },
                 {
-                    title: 'Lobby',
+                    title: 'menuTitleLobby',
                     icon: '/images//icons/closet-icon.svg'
                 },
                 {
-                    title: 'Office',
+                    title: 'menuTitleOffice',
                     icon: '/images//icons/office-icon.svg'
                 },
                 {
-                    title: 'Children room',
+                    title: 'menuTitleChildrenRoom',
                     icon: '/images//icons/childrenroom-icon.svg'
                 },
                 {
-                    title: 'Sale',
+                    title: 'menuTitleSale',
                     icon: '/images//icons/sale.svg'
                 },
                 {
-                    title: 'New',
+                    title: 'menuTitleNew',
                     icon: '/images//icons/new.svg'
                 },
                 {
-                    title: 'Mattresses',
+                    title: 'menuTitleMattresses',
                     icon: '/images//icons/mattress.svg'
                 },
                 {
-                    title: 'Cushioned furniture',
+                    title: 'menuTitleCushioned',
                     icon: '/images//icons/armchair.svg'
                 },
                 {
-                    title: 'Cupboard',
+                    title: 'menuTitleCupboard',
                     icon: '/images//icons/cupboard.svg'
                 }
             ]

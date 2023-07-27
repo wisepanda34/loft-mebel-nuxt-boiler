@@ -3,13 +3,13 @@
     <div class="menu__wrapper">
       <ul class="menu__list">
         <li
-          v-for="item in menuList"
-          :key="item.title"
+          v-for="(item, i) in menuList"
+          :key="i"
           class="menu__item"
         >
           <nuxt-link
             class="menu__link"
-            to="/"
+            to="/catalog"
           >
             <div class="menu__icon flex-center">
               <img
@@ -17,7 +17,7 @@
                 alt="i"
               >
             </div>
-            <div class="menu__title flex-center">{{ item.title }}</div>
+            <div class="menu__title flex-center">{{ $t(item.title) }}</div>
           </nuxt-link>
         </li>
       </ul>
@@ -46,8 +46,8 @@
 
         <ul class="menu__dropdown_list">
           <li
-            v-for="item in menuList"
-            :key="item.title"
+            v-for="(item, i) in menuList"
+            :key="i"
             class="menu__dropdown_item"
           >
             <nuxt-link
@@ -60,7 +60,7 @@
                   alt="i"
                 >
               </div>
-              <div class="menu__dropdown_title center">{{ item.title }}</div>
+              <div class="menu__dropdown_title center">{{ $t(item.title) }}</div>
             </nuxt-link>
           </li>
         </ul>

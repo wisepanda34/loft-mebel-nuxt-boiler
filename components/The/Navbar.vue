@@ -76,7 +76,7 @@
             fill="black"
           />
         </svg>
-        <span>Delivery</span>
+        <span>{{ $t('titleDelivery') }}</span>
       </nuxt-link>
 
       <div class="navbar__delivery-lang">
