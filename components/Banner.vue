@@ -3,12 +3,12 @@
     <div class="banner__wrapper">
       <div class="banner__content">
         <h1>LOFT FURNITURE</h1>
-        <p>Modern and useful furniture in Boston</p>
+        <p>{{ $t('banner_text') }}</p>
         <nuxt-link
           class="banner__content_btn"
           to="/"
         >
-          WATCH CATALOG
+          {{ $t('watch_catalog') }}
         </nuxt-link>
       </div>
 
@@ -111,6 +111,7 @@
       align-items: center;
       justify-content: center;
       width: 163px;
+      padding: 0 5px;
       height: 45px;
       background: #fff;
       color: #414141;
