@@ -1,53 +1,53 @@
 <template>
-  <!--  <nuxt-link :to="`/product/${item.id}`" >-->
-  <div class="cartProduct">
-    <div class="cartProduct__img">
-      <img
-        :src="item.img"
-        alt="img"
-      >
-    </div>
-
-    <div class="cartProduct__block">
-      <div class="cartProduct__main">
-        <div class="cartProduct__main-titleCard">{{ item.titleCard }}</div>
-        <div class="cartProduct__main-price">{{ item.price }} &#36;</div>
+  <nuxt-link :to="`/product/${item.id}`">
+    <div class="cartProduct">
+      <div class="cartProduct__img">
+        <img
+          :src="item.img"
+          alt="img"
+        >
       </div>
 
-      <div class="cartProduct__info">
-        <div class="cartProduct__info-color">color: <span>brown</span> </div>
-
-        <div class="cartProduct__info-quantity">
-          quantity:
-          <button
-            class="cartProduct__info-increment flex-center"
-            type="button"
-            @click.prevent="increment(item.id)"
-          >
-            +
-          </button>
-          <span>{{ item.amount }}</span>
-          <button
-            class="cartProduct__info-decrement flex-center"
-            type="button"
-            @click.prevent="decrement(item.id)"
-          >
-            -
-          </button>
+      <div class="cartProduct__block">
+        <div class="cartProduct__main">
+          <div class="cartProduct__main-titleCard">{{ item.titleCard }}</div>
+          <div class="cartProduct__main-price">{{ item.price }} &#36;</div>
         </div>
 
-        <div class="cartProduct__info-size">size(w/h/d): <span>{{ item.width }}x{{ item.height }}x{{ item.deep }}</span></div>
+        <div class="cartProduct__info">
+          <div class="cartProduct__info-color">color: <span>brown</span> </div>
+
+          <div class="cartProduct__info-quantity">
+            quantity:
+            <button
+              class="cartProduct__info-increment flex-center"
+              type="button"
+              @click.prevent="increment(item.id)"
+            >
+              +
+            </button>
+            <span>{{ item.amount }}</span>
+            <button
+              class="cartProduct__info-decrement flex-center"
+              type="button"
+              @click.prevent="decrement(item.id)"
+            >
+              -
+            </button>
+          </div>
+
+          <div class="cartProduct__info-size">size(w/h/d): <span>{{ item.width }}x{{ item.height }}x{{ item.deep }}</span></div>
+        </div>
+      </div>
+
+      <div
+        class="cartProduct__delete"
+        @click.prevent="handlerRemoveProduct(item.id)"
+      >
+        &#9587;
       </div>
     </div>
-
-    <div
-      class="cartProduct__delete"
-      @click.prevent="handlerRemoveProduct(item.id)"
-    >
-      &#9587;
-    </div>
-  </div>
-<!--  </nuxt-link>-->
+  </nuxt-link>
 </template>
 
 <script>
@@ -75,7 +75,7 @@
     methods: {
       handlerRemoveProduct (id) {
         this.cartListStore.removeFromCart(id)
-        // this.modalStore.openVoiceModal('Product was removed from cart!')
+        this.modalStore.openVoiceModal('Product was removed from cart!', 1000)
       },
       increment (id) {
         this.cartListStore.incrementQuantity(id)

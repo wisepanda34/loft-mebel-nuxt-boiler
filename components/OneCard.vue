@@ -56,7 +56,7 @@
   import MyButton from '~/components/UI/MyButton.vue'
   import { useCartList } from '~/stores/cartList'
   import { useFavorites } from '~/stores/favorites'
-  // import { useModal } from '~/stores/modal'
+  import { useModal } from '~/stores/modal'
 
   export default {
     name: 'OneCard',
@@ -74,11 +74,11 @@
       try {
         const cartListStore = useCartList()
         const favoritesStore = useFavorites()
-        // const modalStore = useModal()
+        const modalStore = useModal()
         return {
           cartListStore,
-          favoritesStore
-          // modalStore
+          favoritesStore,
+          modalStore
         }
       } catch (error) {
         console.error('Unhandled OneCard setup error:', error)
@@ -88,8 +88,7 @@
     methods: {
       handleAddToCartAndOpenVoiceModal (card) {
         this.cartListStore.addToCart(card)
-
-        // this.modalStore.openVoiceModal('That product was added to cart!')
+        this.modalStore.openVoiceModal('That product was added to cart!', 1000)
       },
       handleAddToFavorites (card, like) {
         const isFavorite = this.isCardInFavorites(card)

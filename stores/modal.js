@@ -7,11 +7,13 @@ export const useModal = defineStore('modalStore', {
     }
   },
   actions: {
-    openVoiceModal (modalTexts) {
+    openVoiceModal (modalTexts, duration) {
       this.modalTexts = modalTexts
+      console.log('openVoiceModal', this.modalTexts)
+
       setTimeout(() => {
-        this.modalTexts = ''
-      }, 300)
+        this.closeVoiceModal()
+      }, duration)
     },
     closeVoiceModal () {
       this.modalTexts = ''

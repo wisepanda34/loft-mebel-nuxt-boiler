@@ -8,12 +8,16 @@ export default defineNuxtConfig({
   //   }
   // },
   modules: [
-    '@pinia/nuxt', 'nuxt-swiper', '@nuxtjs/i18n', '@nuxtjs/color-mode', '@sidebase/nuxt-auth'
+    '@pinia/nuxt',
+    'nuxt-swiper',
+    '@nuxtjs/i18n',
+    '@nuxtjs/color-mode'
+    // '@nuxtjs/axios',
+    // '@nuxtjs/auth-next'
   ],
   i18n: {
     // module options
     vueI18n: './i18n.config.ts' // if you are using custom path, default
-
   },
   // swiper: {
   //   Swiper options
