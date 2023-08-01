@@ -43,7 +43,11 @@
 <script>
   import { useProducts } from '~/stores/products'
 
+  definePageMeta({
+    layout: 'custom'
+  })
   export default {
+
     setup () {
       const productsStore = useProducts()
       const getProduct = productsStore.getProduct
@@ -67,7 +71,7 @@
 
 <style lang="scss" scoped>
 .cardPage{
-  padding: 10px 0;
+  padding: 20px 0;
   &__comeback{
     cursor: pointer;
     text-align: end;
@@ -88,8 +92,12 @@
     display: flex;
     justify-content: center;
     img{
-      width: 90%;
+      width: 80%;
     }
+  }
+  &__title{
+    margin: 30px 0 20px;
+    font-size: 30px;
   }
   &__subtitle{
     flex:0 1 40%;
