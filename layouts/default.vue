@@ -4,6 +4,7 @@
     <slot class="slot" />
     <TheFooter class="theFooter" />
     <UIBaseModal />
+    <UIAuthModal />
   </div>
 </template>
 

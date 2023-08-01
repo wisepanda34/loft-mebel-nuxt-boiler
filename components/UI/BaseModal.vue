@@ -14,6 +14,10 @@
         <span @click="closeVoiceModal">&#9587;</span>
       </div>
       <div class="modal__content">{{ modalTexts }}</div>
+      <!--      <template v-if="modalStore.isAuthModal">-->
+      <!--        auth-->
+      <!--      </template>-->
+      <slot />
     </div>
   </div>
 </template>
