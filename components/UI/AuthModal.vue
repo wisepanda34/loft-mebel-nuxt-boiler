@@ -1,7 +1,7 @@
 <template>
-  <UIBaseModal>
-    111
-  </UIBaseModal>
+<!--  <UIBaseModal>-->
+<!--    111-->
+<!--  </UIBaseModal>-->
 </template>
 
 <script>

@@ -58,7 +58,7 @@
   top: 0;
   left: 0;
   z-index: 20;
-  background: rgba(0,0,0,0.4);
+  background: rgba(64, 64, 64, 0.2);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -70,15 +70,19 @@
     display: flex;
     flex-direction: column;
     min-width: 200px;
-    min-height: 100px;
-    padding:5px 10px;
+    min-height: 200px;
+    padding:10px 20px;
     background: #FFFFFF;
-    box-shadow: 0 1px 9px rgba(0, 0, 0, 0.11);
+    opacity: 0.95;
+    box-shadow: 8px 13px 9px rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
   }
   &__delete{
     text-align: right;
+
     span{
-      font-size: 10px;
+      font-size: 15px;
+      font-weight: 900;
       cursor: pointer;
     }
   }
