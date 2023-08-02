@@ -3,8 +3,8 @@ import { defineStore } from 'pinia'
 export const useModal = defineStore('modalStore', {
   state () {
     return {
-      modalTexts: '',
-      isAuthModal: true
+      modalTexts: ''
+
     }
   },
   actions: {
@@ -15,10 +15,6 @@ export const useModal = defineStore('modalStore', {
       // setTimeout(() => {
       //   this.closeVoiceModal()
       // }, duration)
-    },
-    openAuthModal (modalTexts) {
-      this.isAuthModal = true
-      console.log('openAuthModal')
     },
     closeVoiceModal () {
       this.modalTexts = ''

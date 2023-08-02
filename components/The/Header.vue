@@ -121,11 +121,13 @@
             {{ cartListStore.getTotalElements }}
           </div>
         </nuxt-link>
-        <nuxt-link
-          to="/account"
+        <div
           class="header__icons_account flex-center"
           :class="{ active:isActive('/account') }"
+          @click="openAuthModal"
         >
+          <!--          to="/account"-->
+
           <svg
             width="15"
             height="20"
@@ -148,7 +150,7 @@
               stroke-linecap="square"
             />
           </svg>
-        </nuxt-link>
+        </div>
       </div>
     </div>
 
@@ -164,6 +166,7 @@
   import { useCartList } from '~/stores/cartList'
   import { useFavorites } from '~/stores/favorites'
   import { useProducts } from '~/stores/products'
+  import { useAuth } from '~/stores/auth'
 
   export default {
     data () {
@@ -180,6 +183,7 @@
         const favoritesStore = useFavorites()
         const productsStore = useProducts()
         const getProduct = productsStore.getProduct
+        const authStore = useAuth()
         const isActive = (routePath) => {
           return route.path === routePath
         }
@@ -188,7 +192,8 @@
           cartListStore,
           favoritesStore,
           getProduct,
-          productsStore
+          productsStore,
+          authStore
         }
       } catch (e) {
         console.log('Header setup', e)
@@ -218,6 +223,9 @@
       closeMenu () {
         this.isMenuActive = false
         document.body.classList.remove('no-scroll')
+      },
+      openAuthModal () {
+        this.authStore.openAuthModal()
       }
     }
   }
