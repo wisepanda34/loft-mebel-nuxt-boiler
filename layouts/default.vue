@@ -13,6 +13,7 @@
   import { useFavorites } from '~/stores/favorites'
   import { useOrders } from '~/stores/orders'
   import { useUser } from '~/stores/user'
+  import { useAuth } from '~/stores/auth'
 
   export default {
     setup () {
@@ -20,11 +21,13 @@
       const favoritesStore = useFavorites()
       const ordersStore = useOrders()
       const userStore = useUser()
+      const authStore = useAuth()
       return {
         cartList,
         favoritesStore,
         ordersStore,
-        userStore
+        userStore,
+        authStore
       }
     },
     mounted () {
@@ -32,6 +35,7 @@
       this.favoritesStore.fetchFavorites()
       this.ordersStore.fetchOrders()
       this.userStore.fetchUser()
+      this.authStore.fetchRegisterData()
     }
   }
 </script>

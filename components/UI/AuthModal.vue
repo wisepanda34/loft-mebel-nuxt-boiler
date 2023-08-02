@@ -4,7 +4,7 @@
     class="auth"
   >
     <div class="auth__wrapper">
-      <h3 class="auth__title center">Login In</h3>
+      <h3 class="auth__title center">{{ authTitle }}</h3>
       <span
         class="auth__close"
         @click="closeAuth"
@@ -13,10 +13,25 @@
       <form
         action="#"
         class="auth__form"
+        @submit.prevent="submitLogIn"
       >
+        <div
+          v-if="isRegister"
+          class="auth__name"
+        >
+          <label for="auth-phone">Name</label>
+          <my-input
+            v-model="userAuthData.name"
+            class="auth__input"
+            type="text"
+            name="auth-name"
+          />
+        </div>
+
         <div class="auth__phone">
           <label for="auth-phone">Phone</label>
           <my-input
+            v-model="userAuthData.phone"
             class="auth__input"
             type="text"
             name="auth-phone"
@@ -26,9 +41,23 @@
         <div class="auth__password">
           <label for="auth-password">Password</label>
           <my-input
+            v-model="userAuthData.password"
             class="auth__input"
             type="text"
             name="auth-password"
+          />
+        </div>
+
+        <div
+          v-if="isRegister"
+          class="auth__confirm_password"
+        >
+          <label for="auth-confirm-password">Confirm password</label>
+          <my-input
+            v-model="userAuthData.confirm_password"
+            class="auth__input"
+            type="text"
+            name="auth-confirm-password"
           />
         </div>
 
@@ -36,10 +65,16 @@
           type="submit"
           class="btn auth__btn"
         >
-          Sign in
+          {{ btnText }}
         </button>
       </form>
-      <div class="auth__register center">Register now</div>
+      <div
+        v-if="isLoginIn"
+        class="auth__register center"
+        @click="registerStart"
+      >
+        Register now
+      </div>
     </div>
   </div>
 </template>
@@ -61,13 +96,90 @@
     },
     data () {
       return {
-        userData: { email: '', phone: '' },
-        loading: false
+        userAuthData: {
+          name: '',
+          phone: '',
+          password: '',
+          confirm_password: ''
+        },
+        loading: false,
+        isLoginIn: true,
+        isRegister: false,
+        authTitle: 'Login In',
+        btnText: 'Sign in',
+        userLoginIn: {
+          phone: '',
+          password: ''
+        },
+        userRegister: {
+          phone: '',
+          password: '',
+          date: null
+        }
       }
     },
     methods: {
       closeAuth () {
         this.authStore.closeAuthModal()
+      },
+      submitLogIn () {
+        if (this.loading) return // это логика для исключения повторной генерации события handleSubmit в момент отправления данных из формы в хранилище
+        this.loading = true
+
+        if (this.isRegister === false && this.isLoginIn === true) {
+          this.userLoginIn.phone = this.userAuthData.phone
+          this.userLoginIn.password = this.userAuthData.password
+
+          try {
+            if (!this.authStore.registerData) {
+              console.log('You are not registered!')
+              return
+            } else if (this.authStore.registerData) {
+              if (this.authStore.registerData === this.userLoginIn) {
+                this.authStore.isUserAuth = true
+                console.log(this.authStore.isUserAuth)
+              }
+            }
+          } catch (e) {
+            console.log(e)
+          } finally {
+            this.loading = false
+          }
+        } else if (this.isRegister === true && this.isLoginIn === false) {
+          this.userRegister.name = this.userAuthData.name
+          this.userRegister.phone = this.userAuthData.phone
+          this.userRegister.password = this.userAuthData.password
+          this.userRegister.date = Date.now()
+
+          try {
+            this.authStore.setRegisterData(this.userRegister)
+          } catch (e) {
+            console.log(e)
+          } finally {
+            this.loading = false
+            this.loginStart()
+          }
+        }
+      },
+      registerStart () {
+        this.clearFields()
+        this.isLoginIn = false
+        this.isRegister = true
+        this.authTitle = 'Register'
+        this.btnText = 'Submit'
+      },
+      loginStart () {
+        this.clearFields()
+        this.isLoginIn = true
+        this.isRegister = false
+        this.authTitle = 'Login In'
+        this.btnText = 'Sign in'
+      },
+      clearFields () {
+        this.userAuthData.name = ''
+        this.userAuthData.phone = ''
+        this.userAuthData.password = ''
+        this.userAuthData.confirm_password = ''
       }
     }
   }
@@ -128,8 +240,12 @@
   }
   &__register{
     text-decoration: underline;
-    color: #5c0aaf;
+    color: #245462;
     font-size: 18px;
+    cursor: pointer;
+    &:hover{
+      color: #5f909d;
+    }
   }
 }
 </style>

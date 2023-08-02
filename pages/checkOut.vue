@@ -139,9 +139,8 @@
 
         try {
           this.ordersStore.addNewOrder(this.order)
-          console.log('addNewOrder')
           this.cartListStore.clearCartList()
-          this.modalStore.openVoiceModal('your order has been placed and sent for processing, we will contact you', 1500)
+          this.modalStore.openVoiceModal('your order has been placed and sent for processing, we will contact you')
           this.$router.go(-1)
         } catch (e) {
           console.log(e)

@@ -3,17 +3,33 @@ import { defineStore } from 'pinia'
 export const useAuth = defineStore('authStore', {
   state () {
     return {
-      isAuthModal: false
+      registerData: {},
+      isAuthModal: false,
+      isUserAuth: false
     }
   },
   actions: {
+    fetchRegisterData () {
+      if (localStorage) {
+        this.registerData = JSON.parse(localStorage.getItem('authStorage')) || {}
+      }
+    },
     openAuthModal () {
       this.isAuthModal = true
-      console.log('openAuthModal')
     },
     closeAuthModal () {
       this.isAuthModal = false
-      console.log('closeAuthModal')
+    },
+    setRegisterData (payload) {
+      this.registerData = payload
+      localStorage.setItem('authStorage', JSON.stringify(this.registerData))
+    },
+    confirmRegisterData (payload) {
+      console.log('confirmRegisterData', payload)
+      const getUserData = payload
+      if (this.registerData.phone === getUserData.phone && this.registerData.password === getUserData.password) {
+        this.isUserAuth = true
+      }
     }
   }
 })
