@@ -69,7 +69,7 @@
   &__white{
     display: flex;
     flex-direction: column;
-    min-width: 200px;
+    width: 300px;
     min-height: 200px;
     padding:10px 20px;
     background: #FFFFFF;

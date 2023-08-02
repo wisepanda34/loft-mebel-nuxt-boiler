@@ -7,6 +7,9 @@ export default defineNuxtConfig({
   //     apiUrl: 'api-url-nuxt-config'
   //   }
   // },
+  // server: {
+  //   host: '192.168.0.107'
+  // },
   modules: [
     '@pinia/nuxt',
     'nuxt-swiper',
@@ -15,6 +18,9 @@ export default defineNuxtConfig({
     // '@nuxtjs/axios',
     // '@nuxtjs/auth-next'
   ],
+  // auth: {
+  //   // Options
+  // },
   i18n: {
     // module options
     vueI18n: './i18n.config.ts' // if you are using custom path, default

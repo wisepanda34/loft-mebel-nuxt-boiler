@@ -88,7 +88,7 @@
     methods: {
       handleAddToCartAndOpenVoiceModal (card) {
         this.cartListStore.addToCart(card)
-        this.modalStore.openVoiceModal('That product was added to cart!', 1000)
+        this.modalStore.openVoiceModal('That product was added to cart!')
       },
       handleAddToFavorites (card, like) {
         const isFavorite = this.isCardInFavorites(card)
