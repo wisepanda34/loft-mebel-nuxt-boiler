@@ -16,7 +16,7 @@
         @submit.prevent="submitLogIn"
       >
         <div
-          v-if="isRegister"
+          v-if="isProcessAuth===2"
           class="auth__name"
         >
           <label for="auth-phone">Name</label>
@@ -49,7 +49,7 @@
         </div>
 
         <div
-          v-if="isRegister"
+          v-if="isProcessAuth===2"
           class="auth__confirm_password"
         >
           <label for="auth-confirm-password">Confirm password</label>
@@ -69,7 +69,7 @@
         </button>
       </form>
       <div
-        v-if="isLoginIn"
+        v-if="isProcessAuth===1"
         class="auth__register center"
         @click="registerStart"
       >
@@ -103,8 +103,7 @@
           confirm_password: ''
         },
         loading: false,
-        isLoginIn: true,
-        isRegister: false,
+        isProcessAuth: 1,
         authTitle: 'Login In',
         btnText: 'Sign in',
         userLoginIn: {
@@ -126,7 +125,7 @@
         if (this.loading) return // это логика для исключения повторной генерации события handleSubmit в момент отправления данных из формы в хранилище
         this.loading = true
 
-        if (this.isRegister === false && this.isLoginIn === true) {
+        if (this.isProcessAuth === 1) {
           this.userLoginIn.phone = this.userAuthData.phone
           this.userLoginIn.password = this.userAuthData.password
 
@@ -145,7 +144,7 @@
           } finally {
             this.loading = false
           }
-        } else if (this.isRegister === true && this.isLoginIn === false) {
+        } else if (this.isProcessAuth === 2) {
           this.userRegister.name = this.userAuthData.name
           this.userRegister.phone = this.userAuthData.phone
           this.userRegister.password = this.userAuthData.password
@@ -163,15 +162,13 @@
       },
       registerStart () {
         this.clearFields()
-        this.isLoginIn = false
-        this.isRegister = true
+        this.isProcessAuth = 2
         this.authTitle = 'Register'
         this.btnText = 'Submit'
       },
       loginStart () {
         this.clearFields()
-        this.isLoginIn = true
-        this.isRegister = false
+        this.isProcessAuth = 1
         this.authTitle = 'Login In'
         this.btnText = 'Sign in'
       },
