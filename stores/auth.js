@@ -8,6 +8,11 @@ export const useAuth = defineStore('authStore', {
       isUserAuth: false
     }
   },
+  getters: {
+    getRegisterData () {
+      return this.registerData
+    }
+  },
   actions: {
     fetchRegisterData () {
       if (localStorage) {

@@ -10,64 +10,123 @@
         @click="closeAuth"
       >&#9587;</span>
 
-      <form
-        action="#"
-        class="auth__form"
-        @submit.prevent="submitLogIn"
+      <!--  Form Login In    -->
+      <div
+        v-if="isProcessAuth===1"
+        class="auth__loginIn"
       >
-        <div
-          v-if="isProcessAuth===2"
-          class="auth__name"
+        <form
+          action="#"
+          class="auth__form"
+          :class="{
+            'disabled_class': loading
+          }"
+          @submit.prevent="submitLogin"
         >
-          <label for="auth-phone">Name</label>
-          <my-input
-            v-model="userAuthData.name"
-            class="auth__input"
-            type="text"
-            name="auth-name"
-          />
-        </div>
+          <div class="auth__phone">
+            <label for="auth-phone">Phone</label>
+            <my-input
+              v-model="userLoginInData.phone"
+              class="auth__input"
+              type="text"
+              name="auth-phone"
+            />
+          </div>
+          <!--          @input="v$.userAuthData.phone.$touch()"-->
+          <div class="auth__password">
+            <label for="auth-password">Password</label>
+            <my-input
+              v-model="userLoginInData.password"
+              class="auth__input"
+              type="text"
+              name="auth-password"
+            />
+            <!--            @input="v$.userAuthData.password.$touch()"-->
+          </div>
+          <my-button
+            type="submit"
+            class="auth__btn"
+          >
+            Sign In
+          </my-button>
+        </form>
+      </div>
 
-        <div class="auth__phone">
-          <label for="auth-phone">Phone</label>
-          <my-input
-            v-model="userAuthData.phone"
-            class="auth__input"
-            type="text"
-            name="auth-phone"
-          />
-        </div>
-
-        <div class="auth__password">
-          <label for="auth-password">Password</label>
-          <my-input
-            v-model="userAuthData.password"
-            class="auth__input"
-            type="text"
-            name="auth-password"
-          />
-        </div>
-
-        <div
-          v-if="isProcessAuth===2"
-          class="auth__confirm_password"
+      <!--  Form Registration    -->
+      <div
+        v-if="isProcessAuth===2"
+        class="auth__registration"
+      >
+        <form
+          action="#"
+          class="auth__form"
+          :class="{
+            'disabled_class': loading
+          }"
+          @submit.prevent="submitRegister"
         >
-          <label for="auth-confirm-password">Confirm password</label>
-          <my-input
-            v-model="userAuthData.confirm_password"
-            class="auth__input"
-            type="text"
-            name="auth-confirm-password"
-          />
-        </div>
+          <div
+            class="auth__name"
+          >
+            <label for="auth-phone">Name</label>
+            <my-input
+              v-model="userRegisterData.name"
+              class="auth__input"
+              type="text"
+              name="auth-name"
+              @input="v$.userRegisterData.name.$touch()"
+            />
+            <!--            <div-->
+            <!--              v-if="checkErrorRegName"-->
+            <!--              class="invalidMessage"-->
+            <!--            >-->
+            <!--              This field is not an valid-->
+            <!--            </div>-->
+          </div>
 
-        <button
-          type="submit"
-          class="btn auth__btn"
-        >
-          {{ btnText }}
-        </button>
-      </form>
+          <div class="auth__phone">
+            <label for="auth-phone">Phone</label>
+            <my-input
+              v-model="userRegisterData.phone"
+              class="auth__input"
+              type="text"
+              name="auth-phone"
+              @input="v$.userRegisterData.phone.$touch()"
+            />
+          </div>
+
+          <div class="auth__password">
+            <label for="auth-password">Password</label>
+            <my-input
+              v-model="userRegisterData.password"
+              class="auth__input"
+              type="text"
+              name="auth-password"
+              @input="v$.userRegisterData.password.$touch()"
+            />
+          </div>
+
+          <div
+            class="auth__confirm_password"
+          >
+            <label for="auth-confirm-password">Confirm password</label>
+            <my-input
+              v-model="userRegisterData.confirm_password"
+              class="auth__input"
+              type="text"
+              name="auth-confirm-password"
+              @input="v$.userRegisterData.confirm_password.$touch()"
+            />
+          </div>
+          <my-button
+            type="submit"
+            class="auth__btn"
+          >
+            Submit
+          </my-button>
+        </form>
+      </div>
+
       <div
         v-if="isProcessAuth===1"
         class="auth__register center"
@@ -80,40 +139,64 @@
 </template>
 
 <script>
+  import { useVuelidate } from '@vuelidate/core'
+  import { required, email, minLength, maxLength, numeric } from '@vuelidate/validators'
   import { useAuth } from '~/stores/auth'
   import MyInput from '~/components/UI/MyInput.vue'
+  import MyButton from '~/components/UI/MyButton.vue'
 
   export default {
     name: 'AuthModal',
-    components: { MyInput },
+    components: { MyButton, MyInput },
     setup () {
+      const v$ = useVuelidate()
       const authStore = useAuth()
+      const getRegisterData = authStore.getRegisterData
       const isAuthModal = computed(() => authStore.isAuthModal)
       return {
         isAuthModal,
-        authStore
+        getRegisterData,
+        authStore,
+        v$
       }
     },
     data () {
       return {
-        userAuthData: {
+        userLoginInData: {
+          phoneLogin: '',
+          passwordLogin: ''
+        },
+        userRegisterData: {
           name: '',
           phone: '',
           password: '',
           confirm_password: ''
         },
         loading: false,
+        // 1 - login In, 2 - registration
         isProcessAuth: 1,
         authTitle: 'Login In',
-        btnText: 'Sign in',
-        userLoginIn: {
+        userLoginInFromForm: {
           phone: '',
           password: ''
         },
-        userRegister: {
+        userRegisterFromForm: {
           phone: '',
           password: '',
-          date: null
+        }
+      }
+    },
+    validations () {
+      return {
+        userLoginInData: {
+          phoneLogin: { required, numeric, minLength: minLength(4), maxLength: maxLength(10) },
+          passwordLogin: { required, minLength: minLength(4), maxLength: maxLength(20) }
+        },
+        userRegisterData: {
+          name: { required, minLength: minLength(2), maxLength: maxLength(20) },
+          password: { required, minLength: minLength(4), maxLength: maxLength(20) },
+          email: { required, email },
+          phone: { required, numeric, minLength: minLength(4), maxLength: maxLength(10) }
         }
       }
     },
@@ -121,68 +204,80 @@
       closeAuth () {
         this.authStore.closeAuthModal()
       },
-      submitLogIn () {
+      // Режим Login In
+      submitLogin () {
+        console.log('submitLogin')
         if (this.loading) return // это логика для исключения повторной генерации события handleSubmit в момент отправления данных из формы в хранилище
         this.loading = true
 
-        if (this.isProcessAuth === 1) {
-          this.userLoginIn.phone = this.userAuthData.phone
-          this.userLoginIn.password = this.userAuthData.password
+        this.userLoginInFromForm.phone = this.userLoginInData.phone
+        this.userLoginInFromForm.password = this.userLoginInData.password
 
-          try {
-            if (!this.authStore.registerData) {
-              console.log('You are not registered!')
-              return
-            } else if (this.authStore.registerData) {
-              if (this.authStore.registerData === this.userLoginIn) {
-                this.authStore.isUserAuth = true
-                console.log(this.authStore.isUserAuth)
-              }
-            }
-          } catch (e) {
-            console.log(e)
-          } finally {
-            this.loading = false
-          }
-        } else if (this.isProcessAuth === 2) {
-          this.userRegister.name = this.userAuthData.name
-          this.userRegister.phone = this.userAuthData.phone
-          this.userRegister.password = this.userAuthData.password
-          this.userRegister.date = Date.now()
-
-          try {
-            this.authStore.setRegisterData(this.userRegister)
-          } catch (e) {
-            console.log(e)
-          } finally {
-            this.loading = false
-            this.loginStart()
-          }
+        try {
+          if (!this.authStore.getRegisterData.phone || !this.authStore.getRegisterData.password) return
+          console.log(this.authStore.registerData)
+          console.log('registerData.phone', this.authStore.registerData)
+          this.authStore.isUserAuth = true
+          this.clearFields()
+          // if (this.authStore.registerData.phone === this.userLoginInFromForm.phone &&
+          //   this.authStore.registerData.password === this.userLoginInFromForm.password) {
+          //   console.log('confirm password')
+          //   this.authStore.isUserAuth = true
+          //   console.log(this.authStore.isUserAuth)
+          // }
+        } catch (e) {
+          console.log(e)
+        } finally {
+          this.loading = false
         }
       },
+      // Режим Register
+      submitRegister () {
+        if (this.userRegisterData.password !== this.userRegisterData.confirm_password) return
+        this.userRegisterFromForm.name = this.userRegisterData.name
+        this.userRegisterFromForm.phone = this.userRegisterData.phone
+        this.userRegisterFromForm.password = this.userRegisterData.password
+
+        try {
+          this.authStore.setRegisterData(this.userRegisterFromForm)
+        } catch (e) {
+          console.log(e)
+        } finally {
+          this.loading = false
+          this.loginStart()
+        }
+      },
+      // checkErrorRegName () {
+      //   return this.v$.userRegister.name?.$invalid
+      // },
       registerStart () {
         this.clearFields()
         this.isProcessAuth = 2
         this.authTitle = 'Register'
-        this.btnText = 'Submit'
       },
       loginStart () {
         this.clearFields()
         this.isProcessAuth = 1
         this.authTitle = 'Login In'
-        this.btnText = 'Sign in'
       },
       clearFields () {
-        this.userAuthData.name = ''
-        this.userAuthData.phone = ''
-        this.userAuthData.password = ''
-        this.userAuthData.confirm_password = ''
+        this.userRegisterData.name = ''
+        this.userRegisterData.phone = ''
+        this.userRegisterData.password = ''
+        this.userRegisterData.confirm_password = ''
+        this.userLoginInData.phone = ''
+        this.userLoginInData.password = ''
       }
     }
   }
 </script>
 
 <style lang="scss" scoped>
+.invalidMessage{
+  font-size: 12px;
+  color: red;
+  margin-bottom: 10px;
+}
 .auth{
   position: fixed;
   width: 100vw;
@@ -232,7 +327,7 @@
   &__btn{
     width: 150px;
     height: 50px;
-    margin: 10px auto 0;
+    margin: 15px auto 0;
     font-size: 16px;
   }
   &__register{

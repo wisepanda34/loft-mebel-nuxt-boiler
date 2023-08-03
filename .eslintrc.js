@@ -6,7 +6,7 @@ module.exports = {
   },
   extends: [
       'standard',
-    // '@nuxtjs/eslint-config',
+    '@nuxtjs/eslint-config',
     'plugin:vue/recommended'
   ],
   plugins: [
