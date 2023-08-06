@@ -21,43 +21,30 @@
           :class="{
             'disabled_class': loading
           }"
+          novalidate
           @submit.prevent="submitLogin"
         >
-          <div class="auth__phone">
-            <label for="auth-phone">Phone</label>
+          <div v-for="(field, i) in Object.values(userLoginInData)" :key="i">
+            <label :for="field.name">{{ field.name }} </label>
             <my-input
-              id="auth-phone"
-              v-model="userLoginInData.phoneLogin"
+              v-model="field.value"
               class="auth__input"
-              name="auth-phone"
-              placeholder="input your phone"
-              @input="v$.userLoginInData.phoneLogin.$touch()"
+              :class="{
+                'inputError': v$?.userLoginInData[Object.keys(userLoginInData)[i]].value?.$error,
+                'inputValid': !v$?.userLoginInData[Object.keys(userLoginInData)[i]].value?.$invalid
+              }"
+              :name="field.name"
+              @blur="v$?.userLoginInData[Object.keys(userLoginInData)[i]].value?.$touch()"
             />
-            <div
-              v-if="checkErrorLoginPhone()"
-              class="invalidMessage"
+            <p
+              v-for="error of v$.userLoginInData[Object.keys(userLoginInData)[i]].$errors"
+              :key="error.$uid"
+              class="messageError"
             >
-              This field is not a valid
-            </div>
+              {{ error.$message }}
+            </p>
           </div>
-          <div class="auth__password">
-            <label for="auth-password">Password</label>
-            <my-input
-              id="auth-password"
-              v-model="userLoginInData.passwordLogin"
-              class="auth__input"
-              text="password"
-              name="auth-password"
-              placeholder="4 - 20 characters"
-              @input="v$.userLoginInData.passwordLogin.$touch()"
-            />
-            <div
-              v-if="checkErrorLoginPassword()"
-              class="invalidMessage"
-            >
-              This field is not a valid
-            </div>
-          </div>
+
           <my-button
             type="submit"
             class="auth__btn"
@@ -78,82 +65,33 @@
           :class="{
             'disabled_class': loading
           }"
+          novalidate
           @submit.prevent="submitRegister"
         >
           <div
-            class="auth__name"
+            v-for="(field, i) in Object.values(userRegisterData)"
+            :key="i"
           >
-            <label for="auth-phone">Name</label>
+            <label :for="field.name">{{ field.name }}</label>
             <my-input
-              v-model="userRegisterData.name"
+              v-model="field.value"
               class="auth__input"
-              type="text"
-              name="auth-name"
-              placeholder="3 - 20 characters"
-              @input="v$.userRegisterData.name.$touch()"
+              :class="{
+                'inputError': v$?.userRegisterData[Object.keys(userRegisterData)[i]].value?.$error,
+                'inputValid': !v$?.userRegisterData[Object.keys(userRegisterData)[i]].value?.$invalid
+              }"
+              :type="field.type"
+              :name="field.name"
+              :placeholder="field.placeholder"
+              @blur="v$?.userRegisterData[Object.keys(userRegisterData)[i]].value?.$touch()"
             />
-            <div
-              v-if="checkErrorRegName"
-              class="invalidMessage"
+            <p
+              v-for="error of v$?.userRegisterData[Object.keys(userRegisterData)[i]].$errors"
+              :key="error.$uid"
+              class="messageError"
             >
-              This field is not an valid
-            </div>
-          </div>
-
-          <div class="auth__phone">
-            <label for="auth-phone">Phone</label>
-            <my-input
-              v-model="userRegisterData.phone"
-              class="auth__input"
-              type="text"
-              name="auth-phone"
-              placeholder="input your phone"
-              @input="v$.userRegisterData.phone.$touch()"
-            />
-            <div
-              v-if="checkErrorRegPhone"
-              class="invalidMessage"
-            >
-              This field is not an valid
-            </div>
-          </div>
-
-          <div class="auth__password">
-            <label for="auth-password">Password</label>
-            <my-input
-              v-model="userRegisterData.password"
-              class="auth__input"
-              type="text"
-              name="auth-password"
-              placeholder="4 - 20 characters"
-              @input="v$.userRegisterData.password.$touch()"
-            />
-            <div
-              v-if="checkErrorRegPassword"
-              class="invalidMessage"
-            >
-              This field is not an valid
-            </div>
-          </div>
-
-          <div
-            class="auth__confirm_password"
-          >
-            <label for="auth-confirm-password">Confirm password</label>
-            <my-input
-              v-model="userRegisterData.confirm_password"
-              class="auth__input"
-              type="text"
-              name="auth-confirm-password"
-              placeholder="4 - 20 characters"
-              @input="v$.userRegisterData.confirmPassword.$touch()"
-            />
-            <div
-              v-if="checkErrorRegConfirm"
-              class="invalidMessage"
-            >
-              This field is not an valid
-            </div>
+              {{ error.$message }}
+            </p>
           </div>
           <my-button
             type="submit"
@@ -177,7 +115,7 @@
 
 <script>
   import { useVuelidate } from '@vuelidate/core'
-  import { required, email, sameAs, minLength, maxLength, numeric, helpers } from '@vuelidate/validators'
+  import { required, email, sameAs, minLength, maxLength, numeric } from '@vuelidate/validators'
   import { useAuth } from '~/stores/auth'
   import MyInput from '~/components/UI/MyInput.vue'
   import MyButton from '~/components/UI/MyButton.vue'
@@ -200,14 +138,42 @@
     data () {
       return {
         userLoginInData: {
-          phoneLogin: '',
-          passwordLogin: ''
+          phoneLogin: {
+            name: 'Phone',
+            type: 'text',
+            value: ''
+          },
+          passwordLogin: {
+            name: 'Password',
+            type: 'password',
+            value: ''
+          }
         },
         userRegisterData: {
-          name: '',
-          phone: '',
-          password: '',
-          confirmPassword: null
+          name: {
+            name: 'Name',
+            type: 'text',
+            placeholder: '4-20 characters',
+            value: ''
+          },
+          phone: {
+            name: 'Phone',
+            type: 'numeric',
+            placeholder: 'phone number',
+            value: ''
+          },
+          password: {
+            name: 'Password',
+            type: 'password',
+            placeholder: '4-12 characters',
+            value: ''
+          },
+          confirmPassword: {
+            name: 'Confirm password',
+            type: 'password',
+            placeholder: 'repeat password',
+            value: ''
+          }
         },
         loading: false,
         // 1 - login In, 2 - registration
@@ -226,75 +192,66 @@
     validations () {
       return {
         userLoginInData: {
-          phoneLogin: { required, numeric, minLength: minLength(4), maxLength: maxLength(10) },
-          passwordLogin: { required, minLength: minLength(4), maxLength: maxLength(20) }
+          phoneLogin: {
+            value: { required, numeric, minLength: minLength(4), maxLength: maxLength(20) }
+          },
+          passwordLogin: {
+            value: { required }
+          }
         },
         userRegisterData: {
-          name: { required, minLength: minLength(2), maxLength: maxLength(20) },
-          password: { required, minLength: minLength(4), maxLength: maxLength(20) },
-          confirmPassword: { required, sameAs: sameAs(this.userRegisterData.password) },
-          email: { required, email },
-          phone: { required, numeric, minLength: minLength(4), maxLength: maxLength(10) }
+          name: {
+            value: { required, minLength: minLength(2), maxLength: maxLength(20) }
+          },
+          password: {
+            value: { required, minLength: minLength(4), maxLength: maxLength(20) }
+          },
+          confirmPassword: {
+            value: { required, sameAsPassword: sameAs(this.userRegisterData.password.value) }
+          },
+          email: {
+            value: { required, email }
+          },
+          phone: {
+            value: { required, numeric, minLength: minLength(4), maxLength: maxLength(10) }
+          }
         }
       }
     },
     methods: {
-      checkErrorLoginPhone () {
-        return this.v$.userLoginInData.phoneLogin?.$error
-      },
-      checkErrorLoginPassword () {
-        return this.v$.userLoginInData.passwordLogin?.$error
-      },
-      checkErrorRegName () {
-        return this.v$.userRegisterData.name?.$error
-      },
-      checkErrorRegPhone () {
-        return this.v$.userRegisterData.phone?.$error
-      },
-      checkErrorRegPassword () {
-        return this.v$.userRegisterData.password?.$error
-      },
-      checkErrorRegConfirm () {
-        return this.v$.userRegisterData.confirmPassword?.$error
-      },
       closeAuth () {
         this.authStore.closeAuthModal()
         this.isProcessAuth = 1
       },
       // Режим Login In
       submitLogin () {
-        console.log('submitLogin')
+        // if (this.v$.$invalid) { return }
         if (this.loading) { return } // это логика для исключения повторной генерации события handleSubmit в момент отправления данных из формы в хранилище
         this.loading = true
+        console.log('submitLogin')
+        console.log(this.getRegisterData)
 
-        this.userLoginInFromForm.phone = this.userLoginInData.phone
-        this.userLoginInFromForm.password = this.userLoginInData.password
-
-        try {
-          if (!this.authStore.getRegisterData.phone || !this.authStore.getRegisterData.password) { return }
-          console.log(this.authStore.registerData)
-          console.log('registerData.phone', this.authStore.registerData)
+        if (this.getRegisterData.phone === this.userLoginInData.phone.value && this.getRegisterData.password === this.userLoginInData.password.value) {
+          console.log('===')
           this.authStore.isUserAuth = true
-          this.clearFields()
-          // if (this.authStore.registerData.phone === this.userLoginInFromForm.phone &&
-          //   this.authStore.registerData.password === this.userLoginInFromForm.password) {
-          //   console.log('confirm password')
-          //   this.authStore.isUserAuth = true
-          //   console.log(this.authStore.isUserAuth)
-          // }
-        } catch (e) {
-          console.log(e)
-        } finally {
           this.loading = false
+          alert('you have came in')
+          this.clearFields()
+          this.closeAuthModal()
         }
       },
       // Режим Register
       submitRegister () {
-        if (this.userRegisterData.password !== this.userRegisterData.confirm_password) { return }
-        this.userRegisterFromForm.name = this.userRegisterData.name
-        this.userRegisterFromForm.phone = this.userRegisterData.phone
-        this.userRegisterFromForm.password = this.userRegisterData.password
-
+        console.log('submitRegister')
+        // if (this.v$.$invalid) {
+        //   return
+        // }
+        console.log('start')
+        if (this.loading) { return } // это логика для исключения повторной генерации события handleSubmit в момент отправления данных из формы в хранилище
+        this.loading = true
+        this.userRegisterFromForm.name = this.userRegisterData.name.value
+        this.userRegisterFromForm.phone = this.userRegisterData.phone.value
+        this.userRegisterFromForm.password = this.userRegisterData.password.value
         try {
           this.authStore.setRegisterData(this.userRegisterFromForm)
         } catch (e) {
@@ -315,19 +272,20 @@
         this.authTitle = 'Login In'
       },
       clearFields () {
-        this.userRegisterData.name = ''
-        this.userRegisterData.phone = ''
-        this.userRegisterData.password = ''
-        this.userRegisterData.confirm_password = ''
-        this.userLoginInData.phone = ''
-        this.userLoginInData.password = ''
+        this.v$.$reset()
       }
     }
   }
 </script>
 
 <style lang="scss" scoped>
-.invalidMessage{
+.inputError{
+  border: 1px solid red;
+}
+.inputValid{
+  border: 1px solid green;
+}
+.messageError{
   font-size: 12px;
   color: red;
   margin-top: -10px;

@@ -9,8 +9,8 @@ export const useAuth = defineStore('authStore', {
     }
   },
   getters: {
-    getRegisterData () {
-      return this.registerData
+    getRegisterData (state) {
+      return state.registerData
     }
   },
   actions: {
@@ -27,14 +27,8 @@ export const useAuth = defineStore('authStore', {
     },
     setRegisterData (payload) {
       this.registerData = payload
+      console.log(payload)
       localStorage.setItem('authStorage', JSON.stringify(this.registerData))
-    },
-    confirmRegisterData (payload) {
-      console.log('confirmRegisterData', payload)
-      const getUserData = payload
-      if (this.registerData.phone === getUserData.phone && this.registerData.password === getUserData.password) {
-        this.isUserAuth = true
-      }
     }
   }
 })

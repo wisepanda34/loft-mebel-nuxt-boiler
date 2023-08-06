@@ -68,9 +68,9 @@
 <script>
   import { useVuelidate } from '@vuelidate/core'
   import { required, email, minLength, maxLength, numeric } from '@vuelidate/validators'
+  import Vue3EasyDataTable from 'vue3-easy-data-table'
   import MyInput from '~/components/UI/MyInput.vue'
   import MyButton from '~/components/UI/MyButton.vue'
-  import Vue3EasyDataTable from 'vue3-easy-data-table'
   import 'vue3-easy-data-table/dist/style.css'
   import { useUser } from '~/stores/user'
   import { useOrders } from '~/stores/orders'
@@ -136,7 +136,9 @@
       // это логика для исключения повторной генерации события handleSubmit
       // в момент отправления данных из формы в хранилище
       async handleSubmit () {
-        if (this.loading) return
+        if (this.loading) {
+          return
+        }
         this.loading = true
         try {
           await this.userStore.updateUserData(this.userInfo)
@@ -154,7 +156,7 @@
     mounted () {
       // преобразование данных из store в массив,
       // который перебирается и копирует значения в объект userData.
-      Object.keys(this.userStore.getUserData).forEach(key => {
+      Object.keys(this.userStore.getUserData).forEach((key) => {
         const userValue = this.userStore.getUserData[key]
         if (userValue) {
           this.userInfo[key] = userValue
@@ -163,7 +165,7 @@
 
       let i = 1
       this.tableItems = this.orders.flatMap(order =>
-        order.orderProducts.map((product) => ({
+        order.orderProducts.map(product => ({
           number: i++,
           product: product.titleCard,
           kindProduct: product.kindProduct,
