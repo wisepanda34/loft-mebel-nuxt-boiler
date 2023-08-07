@@ -8,7 +8,8 @@ export default defineNuxtConfig({
   //   }
   // },
   // server: {
-  //   host: '192.168.0.107'
+  //   port: 5000, // default: 3000
+  //   host: '0.0.0.0' // default: localhost
   // },
   modules: [
     '@pinia/nuxt',

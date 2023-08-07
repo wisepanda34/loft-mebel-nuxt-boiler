@@ -10,7 +10,7 @@
         @click="closeAuth"
       >&#9587;</span>
 
-      <!--  Form Login In    -->
+      <!--  Form Log In    -->
       <div
         v-if="isProcessAuth===1"
         class="auth__loginIn"
@@ -33,9 +33,14 @@
                 'inputError': v$?.userLoginInData[Object.keys(userLoginInData)[i]].value?.$error,
                 'inputValid': !v$?.userLoginInData[Object.keys(userLoginInData)[i]].value?.$invalid
               }"
+              :type="field.type === 'password' && !field.show ? 'password' : 'text'"
               :name="field.name"
               @blur="v$?.userLoginInData[Object.keys(userLoginInData)[i]].value?.$touch()"
             />
+            <span
+              v-if="field.type === 'password'"
+              @click="field.show = !field.show"
+            >qwe</span>
             <p
               v-for="error of v$.userLoginInData[Object.keys(userLoginInData)[i]].$errors"
               :key="error.$uid"
@@ -115,11 +120,11 @@
 
 <script>
   import { useVuelidate } from '@vuelidate/core'
-  import { required, email, sameAs, minLength, maxLength, numeric } from '@vuelidate/validators'
+  import { required, email, sameAs, minLength, maxLength, helpers } from '@vuelidate/validators'
   import { useAuth } from '~/stores/auth'
   import MyInput from '~/components/UI/MyInput.vue'
   import MyButton from '~/components/UI/MyButton.vue'
-
+  const number = helpers.regex(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/)
   export default {
     name: 'AuthModal',
     components: { MyButton, MyInput },
@@ -158,7 +163,7 @@
           },
           phone: {
             name: 'Phone',
-            type: 'numeric',
+            type: 'text',
             placeholder: 'phone number',
             value: ''
           },
@@ -193,7 +198,13 @@
       return {
         userLoginInData: {
           phoneLogin: {
-            value: { required, numeric, minLength: minLength(4), maxLength: maxLength(20) }
+            value: {
+              required,
+              // numeric,
+              number,
+              minLength: minLength(4),
+              maxLength: maxLength(20)
+            }
           },
           passwordLogin: {
             value: { required }
@@ -213,7 +224,13 @@
             value: { required, email }
           },
           phone: {
-            value: { required, numeric, minLength: minLength(4), maxLength: maxLength(10) }
+            value: {
+              required,
+              // numeric,
+              number,
+              minLength: minLength(4),
+              maxLength: maxLength(10)
+            }
           }
         }
       }

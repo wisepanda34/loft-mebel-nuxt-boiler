@@ -1,26 +1,18 @@
 <template>
   <section class="choose">
     <div class="choose__wrapper">
-      <TransitionGroup name="slide-fade">
-        <div
-          v-if="isFilterOpen"
-          ref="filterWrapper"
-          class="choose__filterWrapper"
-          tabindex="-1"
-          @click.self="closeFilter"
-          @keydown.esc="closeFilter"
-        >
-          <Filter
-            class="choose__filter"
-            @filter-selected="onFilterSelected"
-            @type-selected="onTypeSelected"
-            @kind-selected="onKindSelected"
-            @close-filter="closeFilter"
-          />
-        </div>
-      </TransitionGroup>
-
-      <aside class="choose__aside">
+      <!--      <TransitionGroup name="slide-fade">-->
+      <!--      v-if="isFilterOpen"-->
+      <aside
+        ref="filterWrapper"
+        :class="[
+          'choose__filterWrapper',
+          { 'open': isFilterOpen }
+        ]"
+        tabindex="-1"
+        @click.self="closeFilter"
+        @keydown.esc="closeFilter"
+      >
         <Filter
           class="choose__filter"
           @filter-selected="onFilterSelected"
@@ -29,6 +21,17 @@
           @close-filter="closeFilter"
         />
       </aside>
+      <!--      </TransitionGroup>-->
+
+      <!--      <aside class="choose__aside">-->
+      <!--        <Filter-->
+      <!--          class="choose__filter"-->
+      <!--          @filter-selected="onFilterSelected"-->
+      <!--          @type-selected="onTypeSelected"-->
+      <!--          @kind-selected="onKindSelected"-->
+      <!--          @close-filter="closeFilter"-->
+      <!--        />-->
+      <!--      </aside>-->
 
       <div class="choose__block">
         <div class="choose__options">
@@ -187,9 +190,9 @@
       background: #e0dfdf;
     }
   }
-  &__aside{
-
-  }
+  //&__aside{
+  //
+  //}
   &__select{
     text-align: center;
   }
@@ -213,9 +216,9 @@
     &__wrapper{
       position: relative;
     }
-    &__aside{
-      display: none;
-    }
+    //&__aside{
+    //  display: none;
+    //}
     &__filterWrapper{
       position: fixed;
       top: 0;
@@ -224,6 +227,13 @@
       height: 100vh;
       background: rgba(0,0,0,0.5);
       z-index: 20;
+      opacity: 0;
+      visibility: hidden;
+      &.open {
+        opacity: 1;
+        visibility: visible;
+        transition: all 0.5s ease;
+      }
     }
     &__block{
       width: 100%;
