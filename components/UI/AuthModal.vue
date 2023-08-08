@@ -24,7 +24,11 @@
           novalidate
           @submit.prevent="submitLogin"
         >
-          <div v-for="(field, i) in Object.values(userLoginInData)" :key="i">
+          <div
+            v-for="(field, i) in Object.values(userLoginInData)"
+            :key="i"
+            class="auth__block"
+          >
             <label :for="field.name">{{ field.name }} </label>
             <my-input
               v-model="field.value"
@@ -39,8 +43,16 @@
             />
             <span
               v-if="field.type === 'password'"
+              class="auth__eye"
               @click="field.show = !field.show"
-            >qwe</span>
+            >
+              <svg v-if="!field.show" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M12 9a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-4.5c5 0 9.27 3.11 11 7.5c-1.73 4.39-6 7.5-11 7.5S2.73 16.39 1 12c1.73-4.39 6-7.5 11-7.5M3.18 12a9.821 9.821 0 0 0 17.64 0a9.821 9.821 0 0 0-17.64 0Z" />
+              </svg>
+              <svg v-if="field.show" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M2 5.27L3.28 4L20 20.72L18.73 22l-3.08-3.08c-1.15.38-2.37.58-3.65.58c-5 0-9.27-3.11-11-7.5c.69-1.76 1.79-3.31 3.19-4.54L2 5.27M12 9a3 3 0 0 1 3 3a3 3 0 0 1-.17 1L11 9.17A3 3 0 0 1 12 9m0-4.5c5 0 9.27 3.11 11 7.5a11.79 11.79 0 0 1-4 5.19l-1.42-1.43A9.862 9.862 0 0 0 20.82 12A9.821 9.821 0 0 0 12 6.5c-1.09 0-2.16.18-3.16.5L7.3 5.47c1.44-.62 3.03-.97 4.7-.97M3.18 12A9.821 9.821 0 0 0 12 17.5c.69 0 1.37-.07 2-.21L11.72 15A3.064 3.064 0 0 1 9 12.28L5.6 8.87c-.99.85-1.82 1.91-2.42 3.13Z" />
+              </svg>
+            </span>
             <p
               v-for="error of v$.userLoginInData[Object.keys(userLoginInData)[i]].$errors"
               :key="error.$uid"
@@ -76,6 +88,7 @@
           <div
             v-for="(field, i) in Object.values(userRegisterData)"
             :key="i"
+            class="auth__block"
           >
             <label :for="field.name">{{ field.name }}</label>
             <my-input
@@ -85,11 +98,23 @@
                 'inputError': v$?.userRegisterData[Object.keys(userRegisterData)[i]].value?.$error,
                 'inputValid': !v$?.userRegisterData[Object.keys(userRegisterData)[i]].value?.$invalid
               }"
-              :type="field.type"
+              :type="field.type === 'password' && !field.show ? 'password' : 'text'"
               :name="field.name"
               :placeholder="field.placeholder"
               @blur="v$?.userRegisterData[Object.keys(userRegisterData)[i]].value?.$touch()"
             />
+            <span
+              v-if="field.type === 'password'"
+              class="auth__eye"
+              @click="field.show = !field.show"
+            >
+              <svg v-if="!field.show" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M12 9a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-4.5c5 0 9.27 3.11 11 7.5c-1.73 4.39-6 7.5-11 7.5S2.73 16.39 1 12c1.73-4.39 6-7.5 11-7.5M3.18 12a9.821 9.821 0 0 0 17.64 0a9.821 9.821 0 0 0-17.64 0Z" />
+              </svg>
+              <svg v-if="field.show" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M2 5.27L3.28 4L20 20.72L18.73 22l-3.08-3.08c-1.15.38-2.37.58-3.65.58c-5 0-9.27-3.11-11-7.5c.69-1.76 1.79-3.31 3.19-4.54L2 5.27M12 9a3 3 0 0 1 3 3a3 3 0 0 1-.17 1L11 9.17A3 3 0 0 1 12 9m0-4.5c5 0 9.27 3.11 11 7.5a11.79 11.79 0 0 1-4 5.19l-1.42-1.43A9.862 9.862 0 0 0 20.82 12A9.821 9.821 0 0 0 12 6.5c-1.09 0-2.16.18-3.16.5L7.3 5.47c1.44-.62 3.03-.97 4.7-.97M3.18 12A9.821 9.821 0 0 0 12 17.5c.69 0 1.37-.07 2-.21L11.72 15A3.064 3.064 0 0 1 9 12.28L5.6 8.87c-.99.85-1.82 1.91-2.42 3.13Z" />
+              </svg>
+            </span>
             <p
               v-for="error of v$?.userRegisterData[Object.keys(userRegisterData)[i]].$errors"
               :key="error.$uid"
@@ -131,8 +156,8 @@
     setup () {
       const v$ = useVuelidate()
       const authStore = useAuth()
-      const getRegisterData = authStore.getRegisterData
       const isAuthModal = computed(() => authStore.isAuthModal)
+      const getRegisterData = authStore.getRegisterData
       return {
         isAuthModal,
         getRegisterData,
@@ -201,7 +226,7 @@
             value: {
               required,
               // numeric,
-              number,
+              number: helpers.withMessage('This is not phone', number),
               minLength: minLength(4),
               maxLength: maxLength(20)
             }
@@ -227,7 +252,7 @@
             value: {
               required,
               // numeric,
-              number,
+              number: helpers.withMessage('This is not phone', number),
               minLength: minLength(4),
               maxLength: maxLength(10)
             }
@@ -242,29 +267,28 @@
       },
       // Режим Login In
       submitLogin () {
-        // if (this.v$.$invalid) { return }
         if (this.loading) { return } // это логика для исключения повторной генерации события handleSubmit в момент отправления данных из формы в хранилище
         this.loading = true
-        console.log('submitLogin')
+        this.authStore.isUserAuth = true
+        this.loading = false
+        console.log(this.authStore.isUserAuth, this.loading)
+
         console.log(this.getRegisterData)
 
-        if (this.getRegisterData.phone === this.userLoginInData.phone.value && this.getRegisterData.password === this.userLoginInData.password.value) {
-          console.log('===')
-          this.authStore.isUserAuth = true
-          this.loading = false
-          alert('you have came in')
-          this.clearFields()
-          this.closeAuthModal()
-        }
+        // if (this.getRegisterData.phone === this.userLoginInData.phone.value && this.getRegisterData.password === this.userLoginInData.password.value) {
+        //   console.log('===')
+        //   this.authStore.isUserAuth = true
+        //   this.loading = false
+        //   alert('you have came in')
+        //   this.clearFields()
+        //   this.closeAuthModal()
+        // } else {
+        //   alert('login or password is not right((')
+        // }
       },
       // Режим Register
       submitRegister () {
-        console.log('submitRegister')
-        // if (this.v$.$invalid) {
-        //   return
-        // }
-        console.log('start')
-        if (this.loading) { return } // это логика для исключения повторной генерации события handleSubmit в момент отправления данных из формы в хранилище
+        if (this.loading) { return } // логика для исключения повторной генерации события submit в момент отправления данных из формы в хранилище
         this.loading = true
         this.userRegisterFromForm.name = this.userRegisterData.name.value
         this.userRegisterFromForm.phone = this.userRegisterData.phone.value
@@ -291,6 +315,9 @@
       clearFields () {
         this.v$.$reset()
       }
+    },
+    mounted () {
+      console.log(this.getRegisterData)
     }
   }
 </script>
@@ -348,11 +375,23 @@
   &__form{
     padding: 30px 0;
   }
+  &__block{
+    position: relative;
+  }
   &__input{
     width: 100%;
     height: 40px;
     margin-bottom: 20px;
     margin-top: 10px;
+    padding-right: 40px;
+  }
+  &__eye{
+    position: absolute;
+    top: 45%;
+    right: 12px;
+    cursor: pointer;
+    color: #464646;
+
   }
   &__btn{
     width: 150px;

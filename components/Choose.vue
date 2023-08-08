@@ -1,8 +1,6 @@
 <template>
   <section class="choose">
     <div class="choose__wrapper">
-      <!--      <TransitionGroup name="slide-fade">-->
-      <!--      v-if="isFilterOpen"-->
       <aside
         ref="filterWrapper"
         :class="[
@@ -21,17 +19,6 @@
           @close-filter="closeFilter"
         />
       </aside>
-      <!--      </TransitionGroup>-->
-
-      <!--      <aside class="choose__aside">-->
-      <!--        <Filter-->
-      <!--          class="choose__filter"-->
-      <!--          @filter-selected="onFilterSelected"-->
-      <!--          @type-selected="onTypeSelected"-->
-      <!--          @kind-selected="onKindSelected"-->
-      <!--          @close-filter="closeFilter"-->
-      <!--        />-->
-      <!--      </aside>-->
 
       <div class="choose__block">
         <div class="choose__options">
@@ -161,6 +148,7 @@
 </script>
 
 <style lang="scss" scoped>
+
 .choose{
   padding: 20px 0;
   &__wrapper{
@@ -190,9 +178,6 @@
       background: #e0dfdf;
     }
   }
-  //&__aside{
-  //
-  //}
   &__select{
     text-align: center;
   }
@@ -216,9 +201,6 @@
     &__wrapper{
       position: relative;
     }
-    //&__aside{
-    //  display: none;
-    //}
     &__filterWrapper{
       position: fixed;
       top: 0;

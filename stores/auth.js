@@ -9,8 +9,8 @@ export const useAuth = defineStore('authStore', {
     }
   },
   getters: {
-    getRegisterData (state) {
-      return state.registerData
+    getRegisterData () {
+      return this.registerData
     }
   },
   actions: {
