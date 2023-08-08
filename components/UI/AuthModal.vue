@@ -157,7 +157,7 @@
       const v$ = useVuelidate()
       const authStore = useAuth()
       const isAuthModal = computed(() => authStore.isAuthModal)
-      const getRegisterData = authStore.getRegisterData
+      const getRegisterData = computed(() => authStore.getRegisterData)
       return {
         isAuthModal,
         getRegisterData,
@@ -275,16 +275,15 @@
 
         console.log(this.getRegisterData)
 
-        // if (this.getRegisterData.phone === this.userLoginInData.phone.value && this.getRegisterData.password === this.userLoginInData.password.value) {
-        //   console.log('===')
-        //   this.authStore.isUserAuth = true
-        //   this.loading = false
-        //   alert('you have came in')
-        //   this.clearFields()
-        //   this.closeAuthModal()
-        // } else {
-        //   alert('login or password is not right((')
-        // }
+        if (this.getRegisterData.phone === this.userLoginInData.phone.value && this.getRegisterData.password === this.userLoginInData.password.value) {
+          this.authStore.isUserAuth = true
+          this.loading = false
+          alert('you have came in')
+          this.clearFields()
+          this.closeAuthModal()
+        } else {
+          alert('login or password is not right((')
+        }
       },
       // Режим Register
       submitRegister () {

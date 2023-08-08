@@ -12,15 +12,13 @@
         </nuxt-link>
       </div>
 
-      <swiper
+      <Swiper
         class="banner__slider"
-        :modules="modules"
+        :modules="[SwiperNavigation, SwiperEffectFade]"
         :slides-per-view="1"
         navigation
         loop
         effect="fade"
-        @swiper="onSwiper"
-        @slideChange="onSlideChange"
       >
         <SwiperSlide
           v-for="(slide,i) in slides"
@@ -33,46 +31,25 @@
             >
           </div>
         </SwiperSlide>
-      </swiper>
+      </Swiper>
     </div>
   </section>
 </template>
 
 <script>
-  import { Swiper, SwiperSlide } from 'swiper/vue'
-  import { Navigation, EffectFade } from 'swiper'
+  // import { Swiper, SwiperSlide } from 'swiper/vue'
+  // import { Navigation, EffectFade } from 'swiper'
   import 'swiper/css'
   import 'swiper/css/navigation'
   import 'swiper/css/effect-fade'
   export default {
     name: 'Banner',
-    components: {
-      Swiper,
-      SwiperSlide
-    },
     data () {
       return {
         slides: [
           './images/img/banner1.jpg',
           './images/img/slider.jpg'
         ]
-      }
-    },
-    setup () {
-      try {
-        const onSwiper = (swiper) => {
-          // console.log(swiper);
-        }
-        const onSlideChange = () => {
-          // console.log('slide change');
-        }
-        return {
-          onSwiper,
-          onSlideChange,
-          modules: [Navigation, EffectFade]
-        }
-      } catch (error) {
-        console.error('Unhandled error:', error)
       }
     }
   }
