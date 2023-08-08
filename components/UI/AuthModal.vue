@@ -157,10 +157,14 @@
       const v$ = useVuelidate()
       const authStore = useAuth()
       const isAuthModal = computed(() => authStore.isAuthModal)
+      const isUserAuthed = computed(() => authStore.isUserAuthed)
       const getRegisterData = computed(() => authStore.getRegisterData)
+      const findUser = authStore.findUser
       return {
         isAuthModal,
+        isUserAuthed,
         getRegisterData,
+        findUser,
         authStore,
         v$
       }
@@ -225,7 +229,6 @@
           phoneLogin: {
             value: {
               required,
-              // numeric,
               number: helpers.withMessage('This is not phone', number),
               minLength: minLength(4),
               maxLength: maxLength(20)
@@ -243,7 +246,8 @@
             value: { required, minLength: minLength(4), maxLength: maxLength(20) }
           },
           confirmPassword: {
-            value: { required, sameAsPassword: sameAs(this.userRegisterData.password.value) }
+            value: { required, minLength: minLength(4), sameAsPassword: sameAs(this.userRegisterData.password.value) }
+            // todo dont work required for confirmPassword
           },
           email: {
             value: { required, email }
@@ -251,7 +255,6 @@
           phone: {
             value: {
               required,
-              // numeric,
               number: helpers.withMessage('This is not phone', number),
               minLength: minLength(4),
               maxLength: maxLength(10)
@@ -259,6 +262,9 @@
           }
         }
       }
+    },
+    computed: {
+
     },
     methods: {
       closeAuth () {
@@ -269,36 +275,36 @@
       submitLogin () {
         if (this.loading) { return } // это логика для исключения повторной генерации события handleSubmit в момент отправления данных из формы в хранилище
         this.loading = true
-        this.authStore.isUserAuth = true
-        this.loading = false
-        const router = useRouter()
-        router.push('/account')
 
-        // if (this.getRegisterData.phone === this.userLoginInData.phone.value && this.getRegisterData.password === this.userLoginInData.password.value) {
-        //   this.authStore.isUserAuth = true
-        //   this.loading = false
-        //   alert('you have came in')
-        //   this.clearFields()
-        //   this.closeAuthModal()
-        // } else {
-        //   alert('login or password is not right((')
-        // }
+        // this.userLoginInFromForm.phone = this.userLoginInData.phone
+        // this.userLoginInFromForm.password = toString(this.userLoginInData.password.value)
+        // console.log(this.userLoginInData.password.value)
+        console.log(this.userLoginInData.phoneLogin.value)
+        console.log(this.userLoginInData.passwordLogin.value)
+        console.log(this.userLoginInData)
+        this.findUser(this.userLoginInData)
+        this.loading = false
+        if (this.isUserAuthed) {
+          const router = useRouter()
+          router.push('/account')
+        } else {
+          this.authTitle = 'Log In is wrong!'
+        }
       },
       // Режим Register
       submitRegister () {
-        if (this.loading) { return } // логика для исключения повторной генерации события submit в момент отправления данных из формы в хранилище
+        if (this.v$.userRegisterData.$errors.length !== 0 && !this.userRegisterData.confirmPassword.value) {
+          return
+        }
+        // логика для исключения повторной генерации события submit в момент отправления данных из формы в хранилище
+        if (this.loading) { return }
         this.loading = true
         this.userRegisterFromForm.name = this.userRegisterData.name.value
         this.userRegisterFromForm.phone = this.userRegisterData.phone.value
         this.userRegisterFromForm.password = this.userRegisterData.password.value
-        try {
-          this.authStore.setRegisterData(this.userRegisterFromForm)
-        } catch (e) {
-          console.log(e)
-        } finally {
-          this.loading = false
-          this.loginStart()
-        }
+        this.authStore.setRegisterData(this.userRegisterFromForm)
+        this.loading = false
+        this.loginStart()
       },
       registerStart () {
         this.clearFields()
@@ -315,7 +321,7 @@
       }
     },
     mounted () {
-      console.log(this.getRegisterData)
+      // console.log(this.getRegisterData)
     }
   }
 </script>

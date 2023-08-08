@@ -3,9 +3,9 @@ import { defineStore } from 'pinia'
 export const useAuth = defineStore('authStore', {
   state () {
     return {
-      registerData: {},
+      registerData: [],
       isAuthModal: false,
-      isUserAuth: false
+      isUserAuthed: false
     }
   },
   getters: {
@@ -16,7 +16,7 @@ export const useAuth = defineStore('authStore', {
   actions: {
     fetchRegisterData () {
       if (localStorage) {
-        this.registerData = JSON.parse(localStorage.getItem('authStorage')) || {}
+        this.registerData = JSON.parse(localStorage.getItem('authStorage')) || []
       }
     },
     openAuthModal () {
@@ -26,9 +26,14 @@ export const useAuth = defineStore('authStore', {
       this.isAuthModal = false
     },
     setRegisterData (payload) {
-      this.registerData = payload
-      console.log(payload)
+      this.registerData.push(payload)
       localStorage.setItem('authStorage', JSON.stringify(this.registerData))
+    },
+    findUser (payload) {
+      console.log('findUser')
+      const foundUser = this.registerData.find(user => user.phone === payload.phoneLogin.value && user.password === payload.passwordLogin.value)
+      this.isUserAuthed = !!foundUser // Если foundUser определен, то устанавливаем isUserAuth в true
+      console.log('this.isUserAuthed', this.isUserAuthed)
     }
   }
 })
