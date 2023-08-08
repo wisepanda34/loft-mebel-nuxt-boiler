@@ -271,19 +271,18 @@
         this.loading = true
         this.authStore.isUserAuth = true
         this.loading = false
-        console.log(this.authStore.isUserAuth, this.loading)
+        const router = useRouter()
+        router.push('/account')
 
-        console.log(this.getRegisterData)
-
-        if (this.getRegisterData.phone === this.userLoginInData.phone.value && this.getRegisterData.password === this.userLoginInData.password.value) {
-          this.authStore.isUserAuth = true
-          this.loading = false
-          alert('you have came in')
-          this.clearFields()
-          this.closeAuthModal()
-        } else {
-          alert('login or password is not right((')
-        }
+        // if (this.getRegisterData.phone === this.userLoginInData.phone.value && this.getRegisterData.password === this.userLoginInData.password.value) {
+        //   this.authStore.isUserAuth = true
+        //   this.loading = false
+        //   alert('you have came in')
+        //   this.clearFields()
+        //   this.closeAuthModal()
+        // } else {
+        //   alert('login or password is not right((')
+        // }
       },
       // Режим Register
       submitRegister () {

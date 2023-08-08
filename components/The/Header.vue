@@ -127,7 +127,6 @@
           @click="openAuthModal"
         >
           <!--          to="/account"-->
-
           <svg
             width="15"
             height="20"
@@ -208,7 +207,7 @@
       // логика очистки поля при клике вне searchContainer
       handleOutsideClick (event) {
         const searchContainer = this.$refs.searchContainer
-        if (!searchContainer) return
+        if (!searchContainer) { return }
         if (!searchContainer.contains(event.target)) {
           this.closeSearch()
         }
@@ -380,6 +379,7 @@
     }
     &_account{
       position: relative;
+      cursor: pointer;
     }
   }
   &__menuTransform{
