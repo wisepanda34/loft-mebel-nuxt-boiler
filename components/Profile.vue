@@ -22,15 +22,9 @@
                 <my-input
                   v-model="userInfo[field]"
                   :name="`input_${field}`"
-                  @input="`v$.userInfo.${field}.$touch()`"
                 />
+                <!--                @input="`v$.userInfo.${field}.$touch()`"-->
               </label>
-              <div
-                v-if="checkError(field)"
-                class="invalidMessage"
-              >
-                This field is not an valid
-              </div>
             </div>
           </div>
 
@@ -106,24 +100,28 @@
       }
     },
     setup () {
-      try {
-        const v$ = useVuelidate()
-        const userStore = useUser()
-        const ordersStore = useOrders()
-        const userData = userStore.userData
-        const orders = ordersStore.orders
-        return { userStore, userData, orders, ordersStore, v$ }
-      } catch (error) {
-        console.error('Profile setup error', error)
-      }
+      const v$ = useVuelidate()
+      const userStore = useUser()
+      const ordersStore = useOrders()
+      const userData = userStore.userData
+      const orders = ordersStore.orders
+      return { userStore, userData, orders, ordersStore, v$ }
     },
     validations () {
       return {
         userInfo: {
-          name: { required, minLength: minLength(2), maxLength: maxLength(20) },
-          surname: { required, minLength: minLength(2), maxLength: maxLength(20) },
-          email: { required, email },
-          phone: { required, numeric, minLength: minLength(4), maxLength: maxLength(10) }
+          name: {
+            value: { required, minLength: minLength(2), maxLength: maxLength(20) }
+          },
+          surname: {
+            value: { required, minLength: minLength(2), maxLength: maxLength(20) }
+          },
+          email: {
+            value: { required, email }
+          },
+          phone: {
+            value: { required, numeric, minLength: minLength(4), maxLength: maxLength(10) }
+          }
         }
       }
     },
@@ -163,6 +161,7 @@
         }
       })
 
+      // вывод данных в таблицу
       let i = 1
       this.tableItems = this.orders.flatMap(order =>
         order.orderProducts.map(product => ({

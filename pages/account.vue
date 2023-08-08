@@ -8,14 +8,4 @@
 
 <script>
 
-  import Bonus from '~/components/Bonus.vue'
-  import Menu from '~/components/Menu.vue'
-  import Profile from '~/components/Profile.vue'
-  definePageMeta({
-    layout: 'custom'
-  })
-  export default {
-    name: 'Account',
-    components: { Menu, Bonus, Profile }
-  }
 </script>

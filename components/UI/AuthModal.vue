@@ -263,9 +263,6 @@
         }
       }
     },
-    computed: {
-
-    },
     methods: {
       closeAuth () {
         this.authStore.closeAuthModal()
@@ -275,16 +272,10 @@
       submitLogin () {
         if (this.loading) { return } // это логика для исключения повторной генерации события handleSubmit в момент отправления данных из формы в хранилище
         this.loading = true
-
-        // this.userLoginInFromForm.phone = this.userLoginInData.phone
-        // this.userLoginInFromForm.password = toString(this.userLoginInData.password.value)
-        // console.log(this.userLoginInData.password.value)
-        console.log(this.userLoginInData.phoneLogin.value)
-        console.log(this.userLoginInData.passwordLogin.value)
-        console.log(this.userLoginInData)
         this.findUser(this.userLoginInData)
         this.loading = false
         if (this.isUserAuthed) {
+          this.authStore.closeAuthModal()
           const router = useRouter()
           router.push('/account')
         } else {
@@ -319,9 +310,6 @@
       clearFields () {
         this.v$.$reset()
       }
-    },
-    mounted () {
-      // console.log(this.getRegisterData)
     }
   }
 </script>
