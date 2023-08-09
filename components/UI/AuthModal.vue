@@ -213,10 +213,6 @@
         // 1 - login In, 2 - registration
         isProcessAuth: 1,
         authTitle: 'Login In',
-        userLoginInFromForm: {
-          phone: '',
-          password: ''
-        },
         userRegisterFromForm: {
           phone: '',
           password: ''
@@ -315,18 +311,7 @@
 </script>
 
 <style lang="scss" scoped>
-.inputError{
-  border: 1px solid red;
-}
-.inputValid{
-  border: 1px solid green;
-}
-.messageError{
-  font-size: 12px;
-  color: red;
-  margin-top: -10px;
-  margin-bottom: 10px;
-}
+
 .auth{
   position: fixed;
   width: 100vw;

@@ -14,17 +14,26 @@
         >
           <div class="profile__personal-grid">
             <div
-              v-for="(field, i) in Object.keys(userInfo)"
+              v-for="(field, i) in Object.values(userInfoData)"
               :key="i"
-              :class="`profile__personal-grid-${field}`"
+              :class="`profile__personal-grid-${field.name}`"
             >
-              <label :for="`input_${field}`">{{ field }}
+              <label :for="`input_${field.name}`">{{ field.name }}
                 <my-input
-                  v-model="userInfo[field]"
-                  :name="`input_${field}`"
+                  v-model="field.value"
+                  :name="`input_${field.name}`"
+                  @blur="v$?.userInfoData[Object.keys(userInfoData)[i]].value?.$touch()"
                 />
-                <!--                @input="`v$.userInfo.${field}.$touch()`"-->
+                <!--                :class="{ 'inputValid': !v$.userInfoData[Object.keys(userInfoData)[i]].value.$invalid }"-->
+                <!--                'inputError': v$?.userInfo[Object.keys(userInfo)[i]].value?.$error,-->
               </label>
+              <!--              <p-->
+              <!--                v-for="error of v$?.userInfo[Object.keys(userInfo)[i]].$errors"-->
+              <!--                :key="error.$uid"-->
+              <!--                class="messageError"-->
+              <!--              >-->
+              <!--                {{ error.$message }}-->
+              <!--              </p>-->
             </div>
           </div>
 
@@ -75,15 +84,47 @@
 
     data () {
       return {
-        userInfo: {
-          name: '',
-          surname: '',
-          email: '',
-          phone: '',
-          city: '',
-          street: '',
-          house: '',
-          flat: ''
+        userInfoData: {
+          userName: {
+            name: 'name',
+            type: 'text',
+            value: ''
+          },
+          surname: {
+            name: 'surname',
+            type: 'text',
+            value: ''
+          },
+          email: {
+            name: 'email',
+            type: 'email',
+            value: ''
+          },
+          phone: {
+            name: 'phone',
+            type: 'text',
+            value: ''
+          },
+          city: {
+            name: 'city',
+            type: 'text',
+            value: ''
+          },
+          street: {
+            name: 'street',
+            type: 'text',
+            value: ''
+          },
+          house: {
+            name: 'house',
+            type: 'text',
+            value: ''
+          },
+          flat: {
+            name: 'flat',
+            type: 'text',
+            value: ''
+          }
         },
         loading: false,
         headers: [
@@ -109,8 +150,8 @@
     },
     validations () {
       return {
-        userInfo: {
-          name: {
+        userInfoData: {
+          userName: {
             value: { required, minLength: minLength(2), maxLength: maxLength(20) }
           },
           surname: {
@@ -121,6 +162,12 @@
           },
           phone: {
             value: { required, numeric, minLength: minLength(4), maxLength: maxLength(10) }
+          },
+          city: {
+            value: { minLength: minLength(2), maxLength: maxLength(20) }
+          },
+          street: {
+            value: { minLength: minLength(2), maxLength: maxLength(20) }
           }
         }
       }
@@ -133,19 +180,13 @@
       },
       // это логика для исключения повторной генерации события handleSubmit
       // в момент отправления данных из формы в хранилище
-      async handleSubmit () {
-        if (this.loading) {
-          return
-        }
-        this.loading = true
-        try {
-          await this.userStore.updateUserData(this.userInfo)
-        } catch (e) {
-          console.error('Profile handleSubmit error', e)
-          console.log(e)
-        } finally {
-          this.loading = false
-        }
+      handleSubmit () {
+        // if (this.loading) {
+        //   return
+        // }
+        // this.loading = true
+        // this.userStore.updateUserData(this.userInfo)
+        // this.loading = false
       },
       checkError (name) {
         return this.v$.userInfo[name]?.$invalid
@@ -154,27 +195,27 @@
     mounted () {
       // преобразование данных из store в массив,
       // который перебирается и копирует значения в объект userData.
-      Object.keys(this.userStore.getUserData).forEach((key) => {
-        const userValue = this.userStore.getUserData[key]
-        if (userValue) {
-          this.userInfo[key] = userValue
-        }
-      })
+      // Object.keys(this.userStore.getUserData).forEach((key) => {
+      //   const userValue = this.userStore.getUserData[key]
+      //   if (userValue) {
+      //     this.userInfo[key] = userValue
+      //   }
+      // })
 
       // вывод данных в таблицу
-      let i = 1
-      this.tableItems = this.orders.flatMap(order =>
-        order.orderProducts.map(product => ({
-          number: i++,
-          product: product.titleCard,
-          kindProduct: product.kindProduct,
-          price: product.price,
-          amount: product.amount,
-          id: order.orderId,
-          date: new Date(order.orderId).toUTCString(),
-          status: this.getRandomStatus()
-        }))
-      )
+      // let i = 1
+      // this.tableItems = this.orders.flatMap(order =>
+      //   order.orderProducts.map(product => ({
+      //     number: i++,
+      //     product: product.titleCard,
+      //     kindProduct: product.kindProduct,
+      //     price: product.price,
+      //     amount: product.amount,
+      //     id: order.orderId,
+      //     date: new Date(order.orderId).toUTCString(),
+      //     status: this.getRandomStatus()
+      //   }))
+      // )
     }
   }
 </script>
@@ -213,7 +254,6 @@
     }
   }
   &__personal{
-    //flex: 0 1 46%;
     padding-bottom: 5%;
 
     &-grid{
@@ -234,13 +274,13 @@
         color: #686868;
         border: none;
       }
-      &-name{
+      &-userName{
         grid-column-start: 1;
         grid-column-end: 3;
         grid-row-start: 1;
         grid-row-end: 2;
       }
-      &-mail{
+      &-email{
         grid-column-start: 3;
         grid-column-end: 4;
         grid-row-start: 1;

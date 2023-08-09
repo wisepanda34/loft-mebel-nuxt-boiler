@@ -77,6 +77,18 @@ body{
 .btn:hover{
   background: #366a7a;
 }
+.inputError{
+  border: 1px solid red;
+}
+.inputValid{
+  border: 1px solid green;
+}
+.messageError{
+  font-size: 12px;
+  color: red;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
 .heading {
   font-weight: $fw--Bold;
   letter-spacing: normal;

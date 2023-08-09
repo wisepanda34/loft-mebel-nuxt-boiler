@@ -101,9 +101,8 @@
 </template>
 
 <script>
-  // import { computed } from '@vue/composition-api'
   import { useVuelidate } from '@vuelidate/core'
-  import { required, minLength, maxLength, numeric, helpers } from '@vuelidate/validators'
+  import { required, minLength, maxLength, numeric } from '@vuelidate/validators'
   import { useLinksFooter } from '~/stores/linksFooter'
   import { useClient } from '~/stores/client'
   import MyInput from '@/components/UI/MyInput.vue'
@@ -145,7 +144,9 @@
     methods: {
       handleSubmit (event) {
         event.preventDefault()
-        if (this.loading) return
+        if (this.loading) {
+          return
+        }
         this.loading = true
         const name = event.target.elements.input_name.value
         const phone = event.target.elements.input_phone.value
