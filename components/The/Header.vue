@@ -108,6 +108,7 @@
               stroke="black"
             />
             <circle
+              v-if="cartListStore.getTotalElements"
               cx="16"
               cy="5"
               r="4"
@@ -192,7 +193,6 @@
     data () {
       return {
         isMenuActive: false,
-        // windowWidth: window.innerWidth,
         searchQuery: ''
       }
     },

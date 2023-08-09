@@ -95,8 +95,8 @@
 @media (max-width: 425px) {
   .modal{
     &__white{
-      width: 280px;
-      padding:10px;
+      width: 250px;
+      padding: 10px;
     }
   }
 }
