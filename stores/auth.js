@@ -30,10 +30,11 @@ export const useAuth = defineStore('authStore', {
       localStorage.setItem('authStorage', JSON.stringify(this.registerData))
     },
     findUser (payload) {
-      console.log('findUser')
       const foundUser = this.registerData.find(user => user.phone === payload.phoneLogin.value && user.password === payload.passwordLogin.value)
       this.isUserAuthed = !!foundUser // Если foundUser определен, то устанавливаем isUserAuth в true
-      console.log('this.isUserAuthed', this.isUserAuthed)
+    },
+    logOutAuth () {
+      this.isUserAuthed = false
     }
   }
 })

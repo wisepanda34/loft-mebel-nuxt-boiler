@@ -14,9 +14,6 @@
         <span @click="closeVoiceModal">&#9587;</span>
       </div>
       <div class="modal__content">{{ modalTexts }}</div>
-      <!--      <template v-if="modalStore.isAuthModal">-->
-      <!--        auth-->
-      <!--      </template>-->
       <slot />
     </div>
   </div>
@@ -92,7 +89,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    line-height: 1.7em;
   }
-
+}
+@media (max-width: 425px) {
+  .modal{
+    &__white{
+      width: 280px;
+      padding:10px;
+    }
+  }
 }
 </style>

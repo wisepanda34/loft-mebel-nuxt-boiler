@@ -159,6 +159,18 @@
             <path fill="currentColor" d="M9.745 21.745C5.308 20.722 2 16.747 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10c0 4.747-3.308 8.722-7.745 9.745L12 24l-2.255-2.255Zm-2.733-3.488a7.953 7.953 0 0 0 3.182 1.539l.56.129L12 21.172l1.247-1.247l.56-.13a7.955 7.955 0 0 0 3.36-1.686A6.979 6.979 0 0 0 12.16 16c-2.036 0-3.87.87-5.148 2.257ZM5.616 16.82A8.975 8.975 0 0 1 12.16 14a8.972 8.972 0 0 1 6.362 2.634a8 8 0 1 0-12.906.187ZM12 13a4 4 0 1 1 0-8a4 4 0 0 1 0 8Zm0-2a2 2 0 1 0 0-4a2 2 0 0 0 0 4Z" />
           </svg>
         </div>
+        <div
+          v-if="authStore.isUserAuthed"
+          class="header__icons_unknown"
+          @click="logOutAuth"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="22" viewBox="0 0 16 15">
+            <g fill="currentColor">
+              <path d="M8.5 10c-.276 0-.5-.448-.5-1s.224-1 .5-1s.5.448.5 1s-.224 1-.5 1z" />
+              <path d="M10.828.122A.5.5 0 0 1 11 .5V1h.5A1.5 1.5 0 0 1 13 2.5V15h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V1.5a.5.5 0 0 1 .43-.495l7-1a.5.5 0 0 1 .398.117zM11.5 2H11v13h1V2.5a.5.5 0 0 0-.5-.5zM4 1.934V15h6V1.077l-6 .857z" />
+            </g>
+          </svg>
+        </div>
       </div>
     </div>
 
@@ -170,7 +182,7 @@
   </header>
 </template>
 <script>
-  import { useRoute } from 'vue-router'
+  import { useRoute, useRouter } from 'vue-router'
   import { useCartList } from '~/stores/cartList'
   import { useFavorites } from '~/stores/favorites'
   import { useProducts } from '~/stores/products'
@@ -186,6 +198,7 @@
     },
     setup () {
       const route = useRoute()
+      const router = useRouter()
       const cartListStore = useCartList()
       const favoritesStore = useFavorites()
       const productsStore = useProducts()
@@ -200,7 +213,8 @@
         favoritesStore,
         getProduct,
         productsStore,
-        authStore
+        authStore,
+        router
       }
     },
     computed: {
@@ -230,6 +244,10 @@
       },
       openAuthModal () {
         this.authStore.openAuthModal()
+      },
+      logOutAuth () {
+        this.authStore.logOutAuth()
+        this.router.push('/')
       }
     }
   }
