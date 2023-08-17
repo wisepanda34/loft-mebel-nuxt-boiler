@@ -6,7 +6,7 @@
         <p>{{ $t('banner_text') }}</p>
         <nuxt-link
           class="banner__content_btn"
-          to="/"
+          to="/catalog"
         >
           {{ $t('watch_catalog') }}
         </nuxt-link>

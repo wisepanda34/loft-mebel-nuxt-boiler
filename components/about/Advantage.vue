@@ -1,14 +1,12 @@
 <template>
-  <section class='advantage'>
-      <div class='advantage__wrapper'>
-
-        <div class='advantage__item' v-for="item in advantages" :key="item.title">
-          <h5>{{ item.title }}</h5>
-          <div class="advantage__item_delimiter"></div>
-          <p>{{ item.descr }}</p>
-        </div>
-
+  <section class="advantage">
+    <div class="advantage__wrapper">
+      <div v-for="item in advantages" :key="item.title" class="advantage__item">
+        <h5>{{ item.title }}</h5>
+        <div class="advantage__item_delimiter" />
+        <p>{{ item.descr }}</p>
       </div>
+    </div>
   </section>
 </template>
 
@@ -16,18 +14,15 @@
   import { useAdvantages } from '~/stores/advantages'
 
   export default {
-    name: "Advantage",
+    name: 'Advantage',
     setup () {
       const advantagesStore = useAdvantages()
       const advantages = advantagesStore.advantages
       return {
         advantages
       }
-    },
-    mounted() {
-      console.log(this.advantages)
     }
-}
+  }
 </script>
 
 <style lang="scss" scoped>

@@ -186,7 +186,6 @@
         this.order.customer.paymentOrder = this.blocks[1].selected
         this.order.orderId = Date.now()
         this.order.orderProducts = this.cartList
-        console.log('newOrder', this.order)
 
         try {
           this.ordersStore.addNewOrder(this.order)
@@ -213,7 +212,6 @@
           }
         }
       })
-      console.log(this.userData)
     }
   }
 </script>
