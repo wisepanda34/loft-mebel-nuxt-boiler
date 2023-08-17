@@ -189,7 +189,7 @@
         console.log('userDataSubmit')
         this.userStore.updateUserData(this.userInfoData)
         this.loading = false
-        this.router.push('/')
+        this.router.push('/account')
       }
       // checkError (name) {
       //   return this.v$.userInfo[name]?.$invalid
@@ -198,10 +198,13 @@
     mounted () {
       // преобразование данных из store в массив,
       // который перебирается и копирует значения в объект userData.
+      console.log(this.userStore.getUserData)
+      console.log(this.userInfo)
+
       Object.keys(this.userStore.getUserData).forEach((key) => {
-        const userValue = this.userStore.getUserData[key]
+        const userValue = this.userStore.getUserData[key].value
         if (userValue) {
-          this.userInfo[key] = userValue
+          this.userInfoData[key].value = userValue
         }
       })
 
