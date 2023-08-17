@@ -124,7 +124,7 @@
     },
     methods: {
       handleSubmitOrder () {
-        if (this.loading) return // это логика для исключения повторной генерации события handleSubmit в момент отправления данных из формы в хранилище
+        if (this.loading) { return } // это логика для исключения повторной генерации события handleSubmit в момент отправления данных из формы в хранилище
         this.loading = true
 
         this.order.customer.name = this.userData.name
@@ -153,8 +153,8 @@
       const getUserDataKeys = Object.keys(this.userStore.userData)// массив, включающий keys объекта getUserData
       const thisUserDataKeys = Object.keys(this.userData)// массив полей из шаблона, которые мы хотим вывести на экран
 
-      // ниже логика для вывода тех полей в форме, которые указаны в userData()
-      getUserDataKeys.forEach(key => { // перебираем массив
+      // логика для вывода тех полей в форме, которые указаны в userData()
+      getUserDataKeys.forEach((key) => { // перебираем массив
         if (thisUserDataKeys.includes(key)) { // ищем совпадение по ключу
           const userValue = this.user[key] // значение ложим в переменную
           if (userValue) { // если значение не пустое

@@ -10,7 +10,7 @@
             'disabled_class': loading
           }"
           novalidate
-          @submit.prevent="handleSubmit"
+          @submit.prevent="userDataSubmit"
         >
           <div class="profile__personal-grid">
             <div
@@ -22,8 +22,8 @@
                 <my-input
                   v-model="field.value"
                   :name="`input_${field.name}`"
-                  @blur="v$?.userInfoData[Object.keys(userInfoData)[i]].value?.$touch()"
                 />
+                <!--                @blur="v$?.userInfoData[Object.keys(userInfoData)[i]].value?.$touch()"-->
                 <!--                :class="{ 'inputValid': !v$.userInfoData[Object.keys(userInfoData)[i]].value.$invalid }"-->
                 <!--                'inputError': v$?.userInfo[Object.keys(userInfo)[i]].value?.$error,-->
               </label>
@@ -146,7 +146,8 @@
       const ordersStore = useOrders()
       const userData = userStore.userData
       const orders = ordersStore.orders
-      return { userStore, userData, orders, ordersStore, v$ }
+      const router = useRouter()
+      return { userStore, userData, orders, ordersStore, v$, router }
     },
     validations () {
       return {
@@ -180,27 +181,29 @@
       },
       // это логика для исключения повторной генерации события handleSubmit
       // в момент отправления данных из формы в хранилище
-      handleSubmit () {
-        // if (this.loading) {
-        //   return
-        // }
-        // this.loading = true
-        // this.userStore.updateUserData(this.userInfo)
-        // this.loading = false
-      },
-      checkError (name) {
-        return this.v$.userInfo[name]?.$invalid
+      userDataSubmit () {
+        if (this.loading) {
+          return
+        }
+        this.loading = true
+        console.log('userDataSubmit')
+        this.userStore.updateUserData(this.userInfoData)
+        this.loading = false
+        this.router.push('/')
       }
+      // checkError (name) {
+      //   return this.v$.userInfo[name]?.$invalid
+      // }
     },
     mounted () {
       // преобразование данных из store в массив,
       // который перебирается и копирует значения в объект userData.
-      // Object.keys(this.userStore.getUserData).forEach((key) => {
-      //   const userValue = this.userStore.getUserData[key]
-      //   if (userValue) {
-      //     this.userInfo[key] = userValue
-      //   }
-      // })
+      Object.keys(this.userStore.getUserData).forEach((key) => {
+        const userValue = this.userStore.getUserData[key]
+        if (userValue) {
+          this.userInfo[key] = userValue
+        }
+      })
 
       // вывод данных в таблицу
       // let i = 1
