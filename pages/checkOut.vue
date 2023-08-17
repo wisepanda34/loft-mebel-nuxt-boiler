@@ -12,15 +12,15 @@
           <h3 class="checkOut__form_subtitle">1 Your contact details</h3>
           <div class="checkOut__form_grid">
             <div
-              v-for="(field, i) in Object.keys(userData)"
+              v-for="(field, i) in Object.values(userData)"
               :key="i"
               :class="`checkOut__form_grid_${field}`"
             >
-              <label :for="`input_${field}`">{{ field }}
+              <label :for="`input_${field.name}`">{{ field.name }}
                 <my-input
-                  v-model="userData[field]"
+                  v-model="field.value"
                   class="checkOut__form_input input"
-                  :name="`input_${field}`"
+                  :name="`input_${field.name}`"
                 />
               </label>
             </div>
@@ -62,6 +62,7 @@
 </template>
 
 <script>
+  import { email, maxLength, minLength, numeric, required } from '@vuelidate/validators'
   import MyInput from '~/components/UI/MyInput.vue'
   import MyButton from '~/components/UI/MyButton.vue'
   import { useCartList } from '~/stores/cartList'
@@ -74,7 +75,28 @@
     components: { MyButton, MyInput },
     data () {
       return {
-        userData: { name: '', surname: '', email: '', phone: '' },
+        userData: {
+          userName: {
+            name: 'name',
+            type: 'text',
+            value: ''
+          },
+          surname: {
+            name: 'surname',
+            type: 'text',
+            value: ''
+          },
+          email: {
+            name: 'email',
+            type: 'email',
+            value: ''
+          },
+          phone: {
+            name: 'phone',
+            type: 'text',
+            value: ''
+          }
+        },
         loading: false,
         blocks: [
           {
@@ -108,18 +130,32 @@
       }
     },
     setup () {
-      try {
-        const userStore = useUser()
-        const ordersStore = useOrders()
-        const cartListStore = useCartList()
-        const modalStore = useModal()
-        const orders = ordersStore.orders
-        const user = userStore.userData
-        const cartList = cartListStore.cartList
-        const modalTexts = modalStore.modalTexts
-        return { userStore, user, orders, ordersStore, cartList, cartListStore, modalTexts, modalStore }
-      } catch (error) {
-        console.error('checkOut setup error', error)
+      const userStore = useUser()
+      const getUserData = userStore.getUserData
+      const ordersStore = useOrders()
+      const cartListStore = useCartList()
+      const modalStore = useModal()
+      const orders = ordersStore.orders
+      const cartList = cartListStore.cartList
+      const modalTexts = modalStore.modalTexts
+      return { userStore, getUserData, orders, ordersStore, cartList, cartListStore, modalTexts, modalStore }
+    },
+    validations () {
+      return {
+        userData: {
+          userName: {
+            value: { required, minLength: minLength(2), maxLength: maxLength(20) }
+          },
+          surname: {
+            value: { required, minLength: minLength(2), maxLength: maxLength(20) }
+          },
+          email: {
+            value: { required, email }
+          },
+          phone: {
+            value: { required, numeric, minLength: minLength(4), maxLength: maxLength(10) }
+          }
+        }
       }
     },
     methods: {
@@ -150,18 +186,19 @@
       }
     },
     mounted () {
-      const getUserDataKeys = Object.keys(this.userStore.userData)// массив, включающий keys объекта getUserData
+      const getUserDataKeys = Object.keys(this.getUserData)// массив, включающий keys объекта getUserData
       const thisUserDataKeys = Object.keys(this.userData)// массив полей из шаблона, которые мы хотим вывести на экран
 
       // логика для вывода тех полей в форме, которые указаны в userData()
       getUserDataKeys.forEach((key) => { // перебираем массив
         if (thisUserDataKeys.includes(key)) { // ищем совпадение по ключу
-          const userValue = this.user[key] // значение ложим в переменную
+          const userValue = this.getUserData[key].value // значение ложим в переменную
           if (userValue) { // если значение не пустое
-            this.userData[key] = userValue // то ложим это значение в локальнный объект по ключу
+            this.userData[key].value = userValue // то ложим это значение в локальнный объект по ключу
           }
         }
       })
+      console.log(this.userData)
     }
   }
 </script>

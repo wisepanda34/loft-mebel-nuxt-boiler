@@ -10,7 +10,7 @@
             'disabled_class': loading
           }"
           novalidate
-          @submit.prevent="userDataSubmit"
+          @submit.prevent="handleSubmitUserData"
         >
           <div class="profile__personal-grid">
             <div
@@ -181,12 +181,11 @@
       },
       // это логика для исключения повторной генерации события handleSubmit
       // в момент отправления данных из формы в хранилище
-      userDataSubmit () {
+      handleSubmitUserData () {
         if (this.loading) {
           return
         }
         this.loading = true
-        console.log('userDataSubmit')
         this.userStore.updateUserData(this.userInfoData)
         this.loading = false
         this.router.push('/account')
@@ -198,8 +197,6 @@
     mounted () {
       // преобразование данных из store в массив,
       // который перебирается и копирует значения в объект userData.
-      console.log(this.userStore.getUserData)
-      console.log(this.userInfo)
 
       Object.keys(this.userStore.getUserData).forEach((key) => {
         const userValue = this.userStore.getUserData[key].value
@@ -209,19 +206,19 @@
       })
 
       // вывод данных в таблицу
-      // let i = 1
-      // this.tableItems = this.orders.flatMap(order =>
-      //   order.orderProducts.map(product => ({
-      //     number: i++,
-      //     product: product.titleCard,
-      //     kindProduct: product.kindProduct,
-      //     price: product.price,
-      //     amount: product.amount,
-      //     id: order.orderId,
-      //     date: new Date(order.orderId).toUTCString(),
-      //     status: this.getRandomStatus()
-      //   }))
-      // )
+      let i = 1
+      this.tableItems = this.orders.flatMap(order =>
+        order.orderProducts.map(product => ({
+          number: i++,
+          product: product.titleCard,
+          kindProduct: product.kindProduct,
+          price: product.price,
+          amount: product.amount,
+          id: order.orderId,
+          date: new Date(order.orderId).toUTCString(),
+          status: this.getRandomStatus()
+        }))
+      )
     }
   }
 </script>
