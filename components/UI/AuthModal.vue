@@ -225,9 +225,7 @@
           phoneLogin: {
             value: {
               required,
-              number: helpers.withMessage('This is not phone', number),
-              minLength: minLength(4),
-              maxLength: maxLength(20)
+              number: helpers.withMessage('This is not phone', number)
             }
           },
           passwordLogin: {

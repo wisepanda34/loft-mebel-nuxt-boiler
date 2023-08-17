@@ -22,18 +22,17 @@
                 <my-input
                   v-model="field.value"
                   :name="`input_${field.name}`"
+                  :class="{ 'inputValid': !v$?.userInfoData[Object.keys(userInfoData)[i]]?.$invalid, 'inputError': v$.userInfoData[Object.keys(userInfoData)[i]]?.$error }"
+                  @blur="v$?.userInfoData[Object.keys(userInfoData)[i]]?.$touch()"
                 />
-                <!--                @blur="v$?.userInfoData[Object.keys(userInfoData)[i]].value?.$touch()"-->
-                <!--                :class="{ 'inputValid': !v$.userInfoData[Object.keys(userInfoData)[i]].value.$invalid }"-->
-                <!--                'inputError': v$?.userInfo[Object.keys(userInfo)[i]].value?.$error,-->
               </label>
-              <!--              <p-->
-              <!--                v-for="error of v$?.userInfo[Object.keys(userInfo)[i]].$errors"-->
-              <!--                :key="error.$uid"-->
-              <!--                class="messageError"-->
-              <!--              >-->
-              <!--                {{ error.$message }}-->
-              <!--              </p>-->
+              <p
+                v-for="error of v$?.userInfoData[Object.keys(userInfoData)[i]]?.$errors"
+                :key="error.$uid"
+                class="messageError profile__message-error"
+              >
+                {{ error.$message }}
+              </p>
             </div>
           </div>
 
@@ -70,13 +69,14 @@
 
 <script>
   import { useVuelidate } from '@vuelidate/core'
-  import { required, email, minLength, maxLength, numeric } from '@vuelidate/validators'
+  import { required, email, minLength, maxLength, helpers } from '@vuelidate/validators'
   import Vue3EasyDataTable from 'vue3-easy-data-table'
   import MyInput from '~/components/UI/MyInput.vue'
   import MyButton from '~/components/UI/MyButton.vue'
   import 'vue3-easy-data-table/dist/style.css'
   import { useUser } from '~/stores/user'
   import { useOrders } from '~/stores/orders'
+  const number = helpers.regex(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/)
 
   export default {
     name: 'Profile',
@@ -162,7 +162,10 @@
             value: { required, email }
           },
           phone: {
-            value: { required, numeric, minLength: minLength(4), maxLength: maxLength(10) }
+            value: {
+              required,
+              number: helpers.withMessage('This is not phone', number)
+            }
           },
           city: {
             value: { minLength: minLength(2), maxLength: maxLength(20) }
@@ -333,7 +336,9 @@
       margin: 20px 0 0 auto;
     }
   }
-
+  &__message-error{
+    margin-top: 10px;
+  }
   &__orders{
     padding-bottom: 20px;
     &-grid{
