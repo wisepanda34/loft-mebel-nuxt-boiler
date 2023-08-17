@@ -14,15 +14,24 @@
             <div
               v-for="(field, i) in Object.values(userData)"
               :key="i"
-              :class="`checkOut__form_grid_${field}`"
+              :class="`checkOut__form_grid_${field.name}`"
             >
               <label :for="`input_${field.name}`">{{ field.name }}
                 <my-input
                   v-model="field.value"
                   class="checkOut__form_input input"
                   :name="`input_${field.name}`"
+                  :class="{ 'inputValid': !v$?.userData[Object.keys(userData)[i]]?.$invalid, 'inputError': v$?.userData[Object.keys(userData)[i]]?.$error }"
+                  @blur="v$?.userData[Object.keys(userData)[i]]?.$touch()"
                 />
               </label>
+              <p
+                v-for="error of v$?.userData[Object.keys(userData)[i]]?.$errors"
+                :key="error.$uid"
+                class="messageError checkOut__message-error"
+              >
+                {{ error.$message }}
+              </p>
             </div>
           </div>
         </div>
@@ -62,13 +71,15 @@
 </template>
 
 <script>
-  import { email, maxLength, minLength, numeric, required } from '@vuelidate/validators'
+  import { useVuelidate } from '@vuelidate/core'
+  import { email, helpers, maxLength, minLength, required } from '@vuelidate/validators'
   import MyInput from '~/components/UI/MyInput.vue'
   import MyButton from '~/components/UI/MyButton.vue'
   import { useCartList } from '~/stores/cartList'
   import { useUser } from '~/stores/user'
   import { useOrders } from '~/stores/orders'
   import { useModal } from '~/stores/modal'
+  const number = helpers.regex(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/)
 
   export default {
     name: 'CheckOut',
@@ -130,6 +141,7 @@
       }
     },
     setup () {
+      const v$ = useVuelidate()
       const userStore = useUser()
       const getUserData = userStore.getUserData
       const ordersStore = useOrders()
@@ -138,7 +150,7 @@
       const orders = ordersStore.orders
       const cartList = cartListStore.cartList
       const modalTexts = modalStore.modalTexts
-      return { userStore, getUserData, orders, ordersStore, cartList, cartListStore, modalTexts, modalStore }
+      return { userStore, getUserData, orders, ordersStore, cartList, cartListStore, modalTexts, modalStore, v$ }
     },
     validations () {
       return {
@@ -153,7 +165,10 @@
             value: { required, email }
           },
           phone: {
-            value: { required, numeric, minLength: minLength(4), maxLength: maxLength(10) }
+            value: {
+              required,
+              number: helpers.withMessage('This is not phone', number)
+            }
           }
         }
       }
