@@ -116,7 +116,7 @@
               </svg>
             </span>
             <p
-              v-for="error of v$?.userRegisterData[Object.keys(userRegisterData)[i]].$errors"
+              v-for="error of v$?.userRegisterData[Object.keys(userRegisterData)[i]]?.$errors"
               :key="error.$uid"
               class="messageError"
             >
@@ -240,7 +240,7 @@
             value: { required, minLength: minLength(4), maxLength: maxLength(20) }
           },
           confirmPassword: {
-            value: { required, minLength: minLength(4), sameAsPassword: sameAs(this.userRegisterData.password.value) }
+            value: { required, sameAsPassword: sameAs(this.userRegisterData.password.value) }
             // todo dont work required for confirmPassword
           },
           email: {
@@ -278,18 +278,17 @@
       },
       // Режим Register
       submitRegister () {
-        if (this.v$.userRegisterData.$errors.length !== 0 && !this.userRegisterData.confirmPassword.value) {
-          return
+        if (!this.v$.userRegisterData.confirmPassword.value.$invalid) {
+          // логика для исключения повторной генерации события submit в момент отправления данных из формы в хранилище
+          if (this.loading) { return }
+          this.loading = true
+          this.userRegisterFromForm.name = this.userRegisterData.name.value
+          this.userRegisterFromForm.phone = this.userRegisterData.phone.value
+          this.userRegisterFromForm.password = this.userRegisterData.password.value
+          this.authStore.setRegisterData(this.userRegisterFromForm)
+          this.loading = false
+          this.loginStart()
         }
-        // логика для исключения повторной генерации события submit в момент отправления данных из формы в хранилище
-        if (this.loading) { return }
-        this.loading = true
-        this.userRegisterFromForm.name = this.userRegisterData.name.value
-        this.userRegisterFromForm.phone = this.userRegisterData.phone.value
-        this.userRegisterFromForm.password = this.userRegisterData.password.value
-        this.authStore.setRegisterData(this.userRegisterFromForm)
-        this.loading = false
-        this.loginStart()
       },
       registerStart () {
         this.clearFields()
