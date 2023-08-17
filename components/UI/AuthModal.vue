@@ -241,7 +241,6 @@
           },
           confirmPassword: {
             value: { required, sameAsPassword: sameAs(this.userRegisterData.password.value) }
-            // todo dont work required for confirmPassword
           },
           email: {
             value: { required, email }
