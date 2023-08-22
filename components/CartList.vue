@@ -74,16 +74,17 @@
       const cartList = computed(() => cartListStore.cartList)
       const productsStore = useProducts()
       const recommendList = productsStore.products
-      const auth = useAuth()
+      const authStore = useAuth()
       const router = useRouter()
-      return { cartList, cartListStore, recommendList, auth, router }
+      return { cartList, cartListStore, recommendList, authStore, router }
     },
     methods: {
       goToCheckOut () {
-        if (!this.auth.isUserAuthed) {
-          return
+        if (!this.authStore.isUserAuthed) {
+          this.authStore.openAuthModal()
+        } else {
+          this.router.push('/checkOut')
         }
-        this.router.push('/checkOut')
       }
     }
   }
