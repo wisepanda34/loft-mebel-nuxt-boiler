@@ -22,10 +22,10 @@
                 <my-input
                   v-model="field.value"
                   :name="`input_${field.name}`"
-                  :class="{ 'inputValid': !v$?.userInfoData[Object.keys(userInfoData)[i]]?.$invalid, 'inputError': v$.userInfoData[Object.keys(userInfoData)[i]]?.$error }"
-                  @blur="v$?.userInfoData[Object.keys(userInfoData)[i]]?.$touch()"
+                  @input="v$?.userInfoData[Object.keys(userInfoData)[i]]?.$touch()"
                 />
               </label>
+
               <p
                 v-for="error of v$?.userInfoData[Object.keys(userInfoData)[i]]?.$errors"
                 :key="error.$uid"
@@ -73,6 +73,7 @@
   import MyButton from '~/components/UI/MyButton.vue'
   import 'vue3-easy-data-table/dist/style.css'
   import { useUser } from '~/stores/user'
+  import { useAuth } from '~/stores/auth'
   import { useOrders } from '~/stores/orders'
   import { useRouter } from 'vue-router'
   const number = helpers.regex(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/)
@@ -143,10 +144,11 @@
       const v$ = useVuelidate()
       const userStore = useUser()
       const ordersStore = useOrders()
-      const userData = userStore.userData
+      const userData = computed(() => userStore.userData)
+      const auth = useAuth()
       const orders = ordersStore.orders
       const router = useRouter()
-      return { userStore, userData, orders, ordersStore, v$, router }
+      return { userStore, userData, orders, ordersStore, v$, router, auth }
     },
     validations () {
       return {
@@ -167,10 +169,10 @@
             }
           },
           city: {
-            value: { minLength: minLength(2), maxLength: maxLength(20) }
+            value: { required, minLength: minLength(2), maxLength: maxLength(20) }
           },
           street: {
-            value: { minLength: minLength(2), maxLength: maxLength(20) }
+            value: { required, minLength: minLength(2), maxLength: maxLength(20) }
           }
         }
       }
@@ -190,7 +192,7 @@
         this.loading = true
         this.userStore.updateUserData(this.userInfoData)
         this.loading = false
-        this.router.push('/account')
+        // this.router.push('/account')
       }
       // checkError (name) {
       //   return this.v$.userInfo[name]?.$invalid
@@ -199,13 +201,14 @@
     mounted () {
       // преобразование данных из store в массив,
       // который перебирается и копирует значения в объект userData.
-
-      Object.keys(this.userStore.getUserData).forEach((key) => {
-        const userValue = this.userStore.getUserData[key].value
-        if (userValue) {
-          this.userInfoData[key].value = userValue
-        }
-      })
+      setTimeout(() => {
+        Object.keys(this.userData).forEach((key) => {
+          const userDataFieldValue = this.userData[key].value
+          if (userDataFieldValue) {
+            this.userInfoData[key].value = userDataFieldValue
+          }
+        })
+      }, 1000)
 
       // вывод данных в таблицу
       let i = 1

@@ -29,15 +29,15 @@
           The total cost: &nbsp;&nbsp;  <span>{{ cartListStore.getTotalSum }}&nbsp;&#36;</span>
         </div>
         <div>
-          <nuxt-link
-            to="/checkOut"
+          <button
+            type="button"
             class="cartlist__act-btn btn"
+            @click="goToCheckOut"
           >
             Checkout
-          </nuxt-link>
+          </button>
         </div>
       </div>
-
       <h4 class="">You may like</h4>
       <div class="cartlist__recommendation">
         <ClientOnly>
@@ -59,6 +59,7 @@
   import OneCard from '~/components/OneCard.vue'
   import { useCartList } from '~/stores/cartList'
   import { useProducts } from '~/stores/products'
+  import { useAuth } from '~/stores/auth'
 
   export default {
     name: 'CartList',
@@ -69,16 +70,20 @@
       }
     },
     setup () {
-      try {
-        const cartListStore = useCartList()
-        const cartList = computed(() => cartListStore.cartList)
-        const productsStore = useProducts()
-        const recommendList = productsStore.products
-
-        return { cartList, cartListStore, recommendList }
-      } catch (error) {
-        console.error('Unhandled error:', error)
-        console.log('CardList setup error')
+      const cartListStore = useCartList()
+      const cartList = computed(() => cartListStore.cartList)
+      const productsStore = useProducts()
+      const recommendList = productsStore.products
+      const auth = useAuth()
+      const router = useRouter()
+      return { cartList, cartListStore, recommendList, auth, router }
+    },
+    methods: {
+      goToCheckOut () {
+        if (!this.auth.isUserAuthed) {
+          return
+        }
+        this.router.push('/checkOut')
       }
     }
   }

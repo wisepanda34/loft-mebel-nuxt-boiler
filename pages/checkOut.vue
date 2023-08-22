@@ -109,6 +109,7 @@
           }
         },
         loading: false,
+        isActiveCheckout: false,
         blocks: [
           {
             title: 'Delivery',
