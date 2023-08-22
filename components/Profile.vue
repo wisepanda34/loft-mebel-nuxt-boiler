@@ -26,13 +26,13 @@
                 />
               </label>
 
-              <p
-                v-for="error of v$?.userInfoData[Object.keys(userInfoData)[i]]?.$errors"
-                :key="error.$uid"
-                class="messageError profile__message-error"
-              >
-                {{ error.$message }}
-              </p>
+              <!--              <p-->
+              <!--                v-for="error of v$?.userInfoData[Object.keys(userInfoData)[i]]?.$errors"-->
+              <!--                :key="error.$uid"-->
+              <!--                class="messageError profile__message-error"-->
+              <!--              >-->
+              <!--                {{ error.$message }}-->
+              <!--              </p>-->
             </div>
           </div>
 

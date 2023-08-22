@@ -21,17 +21,18 @@
                   v-model="field.value"
                   class="checkOut__form_input input"
                   :name="`input_${field.name}`"
-                  :class="{ 'inputValid': !v$?.userData[Object.keys(userData)[i]]?.$invalid, 'inputError': v$?.userData[Object.keys(userData)[i]]?.$error }"
+
                   @blur="v$?.userData[Object.keys(userData)[i]]?.$touch()"
                 />
               </label>
-              <p
-                v-for="error of v$?.userData[Object.keys(userData)[i]]?.$errors"
-                :key="error.$uid"
-                class="messageError checkOut__message-error"
-              >
-                {{ error.$message }}
-              </p>
+              <!--              :class="{ 'inputValid': !v$?.userData[Object.keys(userData)[i]]?.$invalid, 'inputError': v$?.userData[Object.keys(userData)[i]]?.$error }"-->
+              <!--              <p-->
+              <!--                v-for="error of v$?.userData[Object.keys(userData)[i]]?.$errors"-->
+              <!--                :key="error.$uid"-->
+              <!--                class="messageError checkOut__message-error"-->
+              <!--              >-->
+              <!--                {{ error.$message }}-->
+              <!--              </p>-->
             </div>
           </div>
         </div>
@@ -144,7 +145,7 @@
     setup () {
       const v$ = useVuelidate()
       const userStore = useUser()
-      const getUserData = userStore.getUserData
+      const getUserData = computed(() => userStore.getUserData)
       const ordersStore = useOrders()
       const cartListStore = useCartList()
       const modalStore = useModal()
@@ -201,18 +202,20 @@
       }
     },
     mounted () {
-      const getUserDataKeys = Object.keys(this.getUserData)// массив, включающий keys объекта getUserData
-      const thisUserDataKeys = Object.keys(this.userData)// массив полей из шаблона, которые мы хотим вывести на экран
+      setTimeout(() => {
+        const getUserDataKeys = Object.keys(this.getUserData)// массив, включающий keys объекта getUserData
+        const thisUserDataKeys = Object.keys(this.userData)// массив полей из шаблона, которые мы хотим вывести на экран
 
-      // логика для вывода тех полей в форме, которые указаны в userData()
-      getUserDataKeys.forEach((key) => { // перебираем массив
-        if (thisUserDataKeys.includes(key)) { // ищем совпадение по ключу
-          const userValue = this.getUserData[key].value // значение ложим в переменную
-          if (userValue) { // если значение не пустое
-            this.userData[key].value = userValue // то ложим это значение в локальнный объект по ключу
+        // логика для вывода тех полей в форме, которые указаны в userData()
+        getUserDataKeys.forEach((key) => { // перебираем массив
+          if (thisUserDataKeys.includes(key)) { // ищем совпадение по ключу
+            const userValue = this.getUserData[key].value // значение ложим в переменную
+            if (userValue) { // если значение не пустое
+              this.userData[key].value = userValue // то ложим это значение в локальнный объект по ключу
+            }
           }
-        }
-      })
+        })
+      }, 1000)
     }
   }
 </script>
