@@ -1,38 +1,14 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-// import i18nConfig from './i18n.config'
 export default defineNuxtConfig({
-  // runtimeConfig: {
-  //   apiSecret: 'api-key-nuxt-config',
-  //   public: {
-  //     apiUrl: 'api-url-nuxt-config'
-  //   }
-  // },
-  // server: {
-  //   port: 5000, // default: 3000
-  //   host: '0.0.0.0' // default: localhost
-  // },
   modules: [
     '@pinia/nuxt',
     'nuxt-swiper',
     '@nuxtjs/i18n',
     '@nuxtjs/color-mode'
-    // '@nuxtjs/axios',
-    // '@nuxtjs/auth-next'
   ],
-  // auth: {
-  //   // Options
-  // },
   i18n: {
-    // module options
-    vueI18n: './i18n.config.ts' // if you are using custom path, default
+    vueI18n: './i18n.config.ts'
   },
-  // swiper: {
-  //   Swiper options
-  //   ----------------------
-  //   prefix: 'Swiper',
-  //   styleLang: 'css',
-  //   modules: ['navigation', 'pagination'], // all modules are imported by default
-  // },
   css: [
     '~/assets/scss/_reset.scss',
     '~/assets/scss/_general.scss',
@@ -51,6 +27,7 @@ export default defineNuxtConfig({
     }
   },
   app: {
+    baseURL: '/myNuxt-for-test/',
     // global transition
     pageTransition: { name: 'page', mode: 'out-in' },
     layoutTransition: { name: 'layout', mode: 'out-in' }

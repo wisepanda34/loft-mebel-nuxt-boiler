@@ -134,7 +134,7 @@
         ],
         // модель ожидаемого объекта заказа
         order: {
-          customer: { name: '', surname: '', email: '', phone: '', deliveryOrder: '', paymentOrder: '' },
+          customer: { userName: '', surname: '', email: '', phone: '', deliveryOrder: '', paymentOrder: '' },
           orderId: null,
           orderProducts: []
         }
@@ -178,7 +178,7 @@
         if (this.loading) { return } // это логика для исключения повторной генерации события handleSubmit в момент отправления данных из формы в хранилище
         this.loading = true
 
-        this.order.customer.name = this.userData.name
+        this.order.customer.userName = this.userData.userName
         this.order.customer.surname = this.userData.surname
         this.order.customer.email = this.userData.email
         this.order.customer.phone = this.userData.phone
