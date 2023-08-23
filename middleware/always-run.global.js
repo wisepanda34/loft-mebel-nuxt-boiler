@@ -1,15 +1,17 @@
-export default defineNuxtRouteMiddleware(() => {
-// console.log('running global middleware')
+import { useAuth } from '~/stores/auth'
 
+const isPrivateRoutes = [
+  '/account',
+  '/checkOut'
+]
+
+export default defineNuxtRouteMiddleware((to, from) => {
+  const app = useNuxtApp()
+  const authStore = useAuth(app.$pinia)
+
+  const isPrivateRoute = isPrivateRoutes.some(privetRoute => to.path.includes(privetRoute))
+  const isUserAuthed = authStore.isUserAuthed
+  if (isPrivateRoute && !isUserAuthed) {
+    return navigateTo('/')
+  }
 })
-// export default defineNuxtRouteMiddleware((to, from) => {
-//   if (to.params.id === '1') {
-//     return abortNavigation()
-//   }
-//   // In a real app you would probably not redirect every route to `/`
-//   // however it is important to check `to.path` before redirecting or you
-//   // might get an infinite redirect loop
-//   if (to.path !== '/') {
-//     return navigateTo('/')
-//   }
-// })

@@ -22,17 +22,17 @@
                 <my-input
                   v-model="field.value"
                   :name="`input_${field.name}`"
-                  @input="v$?.userInfoData[Object.keys(userInfoData)[i]]?.$touch()"
+                  @blur="v$?.userInfoData[Object.keys(userInfoData)[i]]?.$touch()"
                 />
               </label>
 
-              <!--              <p-->
-              <!--                v-for="error of v$?.userInfoData[Object.keys(userInfoData)[i]]?.$errors"-->
-              <!--                :key="error.$uid"-->
-              <!--                class="messageError profile__message-error"-->
-              <!--              >-->
-              <!--                {{ error.$message }}-->
-              <!--              </p>-->
+              <p
+                v-for="error of v$?.userInfoData[Object.keys(userInfoData)[i]]?.$errors"
+                :key="error.$uid"
+                class="messageError profile__message-error"
+              >
+                {{ error.$message }}
+              </p>
             </div>
           </div>
 
@@ -81,7 +81,6 @@
   export default {
     name: 'Profile',
     components: { MyButton, MyInput, Vue3EasyDataTable },
-    middleware: 'auth',
     data () {
       return {
         userInfoData: {
@@ -192,23 +191,11 @@
         this.loading = true
         this.userStore.updateUserData(this.userInfoData)
         this.loading = false
-        // this.router.push('/account')
       }
-      // checkError (name) {
-      //   return this.v$.userInfo[name]?.$invalid
-      // }
     },
     mounted () {
       // преобразование данных из store в массив,
       // который перебирается и копирует значения в объект userData.
-      // setTimeout(() => {
-      //   Object.keys(this.userData).forEach((key) => {
-      //     const userDataFieldValue = this.userData[key].value
-      //     if (userDataFieldValue) {
-      //       this.userInfoData[key].value = userDataFieldValue
-      //     }
-      //   })
-      // }, 1000)
       Object.keys(this.userData).forEach((key) => {
         const userDataFieldValue = this.userData[key].value
         if (userDataFieldValue) {

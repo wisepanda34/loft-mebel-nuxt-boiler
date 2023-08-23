@@ -3,8 +3,7 @@ export default defineNuxtConfig({
   modules: [
     '@pinia/nuxt',
     'nuxt-swiper',
-    '@nuxtjs/i18n',
-    '@nuxtjs/color-mode'
+    '@nuxtjs/i18n'
   ],
   i18n: {
     vueI18n: './i18n.config.ts'
@@ -31,8 +30,8 @@ export default defineNuxtConfig({
     // global transition
     pageTransition: { name: 'page', mode: 'out-in' },
     layoutTransition: { name: 'layout', mode: 'out-in' }
-  },
-  router: {
-    middleware: ['auth']
   }
+  // router: {
+  //   middleware: ['auth']
+  // }
 })
