@@ -78,6 +78,7 @@
   import MyButton from '~/components/UI/MyButton.vue'
   import { useCartList } from '~/stores/cartList'
   import { useUser } from '~/stores/user'
+  import { useAuth } from '~/stores/auth'
   import { useOrders } from '~/stores/orders'
   import { useModal } from '~/stores/modal'
   const number = helpers.regex(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/)
@@ -85,6 +86,7 @@
   export default {
     name: 'CheckOut',
     components: { MyButton, MyInput },
+    middleware: 'auth',
     data () {
       return {
         userData: {
@@ -146,13 +148,14 @@
       const v$ = useVuelidate()
       const userStore = useUser()
       const getUserData = computed(() => userStore.getUserData)
+      const authStore = useAuth()
       const ordersStore = useOrders()
       const cartListStore = useCartList()
       const modalStore = useModal()
       const orders = ordersStore.orders
       const cartList = cartListStore.cartList
       const modalTexts = modalStore.modalTexts
-      return { userStore, getUserData, orders, ordersStore, cartList, cartListStore, modalTexts, modalStore, v$ }
+      return { userStore, getUserData, authStore, orders, ordersStore, cartList, cartListStore, modalTexts, modalStore, v$ }
     },
     validations () {
       return {
@@ -177,45 +180,61 @@
     },
     methods: {
       handleSubmitOrder () {
-        if (this.loading) { return } // это логика для исключения повторной генерации события handleSubmit в момент отправления данных из формы в хранилище
-        this.loading = true
+        if (!this.authStore.isUserAuthed) {
+          this.authStore.openAuthModal()
+        } else {
+          if (this.loading) { return } // это логика для исключения повторной генерации события handleSubmit в момент отправления данных из формы в хранилище
+          this.loading = true
 
-        this.order.customer.userName = this.userData.userName
-        this.order.customer.surname = this.userData.surname
-        this.order.customer.email = this.userData.email
-        this.order.customer.phone = this.userData.phone
-        this.order.customer.deliveryOrder = this.blocks[0].selected
-        this.order.customer.paymentOrder = this.blocks[1].selected
-        this.order.orderId = Date.now()
-        this.order.orderProducts = this.cartList
+          this.order.customer.userName = this.userData.userName
+          this.order.customer.surname = this.userData.surname
+          this.order.customer.email = this.userData.email
+          this.order.customer.phone = this.userData.phone
+          this.order.customer.deliveryOrder = this.blocks[0].selected
+          this.order.customer.paymentOrder = this.blocks[1].selected
+          this.order.orderId = Date.now()
+          this.order.orderProducts = this.cartList
 
-        try {
-          this.ordersStore.addNewOrder(this.order)
-          this.cartListStore.clearCartList()
-          this.modalStore.openVoiceModal('your order has been placed and sent for processing, we will contact you')
-          this.$router.go(-1)
-        } catch (e) {
-          console.log(e)
-        } finally {
-          this.loading = false
+          try {
+            this.ordersStore.addNewOrder(this.order)
+            this.cartListStore.clearCartList()
+            this.modalStore.openVoiceModal('your order has been placed and sent for processing, we will contact you')
+            this.$router.go(-1)
+          } catch (e) {
+            console.log(e)
+          } finally {
+            this.loading = false
+          }
         }
       }
     },
     mounted () {
-      setTimeout(() => {
-        const getUserDataKeys = Object.keys(this.getUserData)// массив, включающий keys объекта getUserData
-        const thisUserDataKeys = Object.keys(this.userData)// массив полей из шаблона, которые мы хотим вывести на экран
+      // setTimeout(() => {
+      //   const getUserDataKeys = Object.keys(this.getUserData)// массив, включающий keys объекта getUserData
+      //   const thisUserDataKeys = Object.keys(this.userData)// массив полей из шаблона, которые мы хотим вывести на экран
+      //
+      //   // логика для вывода тех полей в форме, которые указаны в userData()
+      //   getUserDataKeys.forEach((key) => { // перебираем массив
+      //     if (thisUserDataKeys.includes(key)) { // ищем совпадение по ключу
+      //       const userValue = this.getUserData[key].value // значение ложим в переменную
+      //       if (userValue) { // если значение не пустое
+      //         this.userData[key].value = userValue // то ложим это значение в локальнный объект по ключу
+      //       }
+      //     }
+      //   })
+      // }, 1000)
+      const getUserDataKeys = Object.keys(this.getUserData)// массив, включающий keys объекта getUserData
+      const thisUserDataKeys = Object.keys(this.userData)// массив полей из шаблона, которые мы хотим вывести на экран
 
-        // логика для вывода тех полей в форме, которые указаны в userData()
-        getUserDataKeys.forEach((key) => { // перебираем массив
-          if (thisUserDataKeys.includes(key)) { // ищем совпадение по ключу
-            const userValue = this.getUserData[key].value // значение ложим в переменную
-            if (userValue) { // если значение не пустое
-              this.userData[key].value = userValue // то ложим это значение в локальнный объект по ключу
-            }
+      // логика для вывода тех полей в форме, которые указаны в userData()
+      getUserDataKeys.forEach((key) => { // перебираем массив
+        if (thisUserDataKeys.includes(key)) { // ищем совпадение по ключу
+          const userValue = this.getUserData[key].value // значение ложим в переменную
+          if (userValue) { // если значение не пустое
+            this.userData[key].value = userValue // то ложим это значение в локальнный объект по ключу
           }
-        })
-      }, 1000)
+        }
+      })
     }
   }
 </script>

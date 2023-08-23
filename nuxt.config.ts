@@ -33,6 +33,6 @@ export default defineNuxtConfig({
     layoutTransition: { name: 'layout', mode: 'out-in' }
   },
   router: {
-    middleware: 'redirect'
+    middleware: ['auth']
   }
 })

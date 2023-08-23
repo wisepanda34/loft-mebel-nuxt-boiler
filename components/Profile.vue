@@ -81,7 +81,7 @@
   export default {
     name: 'Profile',
     components: { MyButton, MyInput, Vue3EasyDataTable },
-
+    middleware: 'auth',
     data () {
       return {
         userInfoData: {
@@ -201,15 +201,20 @@
     mounted () {
       // преобразование данных из store в массив,
       // который перебирается и копирует значения в объект userData.
-      setTimeout(() => {
-        Object.keys(this.userData).forEach((key) => {
-          const userDataFieldValue = this.userData[key].value
-          if (userDataFieldValue) {
-            this.userInfoData[key].value = userDataFieldValue
-          }
-        })
-      }, 1000)
-
+      // setTimeout(() => {
+      //   Object.keys(this.userData).forEach((key) => {
+      //     const userDataFieldValue = this.userData[key].value
+      //     if (userDataFieldValue) {
+      //       this.userInfoData[key].value = userDataFieldValue
+      //     }
+      //   })
+      // }, 1000)
+      Object.keys(this.userData).forEach((key) => {
+        const userDataFieldValue = this.userData[key].value
+        if (userDataFieldValue) {
+          this.userInfoData[key].value = userDataFieldValue
+        }
+      })
       // вывод данных в таблицу
       let i = 1
       this.tableItems = this.orders.flatMap(order =>

@@ -269,8 +269,8 @@
         this.loading = false
         if (this.isUserAuthed) {
           this.authStore.closeAuthModal()
-          const router = useRouter()
-          router.push('/account')
+          // const router = useRouter()
+          // router.push('/account')
         } else {
           this.authTitle = 'Log In is wrong!'
         }
