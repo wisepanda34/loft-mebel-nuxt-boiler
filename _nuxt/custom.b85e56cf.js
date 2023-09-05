@@ -1,0 +1,1 @@
+import{_ as o}from"./_plugin-vue_export-helper.c27b6911.js";import{o as t,a as s,r}from"./swiper-vue.520d28f9.js";const c={},a={class:"site custom-layout wrapper"};function n(e,_){return t(),s("div",a,[r(e.$slots,"default")])}const m=o(c,[["render",n]]);export{m as default};

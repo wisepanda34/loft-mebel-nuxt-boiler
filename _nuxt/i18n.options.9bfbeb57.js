@@ -1,0 +1,1 @@
+import{_ as o,i as a,a as n}from"./entry.6922467d.js";import"./swiper-vue.520d28f9.js";async function _(){const t=await o(()=>import("./i18n.config.641821eb.js"),[],import.meta.url).then(i=>i.default||i);return a(t)?await t():n(t)?t:{}}export{_ as default};

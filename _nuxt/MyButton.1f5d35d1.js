@@ -1,0 +1,1 @@
+import{_ as o}from"./_plugin-vue_export-helper.c27b6911.js";import{o as e,a as n,r as s}from"./swiper-vue.520d28f9.js";const r={name:"MyButton"},a={class:"btn",type:"button"};function c(t,p,_,u,f,l){return e(),n("button",a,[s(t.$slots,"default")])}const i=o(r,[["render",c]]);export{i as M};
