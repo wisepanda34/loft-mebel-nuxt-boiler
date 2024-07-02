@@ -419,7 +419,7 @@
 @media (max-width:992px){
   .header{
     position: relative;
-    padding: 10px 0;
+    padding: 10px 3px;
     &__main{
       flex-wrap: wrap;
     }

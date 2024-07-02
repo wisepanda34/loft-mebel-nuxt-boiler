@@ -1,16 +1,22 @@
 <template>
-  <section class="cardPage">
+  <section
+    itemscope
+    itemtype="https://schema.org/Product"
+    class="cardPage"
+  >
     <h6
+
       class="cardPage__comeback"
       @click="comeBack"
     >
       Come back
     </h6>
 
-    <h1 class="cardPage__title center">{{ currentProduct.titleCard }}</h1>
+    <h1 itemprop="name" class="cardPage__title center">{{ currentProduct.titleCard }}</h1>
     <div class="cardPage__wrapper">
       <div class="cardPage__picture">
         <img
+          itemprop="image"
           :src="currentProduct.img"
           :alt="currentProduct.titleCard"
         >
@@ -27,9 +33,11 @@
         <div class="cardPage__descr_size">
           <div><span>width</span><p>{{ currentProduct.width }} sm</p></div>&#9587;<div><span>deep</span><p>{{ currentProduct.deep }} sm</p></div>&#9587;<div><span>height</span><p>{{ currentProduct.height }} sm</p></div>
         </div>
-        <p>Amet asperiores dignissimos error explicabo fugit, hic neque optio quisquam, quo ratione rem, sed sunt temporibus ut voluptatum? Adipisci aspernatur dolorem molestias?</p>
-        <p>Consectetur adipisicing elit. Alias at facilis iure labore minima natus nesciunt, odit perferendis porro provident quaerat quas repellat sapiente tempora ut velit voluptatem! Accusantium aperiam architecto aspernatur autem consequuntur, cumque cupiditate eligendi ipsam iusto necessitatibus nemo, obcaecati, quaerat quia quibusdam quidem ratione repellendus ut vero.</p>
-        <p>Ad in nulla obcaecati possimus quae quibusdam tempore. Aliquid dignissimos dolores eveniet, non perferendis rerum temporibus voluptatem! Aperiam autem, consequuntur cupiditate debitis dolores ducimus ex incidunt laborum nam qui reiciendis totam voluptate.</p>
+        <div itemprop="description">
+          <p>Amet asperiores dignissimos error explicabo fugit, hic neque optio quisquam, quo ratione rem, sed sunt temporibus ut voluptatum? Adipisci aspernatur dolorem molestias?</p>
+          <p>Consectetur adipisicing elit. Alias at facilis iure labore minima natus nesciunt, odit perferendis porro provident quaerat quas repellat sapiente tempora ut velit voluptatem! Accusantium aperiam architecto aspernatur autem consequuntur, cumque cupiditate eligendi ipsam iusto necessitatibus nemo, obcaecati, quaerat quia quibusdam quidem ratione repellendus ut vero.</p>
+          <p>Ad in nulla obcaecati possimus quae quibusdam tempore. Aliquid dignissimos dolores eveniet, non perferendis rerum temporibus voluptatem! Aperiam autem, consequuntur cupiditate debitis dolores ducimus ex incidunt laborum nam qui reiciendis totam voluptate.</p>
+        </div>
       </div>
     </div>
     <h6

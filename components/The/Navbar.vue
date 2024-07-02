@@ -163,11 +163,11 @@
   padding: 10px 0;
   &__nav{
     display: flex;
-    gap: 20px;
+    gap: 50px;
   }
   &__delivery{
     display: flex;
-    gap: 20px;
+    gap: 30px;
     &-deliv, &-phone{
       align-items: center;
     }

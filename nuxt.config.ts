@@ -26,7 +26,7 @@ export default defineNuxtConfig({
     }
   },
   app: {
-    baseURL: '/loft-mebel-nuxt-boiler/',
+    // baseURL: '/loft-mebel-nuxt-boiler/',
     // global transition
     pageTransition: { name: 'page', mode: 'out-in' },
     layoutTransition: { name: 'layout', mode: 'out-in' }

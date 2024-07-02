@@ -10,43 +10,43 @@ export const useMenuList = defineStore('menuList', {
                 },
                 {
                     title: 'menuTitleBedroom',
-                    icon: '/images//icons/bedroom-icon.svg'
+                    icon: '/images/icons/bedroom-icon.svg'
                 },
                 {
                     title: 'menuTitleLivingRooms',
-                    icon: '/images//icons/livingroom-icon.svg'
+                    icon: '/images/icons/livingroom-icon.svg'
                 },
                 {
                     title: 'menuTitleLobby',
-                    icon: '/images//icons/closet-icon.svg'
+                    icon: '/images/icons/closet-icon.svg'
                 },
                 {
                     title: 'menuTitleOffice',
-                    icon: '/images//icons/office-icon.svg'
+                    icon: '/images/icons/office-icon.svg'
                 },
                 {
                     title: 'menuTitleChildrenRoom',
-                    icon: '/images//icons/childrenroom-icon.svg'
+                    icon: '/images/icons/childrenroom-icon.svg'
                 },
                 {
                     title: 'menuTitleSale',
-                    icon: '/images//icons/sale.svg'
+                    icon: '/images/icons/sale.svg'
                 },
                 {
                     title: 'menuTitleNew',
-                    icon: '/images//icons/new.svg'
+                    icon: '/images/icons/new.svg'
                 },
                 {
                     title: 'menuTitleMattresses',
-                    icon: '/images//icons/mattress.svg'
+                    icon: '/images/icons/mattress.svg'
                 },
                 {
                     title: 'menuTitleCushioned',
-                    icon: '/images//icons/armchair.svg'
+                    icon: '/images/icons/armchair.svg'
                 },
                 {
                     title: 'menuTitleCupboard',
-                    icon: '/images//icons/cupboard.svg'
+                    icon: '/images/icons/cupboard.svg'
                 }
             ]
         }
