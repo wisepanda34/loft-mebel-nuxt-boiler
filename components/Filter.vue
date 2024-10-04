@@ -36,29 +36,17 @@
         />
       </div>
 
-      <div class="filter__price">
-        <p class="filter__subtitle">Price</p>
-      </div>
-
       <div class="filter__color">
         <p class="filter__subtitle">Color</p>
         <ul class="filter__color-list">
           <li
-            v-for="(item, i) in colorRadios"
-            :key="i"
+            v-for="item in colorRadios"
+            :key="item.id"
             class="filter__color-item"
-          >
-            <input
-              :id="`${item.i}`"
-              type="radio"
-              :data-colorname="`${item.name}`"
-              :value="`${item.value}`"
-            >
-            <label
-              :id="`${item.name}-label`"
-              :for="`${item.i}`"
-            />
-          </li>
+            :class="{ 'choosed' : colorId === item.id }"
+            :style="{ background: item.value }"
+            @click="chooseColor(item.id)"
+          />
         </ul>
       </div>
 
@@ -71,12 +59,15 @@
             class="filter__series-item"
           >
             <input
+              :id="`checkbox-${item}`"
               type="checkbox"
-              name="checkbox-Dins"
+              :value="item"
+              @change="toggleBrend(item, $event)"
             >
             <label :for="`checkbox-${item}`">{{ item }}</label>
           </li>
         </ul>
+
         <div class="filter__show">Show more</div>
       </div>
     </form>
@@ -85,7 +76,6 @@
 
 <script>
   import MySelect from '@/components/UI/MySelect.vue'
-  // import VSelect from '@/components/UI/v-select.vue'
 
   export default {
     name: 'Filter',
@@ -120,14 +110,16 @@
           { value: 'kids sofa', name: 'kids sofa' },
           { value: 'bookcase', name: 'bookcase' }
         ],
+        colorId: '',
         colorRadios: [
-          { value: '#900000', name: 'red' },
-          { value: '#ffea02', name: 'yellow' },
-          { value: '#03DBCB', name: 'green' },
-          { value: '#808080', name: 'gray' },
-          { value: '#a52a2a', name: 'brown' },
-          { value: '#000', name: 'black' }
+          { value: '#ff0000', id: 'red' },
+          { value: '#ffea02', id: 'yellow' },
+          { value: '#03DBCB', id: 'green' },
+          { value: '#808080', id: 'gray' },
+          { value: '#a52a2a', id: 'brown' },
+          { value: '#000', id: 'black' }
         ],
+        brendsChecked: [],
         brendsArray: ['Dins', 'Koosken', 'Ebby', 'Redgio']
       }
     },
@@ -147,6 +139,31 @@
         this.selectedFilter = ''
         this.selectedType = ''
         this.selectedKind = ''
+        this.colorId = ''
+        this.brendsChecked = []
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]')
+        checkboxes.forEach((checkbox) => {
+          checkbox.checked = false
+        })
+      },
+      chooseColor (id) {
+        if (this.colorId === '') {
+          this.colorId = id
+        } else if (this.colorId === id) {
+          this.colorId = ''
+        } else {
+          this.colorId = id
+        }
+      },
+      toggleBrend (item, event) {
+        if (event.target.checked) {
+          this.brendsChecked.push(item)
+        } else {
+          const index = this.brendsChecked.indexOf(item)
+          if (index > -1) {
+            this.brendsChecked.splice(index, 1)
+          }
+        }
       }
     }
   }
@@ -197,7 +214,6 @@
     text-align: left;
     margin: 25px 0 15px 0;
   }
-
   &__selects{
     display: flex;
     flex-direction: column;
@@ -222,45 +238,16 @@
     text-align: left;
     padding-inline-start: 0;
   }
-  &__color-item{
+  &__color-item {
     width: 20px;
     height: 20px;
+    border-radius: 3px;
     cursor: pointer;
-    position: relative;
-    input{
-      display: none;
-    }
-    label{
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      border: 1px solid #DDDDDD;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    input:checked + label {
-      border: 2px solid #880707;
-    }
-    #red-label{
-      background: red;
-    }
-    #yellow-label{
-      background: yellow;
-    }
-    #green-label{
-      background: green;
-    }
-    #gray-label{
-      background: #808080;
-    }
-    #brown-label{
-      background: #a52a2a;
-    }
-    #black-label{
-      background: #000;
-    }
+    transition: transform 0.2s ease;
+
+  }
+  &__color-item.choosed {
+    transform: scale(1.2);
   }
   &__series-list{
     flex-direction: column;
@@ -286,7 +273,7 @@
     line-height: 14px;
     color: #245462;
     cursor: pointer;
-    margin-top: 30px;
+    margin: 30px 0;
     &:hover{
       color: #4199b4;
     }

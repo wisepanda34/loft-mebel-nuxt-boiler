@@ -4,7 +4,6 @@
     :value="modelValue"
     @change="changeOption($event.target.value)"
   >
-    <!--    <option disabled value="">Change item</option>-->
     <option
       v-for="option in options"
       :key="option.value"
@@ -41,10 +40,11 @@
   }
 </script>
 
-<style scoped>
-.select{
+<style scoped lang="scss">
+.select {
   outline: none;
   border: none;
   width: 166px;
+  padding-left: 10px;
 }
 </style>
